@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F0ECE6"
+    tools:context="info.androidhive.materialtabs.fragments.OneFragment">
+
+   <LinearLayout
+       android:orientation="vertical"
+       android:id="@+id/value_layout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:layout_marginBottom="20dp"
+       android:layout_marginTop="80dp">
+
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Current value"
+           android:textSize="14sp"
+           android:padding="10dp"
+           android:textColor="@android:color/black"/>
+
+       <EditText
+           android:id="@+id/current_value"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:background="@drawable/edittext_rectangle_box"
+           android:padding="10dp"
+           android:textSize="14sp"
+           android:inputType="number"
+           android:textColor="@android:color/black"
+           android:hint="Current market price in USD....."
+           />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Rent fee"
+           android:textSize="14sp"
+           android:padding="10dp"
+           android:textColor="@android:color/black"/>
+
+       <EditText
+           android:id="@+id/rent_actual_fee"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:inputType="number"
+           android:background="@drawable/edittext_rectangle_box"
+           android:padding="10dp"
+           android:textSize="14sp"
+           android:textColor="@android:color/black"
+           android:hint="How much customer gonna pay?"
+           />
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="Select Rent Type"
+           android:textSize="14sp"
+           android:padding="10dp"
+           android:textColor="@android:color/black"/>
+       <Spinner
+           android:id="@+id/rent_Type_Spinner"
+           android:layout_width="match_parent"
+           android:layout_height="50dp"
+           android:padding="10dp"
+           android:background="@drawable/edittext_rectangle_box"
+           >
+
+       </Spinner>
+
+
+   </LinearLayout>
+
+    <Button
+        android:id="@+id/tab3_next"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="Submit"
+        android:layout_below="@+id/value_layout"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/next_button"
+        android:textColor="@android:color/white"/>
+
+</RelativeLayout>

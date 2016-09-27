@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LoginActivity"
+    >
+
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/imageView"
+        android:src="@drawable/login_bg"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:scaleType="fitXY"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="160dp"
+        >
+
+
+        <LinearLayout
+            android:id="@+id/centerSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:id="@+id/first_name"
+                android:hint="First Name"
+                android:padding="5dp"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/view_border"/>
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:id="@+id/last_name"
+                android:hint="Last Name"
+                android:singleLine="true"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:inputType="textEmailAddress"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/view_border"/>
+
+
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:id="@+id/email"
+                android:hint="Email"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:inputType="textEmailAddress"
+                android:singleLine="true"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/view_border"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:hint="Password"
+                android:id="@+id/password"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:imeOptions="actionDone"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:textColorHint="@android:color/darker_gray"
+                android:background="@drawable/view_border"/>
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_margin="20dp"
+                android:id="@+id/identity"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/view_border"
+                android:popupBackground = "@drawable/popup_background"
+                >
+
+            </Spinner>
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="20dp"
+                android:text="Upload Identity Document"
+                android:id="@+id/uploadIdentity"
+                android:padding="5dp"
+                android:textColor="@android:color/white"
+                android:background="@drawable/dotted_border"
+                >
+
+            </Button>
+
+
+
+            <Button
+                android:id="@+id/signUp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="#D0842D"
+                android:text="SIGN UP"
+                android:textColor="@android:color/white"/>
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+    </RelativeLayout>

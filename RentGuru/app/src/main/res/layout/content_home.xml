@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.HomeActivity"
+    tools:showIn="@layout/app_bar_home"
+    android:animateLayoutChanges="true"
+    android:background="@color/background_color"
+    >
+
+<android.support.v4.widget.NestedScrollView
+    android:id="@+id/scroller"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true"
+    >
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/relativeLayout"
+    android:background="@color/layout_background_color">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="180dp"
+        android:scaleType="fitXY"
+        android:id="@+id/deal_image"
+        android:src="@drawable/hot_deal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HOT DEAL"
+        android:textColor="@android:color/white"
+        android:background="#33000000"
+        android:textSize="30sp"
+        android:id="@+id/textView2"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="30dp"
+        android:gravity="center_vertical"
+        android:layout_alignParentStart="true" />
+
+    <LinearLayout
+        android:id="@+id/feature_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deal_image"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textSize="18dp"
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-thin"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:visibility="gone"
+            android:text="FEATURED PRODUCTS"/>
+
+        <HorizontalScrollView
+            android:id="@+id/horizontal_view"
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="160dp"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:id="@+id/featured_product_layout"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:showDividers="middle"
+                android:divider="@drawable/empty_tall_divider"
+                android:dividerPadding="5dp">
+
+            </LinearLayout>
+
+
+
+        </HorizontalScrollView>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
+
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/scroller"
+        android:background="#D3D3D3"
+        android:visibility="gone"
+        />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/divider"
+        >
+
+
+
+    <com.etsy.android.grid.StaggeredGridView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:id="@+id/grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="6dp"
+        app:item_margin="8dp"
+        android:layout_marginBottom="20dp"
+        app:column_count="@integer/grid_column_count"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

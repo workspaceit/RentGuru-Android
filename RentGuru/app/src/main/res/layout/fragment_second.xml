@@ -1,0 +1,99 @@
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F0ECE6"
+    android:isScrollContainer="false"
+    android:animateLayoutChanges="true"
+    tools:context="info.androidhive.materialtabs.fragments.OneFragment">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F0ECE6"
+    >
+
+    <TextView
+        android:id="@+id/product_description_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:text="@string/product_description"/>
+
+    <EditText
+        android:id="@+id/product_description"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:layout_height="100dp"
+        android:layout_below="@+id/product_description_text"
+        android:background="@drawable/edittext_rectangle_box"
+
+        />
+
+    <Button
+        android:id="@+id/addImage"
+        android:layout_below="@+id/product_description"
+        android:layout_margin="20dp"
+        android:text="@string/add_image"
+        android:padding="10dp"
+        android:background="@drawable/edittext_rectangle_box"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:id="@+id/empty_image_field"
+        android:layout_below="@+id/addImage"
+        android:layout_width="match_parent"
+        android:background="@drawable/edittext_rectangle_box"
+        android:layout_height="160dp">
+
+    </LinearLayout>
+
+
+    <GridView
+        android:id="@+id/gridView"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/empty_image_field"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="5dp"
+        android:columnWidth="100dp"
+        android:drawSelectorOnTop="true"
+        android:gravity="center"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="5dp"
+        android:focusable="true"
+        android:clickable="true"
+        android:visibility="gone"
+        />
+
+    <Button
+        android:id="@+id/tab2_next"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:text="NEXT"
+        android:layout_below="@+id/gridView"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true"
+        android:background="@color/next_button"
+        android:textColor="@android:color/white"
+        />
+
+
+
+</RelativeLayout>
+
+
+</ScrollView>

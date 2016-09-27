@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sprockets-3.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.sprockets/sprockets/3.0.0/22369d43a0f1e46151dfcf0fa8ff4b946fce337a/sprockets-3.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/net.sf.sprockets/sprockets/3.0.0/69d9897bc8d7d9cf903ad12055f42cd44a17d9df/sprockets-3.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

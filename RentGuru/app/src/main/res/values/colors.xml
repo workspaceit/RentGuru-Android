@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#2D2D2D</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#D0842D</color>
+    <color name="login_edittext_focus">#D0842D</color>
+    <color name="login_edittext_offocus">#FFFFFF</color>
+    <color name="layout_background_color">#F8F8F8</color>
+    <color name="price_cell_background">#D0842D</color>
+    <color name="loading">#D0842D</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="next_button">#543A3A</color>
+    <color name="background_color">#F0ECE6</color>
+    <color name="delete_color">#FF1919</color>
+    <color name="correct_color">#3B6D51</color>
+
+
+</resources>
