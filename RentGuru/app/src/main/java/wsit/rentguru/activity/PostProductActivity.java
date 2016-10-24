@@ -14,6 +14,9 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 import wsit.rentguru.R;
+import wsit.rentguru.fragment.PostProductFirstFragment;
+import wsit.rentguru.fragment.PostProductSecondFragment;
+import wsit.rentguru.fragment.PostProductThirdFragment;
 import wsit.rentguru.model.PostProduct;
 import wsit.rentguru.utility.TabLayoutUtils;
 

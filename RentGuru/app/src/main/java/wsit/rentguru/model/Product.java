@@ -22,6 +22,7 @@ public class Product implements Serializable {
     private ArrayList<ProductCategory> productCategories;
     private ProductLocation productLocation;
     private RentType rentType;
+    
 
 
     public Product()

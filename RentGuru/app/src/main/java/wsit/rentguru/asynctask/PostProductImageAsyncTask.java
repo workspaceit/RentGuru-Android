@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.PostProductService;
-import wsit.rentguru.activity.PostProductSecondFragment;
+import wsit.rentguru.fragment.PostProductSecondFragment;
 
 /**
  * Created by workspaceinfotech on 8/11/16.
@@ -33,6 +33,8 @@ public class PostProductImageAsyncTask extends AsyncTask<Boolean, Void, String> 
     protected String doInBackground(Boolean... params) {
 
         for (int i = 0; i < filePath.size(); i++) {
+
+
 
             try {
                 response = postProductService.sendProductImage(filePath.get(i));

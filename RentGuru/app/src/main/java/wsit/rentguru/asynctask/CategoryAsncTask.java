@@ -4,7 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import java.util.ArrayList;
 import wsit.rentguru.Service.PostProductService;
-import wsit.rentguru.activity.PostProductFirstFragment;
+import wsit.rentguru.fragment.PostProductFirstFragment;
 import wsit.rentguru.model.CategoryModel;
 import wsit.rentguru.model.ResponseStat;
 

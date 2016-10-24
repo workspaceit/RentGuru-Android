@@ -2,15 +2,12 @@ package wsit.rentguru.asynctask;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.ProductsService;
-import wsit.rentguru.activity.ApproveProductFragment;
-import wsit.rentguru.activity.RentDetailsActivity;
+import wsit.rentguru.fragment.ApproveProductFragment;
 import wsit.rentguru.model.RentRequest;
-import wsit.rentguru.model.RentalProduct;
 
 /**
  * Created by workspaceinfotech on 8/24/16.

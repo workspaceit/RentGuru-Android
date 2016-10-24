@@ -2,15 +2,12 @@ package wsit.rentguru.asynctask;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.ProductsService;
-import wsit.rentguru.activity.UploadedProductFragment;
+import wsit.rentguru.fragment.UploadedProductFragment;
 import wsit.rentguru.model.MyRentalProduct;
-import wsit.rentguru.model.RentalProduct;
-import wsit.rentguru.model.ResponseStat;
 
 /**
  * Created by workspaceinfotech on 8/23/16.

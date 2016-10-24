@@ -19,6 +19,15 @@ public class RentInf implements Serializable {
     boolean hasReceiveConfirmation;
     RentalProductReturnRequest rentalProductReturnRequest;
     RentalProductReturned rentalProductReturned;
+    boolean isRentComplete;
+
+    public boolean isRentComplete() {
+        return isRentComplete;
+    }
+
+    public void setRentComplete(boolean rentComplete) {
+        isRentComplete = rentComplete;
+    }
 
     public RentInf()
     {

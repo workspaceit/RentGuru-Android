@@ -7,7 +7,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.PostProductService;
-import wsit.rentguru.activity.PostProductThirdFragment;
+import wsit.rentguru.fragment.PostProductThirdFragment;
 import wsit.rentguru.model.RentType;
 
 /**

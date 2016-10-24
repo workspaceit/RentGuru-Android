@@ -1,5 +1,6 @@
 package wsit.rentguru.Service;
 
+import android.location.Location;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -84,6 +85,7 @@ public class PostProductService extends ApiManager {
         String filenameArray[] = mfilePath.split("\\.");
         String extension = filenameArray[filenameArray.length-1];
         String attachedFilename = "test."+extension;
+        System.out.println(attachedFilename);
 
 
         String requestURL = Utility.fileUploadUrl+"product-image";

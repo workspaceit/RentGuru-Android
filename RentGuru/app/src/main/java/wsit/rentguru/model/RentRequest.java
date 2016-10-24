@@ -19,6 +19,29 @@ public class RentRequest implements Serializable {
     private Boolean disapprove;
     private boolean isExtension;
     private String remark;
+    boolean isRentComplete;
+
+    public double getRentFee() {
+        return rentFee;
+    }
+
+    public void setRentFee(double rentFee) {
+        this.rentFee = rentFee;
+    }
+
+    public boolean isRentComplete() {
+        return isRentComplete;
+    }
+
+    public void setRentComplete(boolean rentComplete) {
+        isRentComplete = rentComplete;
+    }
+
+    public void setExtension(boolean extension) {
+        isExtension = extension;
+    }
+
+    double rentFee;
 
 
     public RentRequest()

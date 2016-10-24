@@ -1,9 +1,6 @@
 package wsit.rentguru.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-
-import wsit.rentguru.activity.ApproveProductFragment;
 
 /**
  * Created by workspaceinfotech on 8/4/16.

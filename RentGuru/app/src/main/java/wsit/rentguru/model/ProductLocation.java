@@ -13,8 +13,8 @@ public class ProductLocation implements Serializable {
     private String state;
     private String formattedAddress;
     private String zip;
-    private Float lat ;
-    private Float lng ;
+    private double lat ;
+    private double lng ;
 
 
     public int getId() {
@@ -65,19 +65,19 @@ public class ProductLocation implements Serializable {
         this.zip = zip;
     }
 
-    public Float getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(Float lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public Float getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(Float lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 }

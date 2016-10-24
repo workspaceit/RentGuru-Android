@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wsit.rentguru.R;
+import wsit.rentguru.fragment.ApproveProductFragment;
+import wsit.rentguru.fragment.UploadedProductFragment;
 import wsit.rentguru.model.PostProduct;
 import wsit.rentguru.utility.CustomViewPager;
 import wsit.rentguru.utility.TabLayoutUtils;
