@@ -7,6 +7,7 @@ import android.widget.Toast;
 import wsit.rentguru.Service.PostProductService;
 import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.fragment.PostProductThirdFragment;
+import wsit.rentguru.utility.Utility;
 
 /**
  * Created by workspaceinfotech on 8/16/16.
@@ -55,9 +56,10 @@ public class PostProductAsyncTask extends AsyncTask<Boolean, Void, Boolean> {
         super.onPostExecute(aBoolean);
         dialog.dismiss();
 
-        if(response != false)
+        if(response == true)
         {
             context.doneSubmitting();
+            Utility.temporaryArrayList.clear();
 
         }
         else

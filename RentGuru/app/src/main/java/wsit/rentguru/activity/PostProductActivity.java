@@ -19,6 +19,7 @@ import wsit.rentguru.fragment.PostProductSecondFragment;
 import wsit.rentguru.fragment.PostProductThirdFragment;
 import wsit.rentguru.model.PostProduct;
 import wsit.rentguru.utility.TabLayoutUtils;
+import wsit.rentguru.utility.Utility;
 
 public class PostProductActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +46,7 @@ public class PostProductActivity extends AppCompatActivity implements View.OnCli
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        Utility.temporaryArrayList.clear();
         this.postProduct = new PostProduct();
 
         TabLayoutUtils.enableTabs(tabLayout, false);

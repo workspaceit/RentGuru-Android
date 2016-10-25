@@ -85,7 +85,7 @@ public class PostProductService extends ApiManager {
         String filenameArray[] = mfilePath.split("\\.");
         String extension = filenameArray[filenameArray.length-1];
         String attachedFilename = "test."+extension;
-        System.out.println(attachedFilename);
+
 
 
         String requestURL = Utility.fileUploadUrl+"product-image";

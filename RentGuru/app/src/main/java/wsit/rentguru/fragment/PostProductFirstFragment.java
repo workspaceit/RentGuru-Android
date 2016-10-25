@@ -2,6 +2,7 @@ package wsit.rentguru.fragment;
 
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -47,6 +48,7 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
     private int flag;
     private EditText productTitle,area,zipCode,city;
     private boolean categorySelected,subcategorySelected,formSelected,toSelected;
+    private int parentCategoryPosition=0;
 
 
     private void initiate(View view)
@@ -251,6 +253,8 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item_category, subCatArr);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         productSubCategory.setAdapter(adapter);
+                        this.parentCategoryPosition=position-1;
+                        System.out.println(this.categoryModelArrayList.get(this.parentCategoryPosition).getName());
                     }
                     else
                     {
@@ -261,6 +265,7 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
                         value.add(this.categoryModelArrayList.get(position-1).getId());
                         System.out.println("Cat name: "+this.categoryModelArrayList.get(position-1).getName());
                         PostProductActivity.postProduct.setCategoryIds(value);
+
 
                     }
                 }
@@ -280,8 +285,9 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
                 if(position!=0) {
 
                     subcategorySelected = true;
-                    ArrayList<Integer> value = new ArrayList<Integer>();
-                    value.add(2);
+                    ArrayList<Integer>value=new ArrayList<>();
+                    value.add(this.categoryModelArrayList.get(this.parentCategoryPosition).getSubcategory().get(position-1).getId());
+                    System.out.println(this.categoryModelArrayList.get(this.parentCategoryPosition).getSubcategory().get(position-1).getName());
                     PostProductActivity.postProduct.setCategoryIds(value);
 
 

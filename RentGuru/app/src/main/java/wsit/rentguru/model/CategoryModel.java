@@ -10,7 +10,17 @@ public class CategoryModel implements Serializable{
 
     private int id;
     private String name;
-    int sortedOrder;
+    private int sortedOrder;
+
+    public Picture getPicture() {
+        return picture;
+    }
+
+    public void setPicture(Picture picture) {
+        this.picture = picture;
+    }
+
+    private Picture picture;
     private ArrayList<CategoryModel> subcategory;
 
     public CategoryModel()

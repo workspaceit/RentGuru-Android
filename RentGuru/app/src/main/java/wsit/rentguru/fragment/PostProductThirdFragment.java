@@ -146,17 +146,17 @@ public class PostProductThirdFragment extends Fragment implements AdapterView.On
             else
             {
                 String mainPic = "";
-                if(Utility.temporaryArrayList.size() == 1)
+                for (int i=0; i<Utility.temporaryArrayList.size(); i++){
+                    System.out.println(Utility.temporaryArrayList.get(i));
+                }
+                if(Utility.temporaryArrayList.size() > 0)
                 {
                     mainPic = Utility.temporaryArrayList.get(0);
-                }
-                else
-                {
-                   mainPic = Utility.temporaryArrayList.get(0);
-
+                    System.out.println("from else: "+mainPic);
                     Utility.temporaryArrayList.remove(0);
 
                 }
+
 
                 PostProductActivity.postProduct.setProfileImageToken(mainPic);
                 PostProductActivity.postProduct.setOtherImagesToken(Utility.temporaryArrayList);
