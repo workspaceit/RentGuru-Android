@@ -31,7 +31,7 @@ import wsit.rentguru.asynctask.AccessTokenAsyncTask;
 import wsit.rentguru.asynctask.ProductListAsyncTask;
 import wsit.rentguru.model.Login;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
-import wsit.rentguru.utility.SessionManager;
+import wsit.rentguru.preference.SessionManager;
 import wsit.rentguru.utility.Utility;
 
 public class HomeActivity extends AppCompatActivity

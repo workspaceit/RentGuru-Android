@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 
 import com.etsy.android.grid.util.DynamicHeightImageView;
@@ -61,6 +62,9 @@ public class StaggeredAdapter extends ArrayAdapter<String> {
             vh = new ViewHolder();
             vh.imgView = (DynamicHeightImageView) convertView
                     .findViewById(R.id.imgView);
+            vh.titleTextView=(TextView)convertView.findViewById(R.id.title_text_view);
+            vh.priceTextView=(TextView)convertView.findViewById(R.id.price_text_view);
+            vh.locationTextView=(TextView)convertView.findViewById(R.id.location_text_view);
 
             convertView.setTag(vh);
         } else {
@@ -72,11 +76,15 @@ public class StaggeredAdapter extends ArrayAdapter<String> {
         vh.imgView.setHeightRatio(positionHeight);
 
         this.imageLoader.displayImage(getItem(position), vh.imgView,displayImageOptions);
+
         return convertView;
     }
 
     static class ViewHolder {
         DynamicHeightImageView imgView;
+        TextView titleTextView;
+        TextView priceTextView;
+        TextView locationTextView;
     }
 
     private double getPositionRatio(final int position) {

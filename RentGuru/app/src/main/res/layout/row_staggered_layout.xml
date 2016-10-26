@@ -4,12 +4,47 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:background="@drawable/border"
+    android:layout_margin="2dp">
 
-    <com.etsy.android.grid.util.DynamicHeightImageView
-        android:id="@+id/imgView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+      >
+        <com.etsy.android.grid.util.DynamicHeightImageView
+            android:id="@+id/imgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/hot_deal"
+            android:layout_margin="2dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/title_text_view"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/price_text_view"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/location_text_view"/>
+
+    </LinearLayout>
+
+
 
 </FrameLayout>

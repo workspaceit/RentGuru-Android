@@ -8,7 +8,7 @@ import android.os.Bundle;
 
 
 import wsit.rentguru.R;
-import wsit.rentguru.utility.SessionManager;
+import wsit.rentguru.preference.SessionManager;
 
 public class StartupActivity extends AppCompatActivity {
 

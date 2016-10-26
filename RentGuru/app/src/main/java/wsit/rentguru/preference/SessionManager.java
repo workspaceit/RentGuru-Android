@@ -1,4 +1,4 @@
-package wsit.rentguru.utility;
+package wsit.rentguru.preference;
 
 /**
  * Created by workspaceinfotech on 8/5/16.

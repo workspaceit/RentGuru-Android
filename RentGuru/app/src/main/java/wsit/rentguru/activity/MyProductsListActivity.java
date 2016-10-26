@@ -1,5 +1,6 @@
 package wsit.rentguru.activity;
 
+import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,16 +46,16 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
 
         TabLayoutUtils.enableTabs(tabLayout, true);
 
-//
-//        toolbar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-//            @Override
-//            public void onGlobalLayout() {
-//                if (Build.VERSION.SDK_INT >= 16) {
-//                    toolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-//                }
-//                toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
-//            }
-//        });
+
+     /*   toolbar.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                if (Build.VERSION.SDK_INT >= 16) {
+                    toolbar.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+                toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+            }
+        });*/
 
 
 
