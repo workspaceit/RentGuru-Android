@@ -6,6 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.RentRequest;
@@ -114,6 +116,45 @@ public class ProductsService extends ApiManager {
 
     }
 
+    public ArrayList<RentalProduct> getSearchProductList(String title,String lat,String lng,String limit,String offset,
+                                                         String categoryId,String radius){
+        ArrayList<RentalProduct>rentalProductArrayList=new ArrayList<>();
+        this.responseStat=new ResponseStat();
+
+
+        String controller="search/rental-product?limit="+limit+"&offset="+offset+"&title="+title+"&lat="+lat+"&lng="+lng+"&categoryId=" +
+                categoryId+"&radius"+radius;
+        System.out.println(controller);
+        this.setController(controller);
+        String resp=this.getData("GET");
+        System.out.println(resp);
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+
+
+            if (this.responseStat.isStatus())
+            {
+
+                RentalProduct[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), RentalProduct[].class);
+                Collections.addAll(rentalProductArrayList,rentalProducts);
+
+            }else {
+                rentalProductArrayList=null;
+            }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return rentalProductArrayList;
+
+    }
 
     public ArrayList<RentRequest> getRequestedProductsList(int offset)
     {

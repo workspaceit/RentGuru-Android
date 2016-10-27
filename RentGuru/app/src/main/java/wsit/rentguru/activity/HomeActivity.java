@@ -71,7 +71,7 @@ public class HomeActivity extends AppCompatActivity
 
 
 
-        this.divider = (View)findViewById(R.id.divider);
+        this.divider =findViewById(R.id.divider);
         this.scrollView = (NestedScrollView)findViewById(R.id.scroller);
         this.scrollView.setOnScrollChangeListener(this);
 
@@ -344,7 +344,7 @@ public class HomeActivity extends AppCompatActivity
 
         // This method performs the actual data-refresh operation.
         // The method calls setRefreshing(false) when it's finished.
-        myUpdateOperation();
+         myUpdateOperation();
 
 
     }

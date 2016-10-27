@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.SearchActivity"
+    tools:showIn="@layout/activity_search"
+    android:animateLayoutChanges="true"
+    android:background="@color/background_color"
+    >
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/scroller_nested"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        >
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+
+         <EditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:hint="@string/search_hint"
+             android:layout_marginRight="20dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginBottom="10dp"
+             android:gravity="center"
+             android:id="@+id/seach_title_text_view"
+
+
+             />
+
+
+
+         <Spinner
+             android:id="@+id/search_product_category_spinner"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+             android:layout_marginBottom="10dp"
+             android:layout_marginTop="10dp"
+             android:layout_width="match_parent"
+             android:layout_height="35dp"
+             android:background="@drawable/edittext_rectangle_box"
+             android:gravity="center|left"
+             android:textSize="14sp"
+             android:paddingLeft="10dp"
+             android:drawableRight="@drawable/ic_down_arrow"
+             />
+
+         <Spinner
+             android:id="@+id/search_product_sub_category_spinner"
+             android:layout_below="@+id/product_category"
+             android:layout_marginRight="20dp"
+             android:layout_marginLeft="20dp"
+             android:layout_width="match_parent"
+             android:layout_height="35dp"
+             android:gravity="center|left"
+             android:visibility="visible"
+             android:paddingLeft="10dp"
+             android:background="@android:color/white"
+             android:drawableRight="@drawable/ic_down_arrow"
+             />
+
+         <TextView
+             android:layout_width="match_parent"
+             android:layout_height="40dp"
+             android:layout_marginLeft="20dp"
+             android:layout_marginRight="20dp"
+             android:layout_marginTop="20dp"
+             android:background="@color/staggered_below_color"
+             android:drawableLeft="@drawable/location_icon_ldpi"
+             android:padding="7dp"
+             android:text="@string/find_location_text"
+             android:textColor="@color/textColorPrimary"
+             android:gravity="center_vertical|center_horizontal"
+             android:maxLines="2"
+             android:id="@+id/location_picker_text_view"
+             />
+
+
+         <SeekBar
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="15dp"
+             android:layout_marginBottom="15dp"
+             android:layout_marginLeft="10dp"
+             android:layout_marginRight="10dp"
+             android:max="1200"
+             android:id="@+id/seekbar"
+
+             />
+
+         <Button
+             android:layout_width="150dp"
+             android:layout_height="40dp"
+             android:text="@string/search_hint"
+             android:background="@drawable/border"
+             android:layout_gravity="center_horizontal"
+             android:textColor="@color/staggered_below_color"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+             android:id="@+id/search_submit_button"
+            android:layout_marginBottom="20dp"
+             android:layout_marginTop="10dp"/>
+     </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+    <View
+        android:id="@+id/search_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/scroller_nested"
+        android:background="#D3D3D3"
+        android:visibility="gone"
+        />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/search_swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/search_divider"
+        >
+
+
+
+        <GridView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:id="@+id/search_grid_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="20dp"
+            android:horizontalSpacing="2dp"
+            android:numColumns="2"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="2dp"
+            
+
+
+            />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    </RelativeLayout>

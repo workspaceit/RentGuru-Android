@@ -42,13 +42,6 @@ public class ApiManager {
     private static String sCookie;
 
 
-    private HttpURLConnection httpConn;
-    private DataOutputStream request;
-    private final String boundary =  "*****";
-    private final String crlf = "\r\n";
-    private final String twoHyphens = "--";
-
-
 
 
     protected Map<String, String> getPostParams;

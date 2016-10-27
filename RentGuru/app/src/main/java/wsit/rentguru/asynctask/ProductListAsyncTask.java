@@ -65,7 +65,7 @@ public class ProductListAsyncTask extends AsyncTask<Boolean, Void, ArrayList<Ren
         }
         else
         {
-            //Toast.makeText(mcontext, "Unable to communicate with server", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(postProductFirstFragment, "Unable to communicate with server", Toast.LENGTH_SHORT).show();
         }
 
     }

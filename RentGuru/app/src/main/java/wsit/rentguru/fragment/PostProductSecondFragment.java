@@ -1,11 +1,9 @@
 package wsit.rentguru.fragment;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import wsit.rentguru.R;
 import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.adapter.GridviewAdapter;
-import wsit.rentguru.asynctask.DocumentAsyncTask;
 import wsit.rentguru.asynctask.PostProductImageAsyncTask;
 import wsit.rentguru.model.ImageItem;
 import wsit.rentguru.model.PostProduct;
@@ -226,7 +223,7 @@ public class PostProductSecondFragment extends Fragment implements View.OnClickL
     public void nextTab(String response)
     {
         if (Utility.temporaryArrayList.size()==0){
-            MakeToast.ShowToast(getActivity(),"Your Image Didn't uploaded. Please try again");
+            MakeToast.showToast(getActivity(),"Your Image Didn't uploaded. Please try again");
             return;
         }
         PostProductActivity.viewPager.setCurrentItem(2);

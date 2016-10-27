@@ -14,6 +14,9 @@
     <string name="end_date">End Date</string>
     <string name="remarks">"Remarks"</string>
     <string name="search_product_text">Search Product</string>
+    <string name="search_hint">Search</string>
+    <string name="category_search_optional">Choose Category (optional)</string>
+    <string name="find_location_text">Let Rentguru find your location</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

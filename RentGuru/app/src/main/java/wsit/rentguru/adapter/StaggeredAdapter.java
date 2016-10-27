@@ -19,6 +19,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import wsit.rentguru.R;
+import wsit.rentguru.utility.Utility;
 
 /**
  * Created by workspaceinfotech on 7/28/16.
@@ -64,7 +65,7 @@ public class StaggeredAdapter extends ArrayAdapter<String> {
                     .findViewById(R.id.imgView);
             vh.titleTextView=(TextView)convertView.findViewById(R.id.title_text_view);
             vh.priceTextView=(TextView)convertView.findViewById(R.id.price_text_view);
-            vh.locationTextView=(TextView)convertView.findViewById(R.id.location_text_view);
+
 
             convertView.setTag(vh);
         } else {
@@ -76,6 +77,8 @@ public class StaggeredAdapter extends ArrayAdapter<String> {
         vh.imgView.setHeightRatio(positionHeight);
 
         this.imageLoader.displayImage(getItem(position), vh.imgView,displayImageOptions);
+        vh.titleTextView.setText(Utility.rentalProductArrayList.get(position).getName());
+        vh.priceTextView.setText(Utility.rentalProductArrayList.get(position).getRentFee()+"");
 
         return convertView;
     }
@@ -84,7 +87,7 @@ public class StaggeredAdapter extends ArrayAdapter<String> {
         DynamicHeightImageView imgView;
         TextView titleTextView;
         TextView priceTextView;
-        TextView locationTextView;
+
     }
 
     private double getPositionRatio(final int position) {

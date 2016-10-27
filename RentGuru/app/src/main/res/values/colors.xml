@@ -15,6 +15,7 @@
     <color name="background_color">#F0ECE6</color>
     <color name="delete_color">#FF1919</color>
     <color name="correct_color">#3B6D51</color>
+    <color name="staggered_below_color">#D68F33</color>
 
 
 </resources>

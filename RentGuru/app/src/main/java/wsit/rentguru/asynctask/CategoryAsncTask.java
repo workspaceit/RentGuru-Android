@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import java.util.ArrayList;
 import wsit.rentguru.Service.PostProductService;
+import wsit.rentguru.activity.SearchActivity;
 import wsit.rentguru.fragment.PostProductFirstFragment;
 import wsit.rentguru.model.CategoryModel;
 import wsit.rentguru.model.ResponseStat;
@@ -14,21 +15,30 @@ import wsit.rentguru.model.ResponseStat;
 public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<CategoryModel>> {
 
     ProgressDialog dialog;
-    PostProductFirstFragment mcontext;
+    PostProductFirstFragment postProductFirstFragment;
+    SearchActivity searchActivity;
     ResponseStat response;
     ArrayList<CategoryModel> categoryModelArrayList;
     PostProductService postProductService;
 
 
 
+
     public CategoryAsncTask(PostProductFirstFragment context)
     {
-        this.mcontext = context;
+        this.postProductFirstFragment = context;
         this.response = new ResponseStat();
         this.postProductService = new PostProductService();
 
     }
 
+
+    public CategoryAsncTask(SearchActivity searchActivity){
+        this.searchActivity=searchActivity;
+        this.response=new ResponseStat();
+        this.postProductService=new PostProductService();
+
+    }
 
     @Override
     protected ArrayList<CategoryModel> doInBackground(Boolean... params) {
@@ -54,14 +64,19 @@ public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<Categor
         {
             if(aResponse.size()>0)
             {
-                mcontext.getCategory(aResponse);
+                if (searchActivity==null){
+                    postProductFirstFragment.getCategory(aResponse);
+                }else if (postProductFirstFragment==null){
+                    searchActivity.setData(aResponse);
+                }
+
 
             }
 
         }
         else
         {
-            //Toast.makeText(mcontext, "Unable to communicate with server", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(postProductFirstFragment, "Unable to communicate with server", Toast.LENGTH_SHORT).show();
         }
 
     }

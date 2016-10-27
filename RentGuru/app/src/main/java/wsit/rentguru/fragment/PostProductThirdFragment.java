@@ -157,6 +157,9 @@ public class PostProductThirdFragment extends Fragment implements AdapterView.On
 
                 }
 
+                for (int i=0; i<Utility.temporaryArrayList.size(); i++){
+                    System.out.println(Utility.temporaryArrayList.get(i));
+                }
 
                 PostProductActivity.postProduct.setProfileImageToken(mainPic);
                 PostProductActivity.postProduct.setOtherImagesToken(Utility.temporaryArrayList);
