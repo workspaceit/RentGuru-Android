@@ -168,11 +168,13 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                appBarLayout.setExpanded(true, true);
-                divider.setVisibility(View.GONE);
+                if (scrollView.getVisibility()==View.VISIBLE) {
+                    appBarLayout.setExpanded(true, true);
+                    divider.setVisibility(View.GONE);
 
-                scrollView.animate().alpha(0.0f);
-                scrollView.setVisibility(View.GONE);
+                    scrollView.animate().alpha(0.0f);
+                    scrollView.setVisibility(View.GONE);
+                }
 
                 return false;
             }
@@ -265,6 +267,7 @@ public class HomeActivity extends AppCompatActivity
 
         Intent i = new Intent(this,ProductDetailsActivity.class);
         i.putExtra("position", position);
+        i.putExtra("callFlag",1);
         Utility.productPosition = position;
         startActivity(i);
 

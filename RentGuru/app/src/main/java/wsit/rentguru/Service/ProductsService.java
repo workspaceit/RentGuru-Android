@@ -116,14 +116,12 @@ public class ProductsService extends ApiManager {
 
     }
 
-    public ArrayList<RentalProduct> getSearchProductList(String title,String lat,String lng,String limit,String offset,
-                                                         String categoryId,String radius){
+    public ArrayList<RentalProduct> getSearchProductList(String queryString){
         ArrayList<RentalProduct>rentalProductArrayList=new ArrayList<>();
         this.responseStat=new ResponseStat();
 
 
-        String controller="search/rental-product?limit="+limit+"&offset="+offset+"&title="+title+"&lat="+lat+"&lng="+lng+"&categoryId=" +
-                categoryId+"&radius"+radius;
+        String controller="search/rental-product?"+queryString;
         System.out.println(controller);
         this.setController(controller);
         String resp=this.getData("GET");

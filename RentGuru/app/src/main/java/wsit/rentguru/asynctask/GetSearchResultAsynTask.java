@@ -17,9 +17,11 @@ import wsit.rentguru.utility.MakeToast;
 public class GetSearchResultAsynTask extends AsyncTask<String,String,ArrayList<RentalProduct>> {
 
     private Context context;
+    private String query;
 
-    public GetSearchResultAsynTask(Context context){
+    public GetSearchResultAsynTask(Context context,String query){
         this.context=context;
+        this.query=query;
     }
 
     @Override
@@ -31,17 +33,12 @@ public class GetSearchResultAsynTask extends AsyncTask<String,String,ArrayList<R
 
     @Override
     protected ArrayList<RentalProduct> doInBackground(String... strings) {
+
         String limit=strings[0];
         String offset=strings[1];
-        String title=strings[2];
-        String lat=strings[3];
-        String lng=strings[4];
-        String categoryId=strings[5];
-        String radius=strings[6];
-        System.out.println(title+" "+limit+" "+offset);
 
-
-        return new ProductsService().getSearchProductList(title,lat,lng,limit,offset,categoryId,radius);
+        query=query+"&limit="+limit+"&offset="+offset;
+        return new ProductsService().getSearchProductList(query);
     }
 
 

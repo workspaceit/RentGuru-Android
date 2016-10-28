@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -50,17 +51,30 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
     private ImageView likeProduct;
     private Button rentNow;
     private DisplayImageOptions displayImageOptions;
-    private int position;
+    private int position,flag;
     private static boolean status;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
         position = getIntent().getExtras().getInt("position");
-        this.rentalProductDetails = Utility.rentalProductArrayList.get(position);
+        flag=getIntent().getExtras().getInt("callFlag");
+
+        if (flag==1){
+            this.rentalProductDetails = Utility.rentalProductArrayList.get(position);
+        }else if (flag==2){
+            this.rentalProductDetails=SearchActivity.rentalSearchProducts.get(position);
+        }
+
+
 
         this.imageLoader = ImageLoader.getInstance();
         this.imageLoader.init(ImageLoaderConfiguration.createDefault(this));
@@ -225,6 +239,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
         return date;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        super.onBackPressed();
+
+    }
 
     @Override
     protected void onDestroy() {

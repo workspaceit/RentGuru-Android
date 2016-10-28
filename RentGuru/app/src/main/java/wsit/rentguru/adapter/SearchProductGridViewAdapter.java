@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.twitter.sdk.android.core.internal.TwitterApiConstants;
@@ -25,12 +26,18 @@ public class SearchProductGridViewAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;
     private Activity context;
     private ImageLoader imageLoader;
+    private DisplayImageOptions displayImageOptions;
 
     public SearchProductGridViewAdapter(Activity context){
         this.context=context;
         this.layoutInflater=context.getLayoutInflater();
         this.imageLoader= ImageLoader.getInstance();
         this.imageLoader.init(ImageLoaderConfiguration.createDefault(context));
+        displayImageOptions=new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .build();
+
 
     }
 
@@ -68,7 +75,7 @@ public class SearchProductGridViewAdapter extends BaseAdapter {
 
 
         this.imageLoader.displayImage(Utility.picUrl+SearchActivity.rentalSearchProducts.get(position).getProfileImage().getOriginal().getPath(),
-                viewHolder.productImage);
+                viewHolder.productImage,displayImageOptions);
         viewHolder.productName.setText(SearchActivity.rentalSearchProducts.get(position).getName());
         viewHolder.priceView.setText(SearchActivity.rentalSearchProducts.get(position).getRentFee()+"");
 
