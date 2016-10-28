@@ -2,6 +2,8 @@ package wsit.rentguru.activity;
 
 import android.content.Intent;
 import android.media.Image;
+import android.os.Build;
+import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import java.util.Locale;
 import wsit.rentguru.R;
 import wsit.rentguru.adapter.ProductOtherImagesAdapter;
 import wsit.rentguru.asynctask.RatingAsncTask;
+import wsit.rentguru.model.Product;
 import wsit.rentguru.model.RentalProduct;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.RecyclerItemClickListener;
@@ -53,7 +56,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
     private DisplayImageOptions displayImageOptions;
     private int position,flag;
     private static boolean status;
-
+    private Toolbar toolbar;
 
 
 
@@ -61,8 +64,18 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_details);
-
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+
+                }
+            });
 
 
         position = getIntent().getExtras().getInt("position");
@@ -70,6 +83,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
 
         if (flag==1){
             this.rentalProductDetails = Utility.rentalProductArrayList.get(position);
+
         }else if (flag==2){
             this.rentalProductDetails=SearchActivity.rentalSearchProducts.get(position);
         }
