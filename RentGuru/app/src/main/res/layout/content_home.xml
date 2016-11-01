@@ -24,49 +24,26 @@
     android:id="@+id/relativeLayout"
     android:background="@color/layout_background_color">
 
-    <ImageView
-        android:layout_width="wrap_content"
+
+    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:scaleType="fitXY"
-        android:id="@+id/deal_image"
-        android:src="@drawable/hot_deal"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="HOT DEAL"
-        android:textColor="@android:color/white"
-        android:background="#33000000"
-        android:textSize="30sp"
-        android:id="@+id/textView2"
-        android:layout_marginTop="10dp"
-        android:paddingLeft="30dp"
-        android:gravity="center_vertical"
-        android:layout_alignParentStart="true" />
+
 
     <LinearLayout
         android:id="@+id/feature_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/deal_image"
+        android:layout_below="@+id/slider"
         android:layout_marginTop="5dp"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:textSize="18dp"
-            android:textColor="#000000"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif-thin"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:visibility="gone"
-            android:text="FEATURED PRODUCTS"/>
+
 
         <HorizontalScrollView
             android:id="@+id/horizontal_view"

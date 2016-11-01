@@ -146,11 +146,11 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+
+
         initiate();
 
     }
-
-
 
 
     @Override

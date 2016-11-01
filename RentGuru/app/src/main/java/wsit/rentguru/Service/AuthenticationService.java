@@ -65,6 +65,7 @@ public class AuthenticationService extends ApiManager {
                 authCredential = gson.fromJson(jsonObject.get("responseData"), authCredential.getClass());
                 Utility.authCredential = authCredential;
 
+
             }
             else {
 
@@ -158,6 +159,117 @@ public class AuthenticationService extends ApiManager {
         return response;
     }
 
+    public boolean changeProfileInformation(String fname,String lname,String email,String oldPass,String newPass){
+        this.responseStat=new ResponseStat();
+        this.setController("auth/profile/edit");
+        if (!oldPass.equals("")){
+            this.setParams("oldPassword",oldPass);
+            this.setParams("newPassword",newPass);
+        }
+
+        this.setParams("firstName",fname);
+        this.setParams("lastName",lname);
+        this.setParams("email",email);
+        String resp=this.getData("POST");
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+
+
+            if (this.responseStat.isStatus())
+            {
+                authCredential = gson.fromJson(jsonObject.get("responseData"), authCredential.getClass());
+                Utility.authCredential = authCredential;
+                return true;
+
+
+            }
+            else {
+                return false;
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }
+
+    public boolean changeProfilePicture(String token){
+        this.responseStat=new ResponseStat();
+        this.setController("auth/profile/edit");
+        this.setParams("profileImageToken",token);
+        String resp=this.getData("POST");
+        System.out.println(resp);
+
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+
+
+            if (this.responseStat.isStatus())
+            {
+                authCredential = gson.fromJson(jsonObject.get("responseData"), authCredential.getClass());
+                Utility.authCredential = authCredential;
+                return true;
+
+
+            }
+            else {
+                return false;
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }
+
+    public String uploadNewProfilePic(String mfilePath) throws IOException{
+        String response = "";
+        this.responseStat = new ResponseStat();
+
+        String requestURL = Utility.fileUploadUrl+"auth/user/profile-image";
+        System.out.println(requestURL);
+        MultipartUtility multipart = new MultipartUtility(requestURL,getCookie());
+        multipart.addFilePart("profileImage", new File(mfilePath));
+        String resp = multipart.finish(); // response from server.
+        System.out.println(resp);
+
+        try {
+
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+            if (responseStat.isStatus()) {
+
+
+                response = jsonObject.get("responseData").getAsString();
+            }
+
+        }catch (Exception ex)
+        {
+
+          ex.printStackTrace();
+
+        }
+        return response;
+
+    }
 
 
     public ResponseStat registrationRequest(Registration registration)

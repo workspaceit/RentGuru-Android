@@ -54,7 +54,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
     private ImageView likeProduct;
     private Button rentNow;
     private DisplayImageOptions displayImageOptions;
-    private int position,flag;
+    private static int position,flag;
     private static boolean status;
     private Toolbar toolbar;
 
@@ -78,8 +78,16 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
             });
 
 
-        position = getIntent().getExtras().getInt("position");
-        flag=getIntent().getExtras().getInt("callFlag");
+        try {
+            if (getIntent().getExtras()!=null){
+                position = getIntent().getExtras().getInt("position");
+                flag=getIntent().getExtras().getInt("callFlag");
+            }
+
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
 
         if (flag==1){
             this.rentalProductDetails = Utility.rentalProductArrayList.get(position);

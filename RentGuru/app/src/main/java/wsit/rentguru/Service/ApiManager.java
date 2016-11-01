@@ -176,6 +176,9 @@ public class ApiManager {
         return sb.toString();
     }
 
+    public String getCookie(){
+        return sCookie;
+    }
 
 
 }

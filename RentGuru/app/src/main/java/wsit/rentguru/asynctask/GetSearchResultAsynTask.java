@@ -8,7 +8,6 @@ import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import wsit.rentguru.Service.ProductsService;
 import wsit.rentguru.activity.SearchActivity;
 import wsit.rentguru.model.RentalProduct;
-import wsit.rentguru.utility.MakeToast;
 
 /**
  * Created by Tomal on 10/27/2016.

@@ -76,8 +76,9 @@ public class SearchProductGridViewAdapter extends BaseAdapter {
 
         this.imageLoader.displayImage(Utility.picUrl+SearchActivity.rentalSearchProducts.get(position).getProfileImage().getOriginal().getPath(),
                 viewHolder.productImage,displayImageOptions);
-        viewHolder.productName.setText(SearchActivity.rentalSearchProducts.get(position).getName());
-        viewHolder.priceView.setText(SearchActivity.rentalSearchProducts.get(position).getRentFee()+"");
+        String upperString = SearchActivity.rentalSearchProducts.get(position).getName().substring(0,1).toUpperCase() + SearchActivity.rentalSearchProducts.get(position).getName().substring(1);
+        viewHolder.productName.setText(upperString);
+        viewHolder.priceView.setText(Utility.CURRENCY+" "+SearchActivity.rentalSearchProducts.get(position).getRentFee());
 
         return convertView;
     }

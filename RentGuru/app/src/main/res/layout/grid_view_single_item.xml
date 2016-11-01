@@ -10,15 +10,21 @@
     <ImageView
         android:id="@+id/search_product_image_gv"
         android:layout_width="160dip"
-        android:layout_height="160dip"
-        android:layout_gravity="center" />
+        android:layout_height="200dip"
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:scaleType="fitXY"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:orientation="vertical"
-        android:layout_below="@+id/search_product_image_gv"
-        android:background="@color/staggered_below_color">
+        android:background="@color/grid_view_below_shade"
+        android:layout_alignBottom="@+id/search_product_image_gv"
+        android:layout_alignParentStart="true">
         <TextView
             android:id="@+id/search_title_gv"
             android:layout_width="match_parent"
@@ -41,7 +47,6 @@
             />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>

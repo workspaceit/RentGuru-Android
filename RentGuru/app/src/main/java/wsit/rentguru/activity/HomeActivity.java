@@ -21,6 +21,10 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.daimajia.slider.library.SliderAdapter;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.etsy.android.grid.StaggeredGridView;
 
 import java.util.ArrayList;
@@ -28,10 +32,13 @@ import java.util.ArrayList;
 import wsit.rentguru.R;
 import wsit.rentguru.adapter.StaggeredAdapter;
 import wsit.rentguru.asynctask.AccessTokenAsyncTask;
+import wsit.rentguru.asynctask.GetBannerImageAsynTask;
 import wsit.rentguru.asynctask.ProductListAsyncTask;
+import wsit.rentguru.model.BannerImage;
 import wsit.rentguru.model.Login;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.preference.SessionManager;
+import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
 
 public class HomeActivity extends AppCompatActivity
@@ -52,6 +59,8 @@ public class HomeActivity extends AppCompatActivity
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private SessionManager sessionManager;
     private ConnectivityManagerInfo connectivityManagerInfo;
+    private SliderLayout sliderShow;
+
 
 
     private void initiate()
@@ -84,11 +93,49 @@ public class HomeActivity extends AppCompatActivity
         this.sessionManager = new SessionManager(this);
 
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this);
-
+        this.sliderShow = (SliderLayout) findViewById(R.id.slider);
+        bannerImageDownLoad();
         authenticate();
+
 
     }
 
+
+    private void bannerImageDownLoad(){
+        if(connectivityManagerInfo.isConnectedToInternet()){
+            if (Utility.bannerImages.size()>0){
+                setupBannerImage();
+            }else {
+                new GetBannerImageAsynTask(this).execute();
+            }
+        }
+
+    }
+
+    public void setupBannerImage(){
+        sliderShow.removeAllSliders();
+        if (Utility.bannerImages.size() >= 1) {
+            for (BannerImage banner : Utility.bannerImages) {
+                TextSliderView textSliderView = new TextSliderView(this);
+                // initialize a SliderLayout
+                textSliderView
+                        .image(Utility.bannerUrl + banner.getImagePath())
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+
+                sliderShow.addSlider(textSliderView);
+            }
+        } else {
+            TextSliderView textSliderView = new TextSliderView(this);
+            // initialize a SliderLayout
+            textSliderView
+                    .description("Banner not found")
+                    .image(R.drawable.image_not_found)
+                    .setScaleType(BaseSliderView.ScaleType.Fit);
+
+
+            sliderShow.addSlider(textSliderView);
+        }
+    }
 
     private void authenticate()
     {
@@ -245,6 +292,15 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+        }else if (id==R.id.nav_sign_out){
+            ShowNotification.logoutDailog(this,sessionManager,"Logout","Confrim Logout?");
+
+        }else if (id==R.id.nav_my_pay_pal){
+
+        }else if (id==R.id.nav_edit_profile){
+            Intent i=new Intent(this,EditProfileActivity.class);
+            startActivity(i);
 
         }
 

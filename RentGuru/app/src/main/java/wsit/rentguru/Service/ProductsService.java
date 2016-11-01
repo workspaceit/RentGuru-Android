@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
+import wsit.rentguru.model.BannerImage;
 import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.model.RentalProduct;
@@ -113,6 +114,43 @@ public class ProductsService extends ApiManager {
 
 
         return responseStat;
+
+    }
+
+    public boolean getBannerImages(){
+
+        this.responseStat=new ResponseStat();
+        this.setController("banner-image/get-all");
+        String resp=this.getData("GET");
+        System.out.println(resp);
+
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+            if (this.responseStat.isStatus())
+            {
+                BannerImage[]bannerImages=gson.fromJson(jsonObject.get("responseData"),BannerImage[].class);
+                Collections.addAll(Utility.bannerImages,bannerImages);
+
+               return true;
+            }
+            else {
+
+                return false;
+
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+        return false;
 
     }
 

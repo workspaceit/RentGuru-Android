@@ -27,7 +27,7 @@ import wsit.rentguru.asynctask.PostProductImageAsyncTask;
 import wsit.rentguru.model.ImageItem;
 import wsit.rentguru.model.PostProduct;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
-import wsit.rentguru.utility.MakeToast;
+import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
 
 
@@ -223,7 +223,7 @@ public class PostProductSecondFragment extends Fragment implements View.OnClickL
     public void nextTab(String response)
     {
         if (Utility.temporaryArrayList.size()==0){
-            MakeToast.showToast(getActivity(),"Your Image Didn't uploaded. Please try again");
+            ShowNotification.showToast(getActivity(),"Your Image Didn't uploaded. Please try again");
             return;
         }
         PostProductActivity.viewPager.setCurrentItem(2);

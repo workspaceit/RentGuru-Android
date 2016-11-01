@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.util.StringBuilderPrinter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AbsListView;
@@ -21,14 +20,12 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.util.ArrayList;
@@ -40,7 +37,7 @@ import wsit.rentguru.asynctask.GetSearchResultAsynTask;
 import wsit.rentguru.model.CategoryModel;
 import wsit.rentguru.model.RentalProduct;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
-import wsit.rentguru.utility.MakeToast;
+import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
 
 public class SearchActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener,
@@ -75,6 +72,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     private static final int PLACE_PICKER_REQUEST = 1000;
     private Place place;
     private StringBuilder formHeader;
+    private boolean firstTime;
 
 
     private void initiate()
@@ -121,7 +119,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         categoryId=0;
         parentCategoryPosition=0;
         formHeader=new StringBuilder();
-        limit=5;
+        limit=6;
         offset=0;
 
         gridView.setOnScrollListener(this);
@@ -289,7 +287,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
 
             if (place!=null && seekProgrees==0){
-                MakeToast.showToast(this,"You Must Select Distance");
+                ShowNotification.showToast(this,"You Must Select Distance");
                 return;
             }
 
@@ -346,9 +344,10 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     }
                     moreSearchProduct=true;
                     loadingProduct=false;
+                    firstTime=true;
                  System.out.println(formHeader.toString());
                 }else {
-                    MakeToast.showToast(this,"You have Nothing to Search");
+                    ShowNotification.showToast(this,"You have Nothing to Search");
                 }
 
 
@@ -372,7 +371,12 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             rentalSearchProducts.addAll(rentalProduct);
             searchProductGridViewAdapter.notifyDataSetChanged();
             loadingProduct=false;
+            firstTime=false;
         }else {
+            if (firstTime==true){
+              ShowNotification.showSnacksBarLong(this,swipeRefreshLayout,"Found Nothing...");
+                firstTime=!firstTime;
+            }
             moreSearchProduct=false;
         }
 

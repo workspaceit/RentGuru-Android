@@ -25,6 +25,24 @@ public class MultipartUtility {
     private final String twoHyphens = "--";
 
 
+    public MultipartUtility(String requestURL,String sCookie) throws IOException{
+        // creates a unique boundary based on time stamp
+        URL url = new URL(requestURL);
+        httpConn = (HttpURLConnection) url.openConnection();
+        httpConn.setUseCaches(false);
+        httpConn.setDoOutput(true); // indicates POST method
+        httpConn.setDoInput(true);
+
+        httpConn.setRequestMethod("POST");
+        httpConn.setRequestProperty("Connection", "Keep-Alive");
+        httpConn.setRequestProperty("Cache-Control", "no-cache");
+        httpConn.setRequestProperty(
+                "Content-Type", "multipart/form-data;boundary=" + this.boundary);
+        httpConn.setRequestProperty("Cookie", sCookie);
+        request =  new DataOutputStream(httpConn.getOutputStream());
+    }
+
+
     public MultipartUtility(String requestURL)
             throws IOException {
 
@@ -40,7 +58,6 @@ public class MultipartUtility {
         httpConn.setRequestProperty("Cache-Control", "no-cache");
         httpConn.setRequestProperty(
                 "Content-Type", "multipart/form-data;boundary=" + this.boundary);
-
         request =  new DataOutputStream(httpConn.getOutputStream());
     }
 

@@ -16,6 +16,7 @@ import java.io.RandomAccessFile;
 import java.util.ArrayList;
 
 import wsit.rentguru.model.AuthCredential;
+import wsit.rentguru.model.BannerImage;
 import wsit.rentguru.model.RentalProduct;
 
 /**
@@ -27,6 +28,8 @@ public class Utility {
     public static String fileUploadUrl = "http://rentguru24.com/fileupload/upload/";
     public static AuthCredential authCredential;
     public static String picUrl = "http://rentguru24.com/images/";
+    public static String bannerUrl="http://rentguru24.com/images-banner/";
+    public static String profileImageUrl="http://rentguru24.com/profile-image/";
     public static int offset = 0;
     public static int productCount = 0;
     public static int productPosition;
@@ -34,6 +37,8 @@ public class Utility {
     public static boolean indicator = false;
     public static ArrayList<String> temporaryArrayList = new ArrayList<String>();
     public static int requestedItemId = 0;
+    public static String CURRENCY="$";
+    public static ArrayList<BannerImage>bannerImages=new ArrayList<>();
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri)
