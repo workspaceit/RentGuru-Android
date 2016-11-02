@@ -85,10 +85,17 @@
             android:name="io.fabric.ApiKey"
             android:value="89c5a2211084be4b73e09205c548fc1aac0ca56b" />
 
-        <activity android:name=".activity.EditProfileActivity"
+        <activity
+            android:name=".activity.EditProfileActivity"
             android:label="@string/edit_profile_text"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".activity.PaypalAccountSettingsActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".activity.HomeActivity"></activity>
+            android:label="@string/paypal_setings_text"
+            android:parentActivityName=".activity.HomeActivity"
+            ></activity>
     </application>
 
 </manifest>

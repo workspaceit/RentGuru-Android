@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.twitter.sdk.android.core.models.User;
 
 
 import java.io.File;
@@ -16,6 +17,7 @@ import wsit.rentguru.model.IdentityType;
 import wsit.rentguru.model.Login;
 import wsit.rentguru.model.Registration;
 import wsit.rentguru.model.ResponseStat;
+import wsit.rentguru.model.UserPaypalCredential;
 import wsit.rentguru.utility.Utility;
 
 /**
@@ -197,6 +199,77 @@ public class AuthenticationService extends ApiManager {
         }
 
         return false;
+
+    }
+
+
+    public boolean setPaypalEmail(String email){
+        this.responseStat=new ResponseStat();
+        this.setController("auth/paypal/add-update/my-paypal-account-email");
+        this.setParams("email",email);
+        String resp=this.getData("POST");
+        System.out.println(resp);
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+
+
+            if (this.responseStat.isStatus())
+            {
+                return true;
+
+
+            }
+            else {
+                return false;
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return false;
+
+
+    }
+
+    public UserPaypalCredential getPaypalEmail(){
+        UserPaypalCredential userPaypalCredential=null;
+        this.responseStat=new ResponseStat();
+        this.setController("auth/paypal/get/my-paypal-account-email");
+
+        String resp=this.getData("GET");
+        System.out.println(resp);
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+
+
+            if (this.responseStat.isStatus())
+            {
+                userPaypalCredential = gson.fromJson(jsonObject.get("responseData"), UserPaypalCredential.class);
+
+                return userPaypalCredential;
+
+
+            }
+            else {
+                return userPaypalCredential;
+            }
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return userPaypalCredential;
 
     }
 

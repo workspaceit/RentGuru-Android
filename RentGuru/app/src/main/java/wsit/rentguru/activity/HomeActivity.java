@@ -297,7 +297,8 @@ public class HomeActivity extends AppCompatActivity
             ShowNotification.logoutDailog(this,sessionManager,"Logout","Confrim Logout?");
 
         }else if (id==R.id.nav_my_pay_pal){
-
+            Intent intent=new Intent(this,PaypalAccountSettingsActivity.class);
+            startActivity(intent);
         }else if (id==R.id.nav_edit_profile){
             Intent i=new Intent(this,EditProfileActivity.class);
             startActivity(i);
