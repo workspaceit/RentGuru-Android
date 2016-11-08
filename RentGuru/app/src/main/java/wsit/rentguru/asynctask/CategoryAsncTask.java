@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import java.util.ArrayList;
 import wsit.rentguru.Service.PostProductService;
+import wsit.rentguru.activity.CategoryActivity;
 import wsit.rentguru.activity.SearchActivity;
 import wsit.rentguru.fragment.PostProductFirstFragment;
 import wsit.rentguru.model.CategoryModel;
@@ -14,13 +15,13 @@ import wsit.rentguru.model.ResponseStat;
  */
 public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<CategoryModel>> {
 
-    ProgressDialog dialog;
-    PostProductFirstFragment postProductFirstFragment;
-    SearchActivity searchActivity;
-    ResponseStat response;
-    ArrayList<CategoryModel> categoryModelArrayList;
-    PostProductService postProductService;
-
+    private ProgressDialog dialog;
+    private PostProductFirstFragment postProductFirstFragment;
+    private SearchActivity searchActivity;
+    private ResponseStat response;
+    private ArrayList<CategoryModel> categoryModelArrayList;
+    private PostProductService postProductService;
+    private CategoryActivity categoryActivity;
 
 
 
@@ -35,6 +36,13 @@ public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<Categor
 
     public CategoryAsncTask(SearchActivity searchActivity){
         this.searchActivity=searchActivity;
+        this.response=new ResponseStat();
+        this.postProductService=new PostProductService();
+
+    }
+
+    public CategoryAsncTask(CategoryActivity categoryActivity){
+        this.categoryActivity=categoryActivity;
         this.response=new ResponseStat();
         this.postProductService=new PostProductService();
 
@@ -64,10 +72,12 @@ public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<Categor
         {
             if(aResponse.size()>0)
             {
-                if (searchActivity==null){
-                    postProductFirstFragment.getCategory(aResponse);
-                }else if (postProductFirstFragment==null){
+                if (searchActivity!=null){
                     searchActivity.setData(aResponse);
+                }else if (postProductFirstFragment!=null){
+                    postProductFirstFragment.getCategory(aResponse);
+                }else if (categoryActivity!=null){
+                    categoryActivity.setData(aResponse);
                 }
 
 

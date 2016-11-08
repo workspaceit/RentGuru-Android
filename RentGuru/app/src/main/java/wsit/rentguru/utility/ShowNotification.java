@@ -26,9 +26,15 @@ public class ShowNotification {
     }
 
     public static void showSnacksBarLong(Context context,View view,String msg){
-        Snackbar snackbar=Snackbar.make(view,msg,Snackbar.LENGTH_LONG);
-        ViewGroup group = (ViewGroup) snackbar.getView();
-        group.setBackgroundColor(ContextCompat.getColor(context, R.color.staggered_below_color));
+        final Snackbar snackbar=Snackbar.make(view,msg,Snackbar.LENGTH_LONG);
+   /*     ViewGroup group = (ViewGroup) snackbar.getView();
+        group.setBackgroundColor(ContextCompat.getColor(context, R.color.staggered_below_color));*/
+        snackbar.setAction("Ok", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                snackbar.dismiss();
+            }
+        });
         snackbar.show();
 
     }

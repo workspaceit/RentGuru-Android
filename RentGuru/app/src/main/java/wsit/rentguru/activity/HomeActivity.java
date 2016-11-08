@@ -261,6 +261,9 @@ public class HomeActivity extends AppCompatActivity
         {
             mIntent = new Intent(this,SearchActivity.class);
             startActivity(mIntent);
+        }else if (id==R.id.action_category){
+            mIntent=new Intent(this,CategoryActivity.class);
+            startActivity(mIntent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -294,7 +297,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         }else if (id==R.id.nav_sign_out){
-            ShowNotification.logoutDailog(this,sessionManager,"Logout","Confrim Logout?");
+            ShowNotification.logoutDailog(this,sessionManager,"Logout","Confirm Logout?");
 
         }else if (id==R.id.nav_my_pay_pal){
             Intent intent=new Intent(this,PaypalAccountSettingsActivity.class);

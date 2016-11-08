@@ -30,6 +30,43 @@ public class ProductsService extends ApiManager {
 
     }
 
+
+    public ArrayList<RentalProduct> getProductCategoryWise(int categoryId,int limit,int offset){
+        ArrayList<RentalProduct>rentalProductArrayList=new ArrayList<>();
+        this.responseStat=new ResponseStat();
+        this.setController("/product/get-product-by-category?categoryId="+categoryId+"&limit="+limit+"&offset="+offset+"");
+
+        String resp = this.getData("GET");
+        Log.d("resp", resp);
+
+
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+
+
+
+
+            if (this.responseStat.isStatus())
+            {
+
+                RentalProduct[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), RentalProduct[].class);
+                Collections.addAll(rentalProductArrayList,rentalProducts);
+
+            }
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+
+        return rentalProductArrayList;
+    }
     public ArrayList<RentalProduct> getProductList()
     {
         ArrayList<RentalProduct> rentalProductArrayList = new ArrayList<RentalProduct>();

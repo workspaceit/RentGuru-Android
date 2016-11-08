@@ -94,6 +94,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
 
         }else if (flag==2){
             this.rentalProductDetails=SearchActivity.rentalSearchProducts.get(position);
+        }else if (flag==3){
+            this.rentalProductDetails=CategoryProductListViewActivity.categoryRentalProdutcs.get(position);
         }
 
 
