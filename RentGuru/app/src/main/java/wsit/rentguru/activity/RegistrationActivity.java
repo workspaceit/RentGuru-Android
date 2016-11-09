@@ -1,43 +1,30 @@
 package wsit.rentguru.activity;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.io.File;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import wsit.rentguru.R;
-import wsit.rentguru.asynctask.DocumentAsyncTask;
-import wsit.rentguru.asynctask.IdentityTypeTask;
 import wsit.rentguru.asynctask.RegistrationAsyncTask;
-import wsit.rentguru.model.IdentityType;
 import wsit.rentguru.model.Registration;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
-import wsit.rentguru.utility.Utility;
 
-public class RegistrationActivity extends AppCompatActivity implements View.OnFocusChangeListener, View.OnClickListener, AdapterView.OnItemSelectedListener{
+public class RegistrationActivity extends AppCompatActivity implements View.OnFocusChangeListener, View.OnClickListener{
 
     private EditText firstName,lastName,email,password;
-    private Spinner identityType;
-    private Button upload,signUp;
+
+    private Button signUp;
     private ConnectivityManagerInfo connectivityManagerInfo;
     private static final int FILE_SELECT_CODE = 0;
     private Registration registration;
-    private ArrayList<IdentityType> identityTypeArrayList;
+
 
 
     private void initiate()
@@ -56,13 +43,13 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
         this.firstName.setOnFocusChangeListener(this);
         this.lastName.setOnFocusChangeListener(this);
 
-        this.identityType = (Spinner)findViewById(R.id.identity);
-        this.identityType.setOnItemSelectedListener(this);
+
+
 
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this);
 
-        this.upload = (Button)findViewById(R.id.uploadIdentity);
-        this.upload.setOnClickListener(this);
+
+
 
         this.registration = new Registration();
 
@@ -83,10 +70,6 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
 
         initiate();
 
-        if(connectivityManagerInfo.isConnectedToInternet() == true)
-        {
-            new IdentityTypeTask(this).execute();
-        }
 
 
 
@@ -213,39 +196,25 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
     }
 
 
-    public void loadIdentityType(ArrayList<IdentityType> identityTypeArrayList)
-    {
-        this.identityTypeArrayList = identityTypeArrayList;
-        String[] arraySpinner = new String[identityTypeArrayList.size()];
-        int i = 0;
-        for(IdentityType identityType : identityTypeArrayList)
-        {
-            arraySpinner[i] = identityType.getName();
-            i++;
-        }
-
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                R.layout.spinner_item, arraySpinner);
-        this.identityType.setAdapter(adapter);
 
 
 
-    }
+
+
+
+
 
     @Override
     public void onClick(View v) {
 
-        if(v == upload)
+      if(v == signUp)
         {
 
-            showFileChooser();
-
-
-        }
-        else if(v == signUp)
-        {
-
+            String email = this.email.getText().toString();
+            CharSequence input = email;
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(input);
             if(this.firstName.getText().length()==0)
             {
                 Toast.makeText(this,"Insert First Name",Toast.LENGTH_SHORT).show();
@@ -254,9 +223,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
             {
                 Toast.makeText(this,"Insert Last Name",Toast.LENGTH_SHORT).show();
             }
-            else if(this.email.getText().length() == 0)
+            else if(!matcher.matches())
             {
-                Toast.makeText(this,"Insert Email",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Email is not valid",Toast.LENGTH_SHORT).show();
             }
             else if(this.password.getText().length() == 0)
             {
@@ -268,15 +237,7 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
                 Toast.makeText(this,"Password Must be 6 character",Toast.LENGTH_SHORT).show();
 
             }
-            else if(this.identityType.getSelectedItem() == null)
-            {
-                registration.setIdentityType(identityTypeArrayList.get(0));
 
-            }
-            else if(!this.upload.getText().equals("uploaded"))
-            {
-                Toast.makeText(this,"Upload Identity File",Toast.LENGTH_SHORT).show();
-            }
             else
             {
                 registration.setFirstName(this.firstName.getText().toString());
@@ -304,43 +265,9 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
 
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case FILE_SELECT_CODE:
-                if (resultCode == RESULT_OK) {
-                    // Get the Uri of the selected file
-                    Uri uri = data.getData();
-                    Log.d("uri", "File Uri: " + uri.toString());
-                    // Get the path
-                    String path = null;
-                    path = Utility.getPath(this, uri);
-                    Log.d("path", "File Path: " + path);
-                    // Get the file instance
-                     //File file = new File(path);
-                    // Initiate the upload
-                    if(connectivityManagerInfo.isConnectedToInternet())
-                        new DocumentAsyncTask(this,path).execute();
-                    else
-                        Toast.makeText(this,"No Internet Connection",Toast.LENGTH_SHORT).show();
-
-
-                }
-                break;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
 
 
-    public void fileUploaded(String token)
-    {
-        this.upload.setBackgroundDrawable( getResources().getDrawable(R.drawable.dotted_border_selected) );
-        this.upload.setText("uploaded");
-
-        registration.setIdentityDocToken(token);
-
-    }
 
     public void doneRegistration()
     {
@@ -351,34 +278,11 @@ public class RegistrationActivity extends AppCompatActivity implements View.OnFo
     }
 
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        registration.setIdentityType(identityTypeArrayList.get(position));
-
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 
 
-    private void showFileChooser() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
 
-        try {
-            startActivityForResult(
-                    Intent.createChooser(intent, "Select a File to Upload"),
-                    FILE_SELECT_CODE);
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-            Toast.makeText(this, "Please install a File Manager.",
-                    Toast.LENGTH_SHORT).show();
-        }
-    }
+
+
 
 
 }

@@ -184,6 +184,34 @@
 
                     </TableRow>
 
+                    <TableRow>
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.5"
+                            android:background="@drawable/table_border"
+                            android:gravity="left"
+                            android:padding="10dp"
+                            android:text="@string/product_location"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/product_location"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1.5"
+                            android:background="@drawable/table_border_value"
+                            android:gravity="left"
+                            android:padding="10dp"
+                            android:textColor="@android:color/black"
+                            android:textSize="14sp" />
+
+
+                    </TableRow>
+
 
                     <TableRow>
 

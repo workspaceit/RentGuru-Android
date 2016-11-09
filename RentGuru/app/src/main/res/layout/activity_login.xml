@@ -76,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:weightSum="3"
+        android:weightSum="2"
         android:layout_below="@+id/signIn"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -98,6 +98,7 @@
             android:id="@+id/twiterButton"
             android:src="@drawable/twitter_icon"
             android:background="@null"
+            android:visibility="gone"
             />
 
         <ImageButton

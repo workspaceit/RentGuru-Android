@@ -65,7 +65,7 @@ public class RegistrationAsyncTask extends AsyncTask<Boolean, Void, ResponseStat
         {
             if(response.isStatus()==false)
             {
-                Toast.makeText(mcontext, response.getRequestErrors().get(0).getMsg(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(mcontext, response.getRequestErrors().get(0).getMsg(), Toast.LENGTH_SHORT).show();
 
             }
             else

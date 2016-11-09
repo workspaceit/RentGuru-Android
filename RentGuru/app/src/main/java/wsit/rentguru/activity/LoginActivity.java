@@ -48,6 +48,8 @@ import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import wsit.rentguru.BuildConfig;
 import wsit.rentguru.R;
@@ -267,15 +269,20 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
 
         if(v == signIn)
         {
+            String email = this.email.getText().toString();
+            CharSequence input = email;
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(input);
 
-            if(this.email.getText().length() == 0)
+            if(!matcher.matches())
             {
-                Toast.makeText(this, "Insert Email", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Invalid Email Address", Toast.LENGTH_SHORT).show();
 
             }
-            else if(this.password.getText().length() == 0)
+            else if(this.password.getText().toString().length() <6)
             {
-                Toast.makeText(this, "Insert Password", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Password is too short", Toast.LENGTH_SHORT).show();
             }
             else {
                 login.setEmail(this.email.getText().toString());

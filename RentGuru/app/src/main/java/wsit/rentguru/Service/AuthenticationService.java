@@ -354,18 +354,18 @@ public class AuthenticationService extends ApiManager {
         System.out.println(registration.getLastName());
         System.out.println(registration.getEmail());
         System.out.println(registration.getPassword());
-        System.out.println(registration.getIdentityType().getId());
-        System.out.println(registration.getIdentityDocToken());
+
+
 
         this.setParams("firstName", registration.getFirstName());
         this.setParams("lastName", registration.getLastName());
         this.setParams("email", registration.getEmail());
         this.setParams("password", registration.getPassword());
-        this.setParams("identityTypeId", String.valueOf(registration.getIdentityType().getId()));
-        this.setParams("identityDocToken", registration.getIdentityDocToken());
+
+
 
         String resp = this.getData("POST");
-        Log.d("resp", resp);
+        System.out.println(resp);
 
 
         try {

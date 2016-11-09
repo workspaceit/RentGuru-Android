@@ -90,32 +90,10 @@
                 android:textColorHint="@android:color/darker_gray"
                 android:background="@drawable/view_border"/>
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="20dp"
-                android:id="@+id/identity"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/view_border"
-                android:popupBackground = "@drawable/popup_background"
-                >
-
-            </Spinner>
 
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_margin="20dp"
-                android:text="Upload Identity Document"
-                android:id="@+id/uploadIdentity"
-                android:padding="5dp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/dotted_border"
-                >
 
-            </Button>
+
 
 
 

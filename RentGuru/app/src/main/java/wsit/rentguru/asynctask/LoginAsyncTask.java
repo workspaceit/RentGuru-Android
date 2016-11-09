@@ -71,7 +71,7 @@ public class LoginAsyncTask extends AsyncTask<Boolean, Void, ResponseStat> {
         {
             if(response.isStatus()==false)
             {
-                Toast.makeText(mcontext, response.getRequestErrors().get(0).getMsg(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(mcontext, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
 
             }
             else
