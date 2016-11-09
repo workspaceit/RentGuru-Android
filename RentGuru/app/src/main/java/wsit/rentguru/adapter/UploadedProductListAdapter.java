@@ -1,5 +1,6 @@
 package wsit.rentguru.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
@@ -35,11 +36,11 @@ public class UploadedProductListAdapter extends BaseAdapter {
     private DisplayImageOptions displayImageOptions;
 
 
-    public UploadedProductListAdapter(Context context, ArrayList<MyRentalProduct> rentalProductArrayList)
+    public UploadedProductListAdapter(Activity context, ArrayList<MyRentalProduct> rentalProductArrayList)
     {
         this.context = context;
         this.rentalProductArrayList = rentalProductArrayList;
-        this.inflater = LayoutInflater.from(this.context);
+        this.inflater = context.getLayoutInflater();
 
         this.imageLoader= ImageLoader.getInstance();
         this.imageLoader.init(ImageLoaderConfiguration.createDefault(context.getApplicationContext()));

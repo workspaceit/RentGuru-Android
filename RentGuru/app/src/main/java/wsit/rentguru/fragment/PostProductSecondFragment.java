@@ -146,11 +146,11 @@ public class PostProductSecondFragment extends Fragment implements View.OnClickL
 
             if(this.productDescription.getText().length() == 0) {
 
-                Toast.makeText(getContext(),"Enter RentalProduct Description",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Product Description is required",Toast.LENGTH_SHORT).show();
             }
             else if(imagePathList.size() == 0)
             {
-                Toast.makeText(getContext(),"Upload Image",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Please Upload a product Image",Toast.LENGTH_SHORT).show();
 
             }
             else if (imagePathList.size()>0)

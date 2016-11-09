@@ -134,13 +134,13 @@ public class PostProductThirdFragment extends Fragment implements AdapterView.On
         {
             if(currentValue.getText().length() == 0)
             {
-                Toast.makeText(getContext(),"Enter Current Value",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Current value is required",Toast.LENGTH_SHORT).show();
                 return;
 
             }
             else if(rentValue.getText().length() == 0)
             {
-                Toast.makeText(getContext(),"Enter Rent Value",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Rent value is required",Toast.LENGTH_SHORT).show();
                 return;
             }
             else

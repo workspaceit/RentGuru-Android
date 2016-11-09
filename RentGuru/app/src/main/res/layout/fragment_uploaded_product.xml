@@ -6,6 +6,9 @@
 
     >
 
+
+
+
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
@@ -14,6 +17,36 @@
         android:layout_height="wrap_content"
         android:background="@color/background_color"
         >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:orientation="vertical"
+            android:id="@+id/no_product_layout"
+            android:animateLayoutChanges="true"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/no_my_product_text"
+                android:textSize="18sp"
+                android:textColor="@color/staggered_below_color"
+                android:layout_marginBottom="10dp"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/add_new_button_text"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/add_new_product_button"
+
+
+                />
+
+
+        </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

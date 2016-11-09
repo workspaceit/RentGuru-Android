@@ -52,15 +52,11 @@ public class UploadedProductListAsyncTask extends AsyncTask<Boolean, Void, Array
 
 
 
-        if(rentalProductArrayList.size() > 0)
-        {
-            context.onDatatload(rentalProductArrayList);
-        }
-        else
-        {
-            //Toast.makeText(context.getContext(), "", Toast.LENGTH_SHORT).show();
 
-        }
+            context.onDatatload(rentalProductArrayList);
+
+
+
 
     }
 

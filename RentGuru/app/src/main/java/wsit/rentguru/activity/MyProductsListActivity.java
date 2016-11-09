@@ -72,8 +72,8 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UploadedProductFragment(), "Uploaded");
-        adapter.addFragment(new ApproveProductFragment(), "Received Requests");
+        adapter.addFragment(new UploadedProductFragment(), "My Product");
+        adapter.addFragment(new ApproveProductFragment(), "Rent Request");
        // adapter.addFragment(new PostProductThirdFragment(), "Requested");
         viewPager.setAdapter(adapter);
     }

@@ -132,39 +132,39 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
         {
             if(categorySelected == false)
             {
-                Toast.makeText(getContext(), "Select Category", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please Select a Category", Toast.LENGTH_SHORT).show();
             }
             else if(subcategorySelected == false)
             {
-                Toast.makeText(getContext(), "Select Sub Category", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Please Select a Sub Category", Toast.LENGTH_SHORT).show();
 
             }
             else if(this.productTitle.getText().length() == 0)
             {
-                Toast.makeText(getContext(), "Enter RentalProduct Title", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Product title is required", Toast.LENGTH_SHORT).show();
 
             }
             else if(this.formSelected == false)
             {
-                Toast.makeText(getContext(), "Select Form", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Available date is required", Toast.LENGTH_SHORT).show();
             }
             else if(this.toSelected == false)
             {
-                Toast.makeText(getContext(), "Select Form", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Available date is required", Toast.LENGTH_SHORT).show();
             }
             else if(this.area.getText().length() == 0)
             {
-                Toast.makeText(getContext(), "Select Area", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Area is required", Toast.LENGTH_SHORT).show();
 
             }
             else if(this.zipCode.length() == 0)
             {
-                Toast.makeText(getContext(), "Select Zip Code", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Zip Code is required", Toast.LENGTH_SHORT).show();
 
             }
             else if(this.city.length() == 0)
             {
-                Toast.makeText(getContext(), "Select City", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "City is required", Toast.LENGTH_SHORT).show();
             }
             else {
 

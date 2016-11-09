@@ -292,11 +292,7 @@ public class HomeActivity extends AppCompatActivity
             Intent i = new Intent(this,RequestedProductsListActivity.class);
             startActivity(i);
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }else if (id==R.id.nav_sign_out){
+        } else if (id==R.id.nav_sign_out){
             ShowNotification.logoutDailog(this,sessionManager,"Logout","Confirm Logout?");
 
         }else if (id==R.id.nav_my_pay_pal){
@@ -384,7 +380,7 @@ public class HomeActivity extends AppCompatActivity
     public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
         Log.d("scroll:", "called");
-        View view = (View) scrollView.getChildAt(scrollView.getChildCount() - 1);
+        View view = scrollView.getChildAt(scrollView.getChildCount() - 1);
         int diff = (view.getBottom() - (scrollView.getHeight() + scrollView.getScrollY()));
 
         // if diff is zero, then the bottom has been reached

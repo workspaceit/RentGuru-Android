@@ -11,6 +11,7 @@ import wsit.rentguru.activity.RegistrationActivity;
 import wsit.rentguru.model.Login;
 import wsit.rentguru.model.Registration;
 import wsit.rentguru.model.ResponseStat;
+import wsit.rentguru.utility.ShowNotification;
 
 /**
  * Created by workspaceinfotech on 8/5/16.
@@ -71,7 +72,12 @@ public class LoginAsyncTask extends AsyncTask<Boolean, Void, ResponseStat> {
         {
             if(response.isStatus()==false)
             {
-                Toast.makeText(mcontext, "Wrong Username or Password", Toast.LENGTH_SHORT).show();
+                if (response.getMsg().isEmpty()){
+                    ShowNotification.showToast(mcontext,"Wrong Username or Password");
+                }else{
+                    Toast.makeText(mcontext, response.getMsg().toString(), Toast.LENGTH_SHORT).show();
+                }
+
 
             }
             else

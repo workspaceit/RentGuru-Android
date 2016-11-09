@@ -1,6 +1,7 @@
 package wsit.rentguru.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -12,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.AbsListView;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.baoyz.swipemenulistview.SwipeMenu;
@@ -23,14 +26,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wsit.rentguru.R;
+import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.adapter.UploadedProductListAdapter;
 import wsit.rentguru.asynctask.UploadedProductListAsyncTask;
 import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.RentalProduct;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
+import wsit.rentguru.utility.ShowNotification;
 
 
-public class UploadedProductFragment extends Fragment implements ListView.OnScrollListener{
+public class UploadedProductFragment extends Fragment implements ListView.OnScrollListener, View.OnClickListener {
 
     private View view;
 
@@ -40,6 +45,9 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
     private int offset;
     private UploadedProductListAdapter uploadedProductListAdapter;
     private boolean flag_loading;
+    private LinearLayout noProductLayout;
+    private Button addNewProduct;
+    private boolean moreProduct;
 
     public UploadedProductFragment() {
         // Required empty public constructor
@@ -62,8 +70,11 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this.getContext());
         this.offset = 0;
 
-
-
+        noProductLayout=(LinearLayout)view.findViewById(R.id.no_product_layout);
+        addNewProduct=(Button)noProductLayout.findViewById(R.id.add_new_product_button);
+        noProductLayout.setVisibility(View.GONE);
+        addNewProduct.setOnClickListener(this);
+        moreProduct=true;
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -141,7 +152,7 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
 
         if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
         {
-            if(flag_loading == false)
+            if(flag_loading == false && moreProduct==true)
             {
                 flag_loading = true;
                 if(connectivityManagerInfo.isConnectedToInternet())
@@ -157,17 +168,41 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
 
 
     public void onDatatload(ArrayList<MyRentalProduct>rentalProductArrayList)
+
     {
+        System.out.println("size "+rentalProductArrayList.size()+" "+this.rentalProductArrayList.size());
+
+        if (rentalProductArrayList.size()==0){
+            moreProduct=false;
+
+            if (this.rentalProductArrayList.size()==0) {
+                noProductLayout.setVisibility(View.VISIBLE);
+            }
+            return;
+
+        }
+
+        if (noProductLayout.getVisibility()==View.VISIBLE)
+            noProductLayout.setVisibility(View.GONE);
+
         for(int i = 0;i<rentalProductArrayList.size();i++)
         {
             this.rentalProductArrayList.add(rentalProductArrayList.get(i));
 
         }
-        this.uploadedProductListAdapter = new UploadedProductListAdapter(this.getContext(),this.rentalProductArrayList);
+        this.uploadedProductListAdapter = new UploadedProductListAdapter(getActivity(),this.rentalProductArrayList);
         this.uploadedproductListView.setAdapter(uploadedProductListAdapter);
 
         offset+=1;
         flag_loading = false;
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v==addNewProduct){
+            Intent i = new Intent(getActivity(),PostProductActivity.class);
+            startActivity(i);
+        }
     }
 }

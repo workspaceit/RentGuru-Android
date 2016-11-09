@@ -27,6 +27,7 @@ import wsit.rentguru.asynctask.CancelationAsyncTask;
 import wsit.rentguru.asynctask.RequestedProductsListAsyncTask;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
+import wsit.rentguru.utility.ShowNotification;
 
 public class RequestedProductsListActivity extends AppCompatActivity  implements View.OnClickListener,ListView.OnScrollListener, AdapterView.OnItemClickListener {
 
@@ -156,8 +157,12 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
     @Override
     public void onClick(View v) {
 
+
+        rentRequestArrayList.clear();
+        requestedProductListAdapter.notifyDataSetChanged();
         if(v == pending)
         {
+
             pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));
             approved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
@@ -193,6 +198,8 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
         }
         else if( v == approved)
         {
+
+
             pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             approved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));
             disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));

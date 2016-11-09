@@ -30,6 +30,7 @@
                     android:background="@color/colorAccent"
                     android:text="Pending"
                     android:padding="10dp"
+                    android:textAllCaps="false"
                     />
 
                 <Button
@@ -39,6 +40,7 @@
                     android:background="@android:color/white"
                     android:text="Approved"
                     android:padding="10dp"
+                    android:textAllCaps="false"
                     />
 
                 <Button
@@ -48,6 +50,7 @@
                     android:background="@android:color/white"
                     android:text="Disapproved"
                     android:padding="10dp"
+                    android:textAllCaps="false"
                     />
 
 

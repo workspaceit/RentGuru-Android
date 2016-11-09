@@ -48,8 +48,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
     private RecyclerView productOtherImages;
     private ImageView originalImage;
     private ImageLoader imageLoader;
-    private ImageView likeButton;
-    private TextView rentFee,availableTime,categoryName,overView,overViewText,productTitle;
+
+    private TextView rentFee,availableTime,categoryName,overView,overViewText,productTitle,productLocationTextView;
     private ConnectivityManagerInfo connectivityManagerInfo;
     private ImageView likeProduct;
     private Button rentNow;
@@ -109,16 +109,17 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
 
         this.ratingBar = (RatingBar) findViewById(R.id.rating);
         this.ratingBar.setRating(this.rentalProductDetails.getAverageRating());
-        this.ratingBar.setOnRatingBarChangeListener(this);
+        //this.ratingBar.setOnRatingBarChangeListener(this);
+        ratingBar.setIsIndicator(true);
         this.productTitle = (TextView) findViewById(R.id.product_title);
 
         this.rentFee = (TextView) findViewById(R.id.rent_fee);
         this.availableTime = (TextView) findViewById(R.id.available_time);
         this.categoryName = (TextView) findViewById(R.id.category_name);
         this.overView = (TextView) findViewById(R.id.overview);
+        this.productLocationTextView=(TextView)findViewById(R.id.product_location);
 
 
-        this.likeButton = (ImageView) findViewById(R.id.like_button);
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this);
 
 
@@ -170,8 +171,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
         this.imageLoader.displayImage(Utility.picUrl + this.rentalProductDetails.getProfileImage().getOriginal().getPath(), this.originalImage,displayImageOptions);
 
 
-        this.rentFee.setText("$"+String.valueOf(rentalProductDetails.getCurrentValue()));
-
+        this.rentFee.setText("$"+String.valueOf(rentalProductDetails.getCurrentValue())+"/"+rentalProductDetails.getRentType().getName());
+        this.productLocationTextView.setText(rentalProductDetails.getProductLocation().getFormattedAddress());
 
         String fromDate = getDate(rentalProductDetails.getAvailableFrom());
         String toDate = getDate(rentalProductDetails.getAvailableTill());
@@ -202,11 +203,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
 
         this.productTitle.setText(rentalProductDetails.getName());
 
-        this.likeProduct = (ImageView)findViewById(R.id.like_button);
-        if(rentalProductDetails.getIsLiked())
-        {
-            likeButton.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_favorite_like));
-        }
+
 
         this.rentNow = (Button)findViewById(R.id.rent_now_button);
         this.rentNow.setOnClickListener(this);

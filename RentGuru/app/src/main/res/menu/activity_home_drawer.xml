@@ -8,33 +8,33 @@
             android:title="Home" />
         <item
             android:id="@+id/nav_post"
-            android:icon="@drawable/ic_post"
-            android:title="Post Product" />
+            android:icon="@drawable/add"
+            android:title="Add Product" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_profile"
             android:title="My Products" />
         <item
             android:id="@+id/nav_requested_products"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Requested Products" />
+            android:icon="@drawable/req"
+            android:title="My Booking" />
         <item
             android:id="@+id/nav_my_pay_pal"
-            android:icon="@drawable/ic_profile"
-            android:title="My Pay Pal"
+            android:icon="@drawable/pp"
+            android:title="My PayPal"
             />
         <item
             android:id="@+id/nav_edit_profile"
             android:icon="@drawable/ic_profile"
-            android:title="Profile Edit"
+            android:title="Edit Profile"
             />
         <item
             android:id="@+id/nav_sign_out"
-            android:icon="@drawable/ic_post"
+            android:icon="@drawable/so"
             android:title="Signout"/>
     </group>
 
-    <item android:title="Communicate">
+    <!--<item android:title="Communicate">
         <menu>
             <item
                 android:id="@+id/nav_share"
@@ -45,6 +45,6 @@
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
         </menu>
-    </item>
+    </item>-->
 
 </menu>

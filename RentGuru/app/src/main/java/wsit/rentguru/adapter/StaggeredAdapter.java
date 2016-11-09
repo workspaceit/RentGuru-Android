@@ -79,7 +79,8 @@ public class StaggeredAdapter extends ArrayAdapter<String> {
         this.imageLoader.displayImage(getItem(position), vh.imgView,displayImageOptions);
         String upperString = Utility.rentalProductArrayList.get(position).getName().substring(0,1).toUpperCase() + Utility.rentalProductArrayList.get(position).getName().substring(1);
         vh.titleTextView.setText(upperString);
-        vh.priceTextView.setText(Utility.CURRENCY+" "+Utility.rentalProductArrayList.get(position).getRentFee());
+        vh.priceTextView.setText(Utility.CURRENCY+" "+Utility.rentalProductArrayList.get(position).getRentFee()+"/"+
+        Utility.rentalProductArrayList.get(position).getRentType().getName());
 
         return convertView;
     }

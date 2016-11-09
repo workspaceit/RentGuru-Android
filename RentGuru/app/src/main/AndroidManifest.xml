@@ -53,7 +53,6 @@
         <activity
             android:name=".activity.PostProductActivity"
             android:label="@string/title_activity_post_product"
-            android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -72,7 +71,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.RequestedProductsListActivity"
-            android:label="Requested products"
+            android:label="My Booking"
             android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
