@@ -22,6 +22,10 @@
     <string name="paypal_setings_text">Paypal Account Email</string>
     <string name="save">Save</string>
     <string name="no_my_product_text">Please Upload a product to be rented</string>
+    <string name="category">Category</string>
+    <string name="sub_cateory">Sub Category</string>
+    <string name="update_product_info">Update Product</string>
+    <string name="product_title">Product Title</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -43,7 +47,6 @@
     <string name="title_activity_rent_details">ORDER INFORMATION</string>
     <string name="facebook_app_id">716726128465452</string>
     <string name="add_new_button_text">Add New Product</string>
-
 
 
 </resources>

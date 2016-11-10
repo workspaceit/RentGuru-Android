@@ -422,7 +422,7 @@ public class HomeActivity extends AppCompatActivity
     {
         if(connectivityManagerInfo.isConnectedToInternet())
         {
-            new ProductListAsyncTask(this,Utility.offset).execute();
+           // new ProductListAsyncTask(this,Utility.offset).execute();
 
         }
 

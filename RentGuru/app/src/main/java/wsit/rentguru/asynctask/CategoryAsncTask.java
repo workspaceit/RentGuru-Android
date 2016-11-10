@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import wsit.rentguru.Service.PostProductService;
 import wsit.rentguru.activity.CategoryActivity;
 import wsit.rentguru.activity.SearchActivity;
+import wsit.rentguru.fragment.EditProductInfoFragment;
 import wsit.rentguru.fragment.PostProductFirstFragment;
 import wsit.rentguru.model.CategoryModel;
 import wsit.rentguru.model.ResponseStat;
@@ -22,6 +23,7 @@ public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<Categor
     private ArrayList<CategoryModel> categoryModelArrayList;
     private PostProductService postProductService;
     private CategoryActivity categoryActivity;
+    private EditProductInfoFragment editProductInfoFragment;
 
 
 
@@ -46,6 +48,12 @@ public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<Categor
         this.response=new ResponseStat();
         this.postProductService=new PostProductService();
 
+    }
+
+    public CategoryAsncTask(EditProductInfoFragment editProductInfoFragment){
+        this.editProductInfoFragment=editProductInfoFragment;
+        this.response=new ResponseStat();
+        this.postProductService=new PostProductService();
     }
 
     @Override
@@ -78,6 +86,8 @@ public class CategoryAsncTask extends AsyncTask<Boolean, Void, ArrayList<Categor
                     postProductFirstFragment.getCategory(aResponse);
                 }else if (categoryActivity!=null){
                     categoryActivity.setData(aResponse);
+                }else if (editProductInfoFragment!=null){
+                    editProductInfoFragment.setCategoryData(aResponse);
                 }
 
 

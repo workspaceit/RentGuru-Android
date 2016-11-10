@@ -1,10 +1,11 @@
 package wsit.rentguru.asynctask;
 
 import android.app.ProgressDialog;
+import android.os.AsyncTask;
 
 import java.io.IOException;
 
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
+
 import wsit.rentguru.Service.AuthenticationService;
 import wsit.rentguru.activity.EditProfileActivity;
 

@@ -37,14 +37,6 @@ import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import com.google.android.gms.common.api.Scope;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
-import com.twitter.sdk.android.core.identity.TwitterAuthClient;
-
-import io.fabric.sdk.android.Fabric;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -76,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     private ConnectionResult mConnectionResult;
     // Google client to communicate with Google
     private GoogleApiClient mGoogleApiClient;
-    private TwitterAuthClient mTwitterAuthClient;
+
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "HCA193eICEQ5H5UICe8nqY8Xu";
     private static final String TWITTER_SECRET = "1L7mJNBCAcXCQzJLxhSUKF4vqZGkqS4oJprCpu8EoggjSEBiQ7";
@@ -104,7 +96,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         this.fbLoginButton = (ImageButton)findViewById(R.id.fbButton);
         this.fbLoginButton.setOnClickListener(this);
 
-        this.mTwitterAuthClient = new TwitterAuthClient();
+
 
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
@@ -172,8 +164,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+
         setContentView(R.layout.activity_login);
 
         initiate();
@@ -328,19 +319,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         }
         else if(v == twitterLoginButton)
         {
-            mTwitterAuthClient.authorize(this, new com.twitter.sdk.android.core.Callback<TwitterSession>() {
 
-                @Override
-                public void success(Result<TwitterSession> twitterSessionResult) {
-                    // Success
-                    System.out.println(twitterSessionResult.data.getUserName());
-                }
-
-                @Override
-                public void failure(TwitterException e) {
-                    e.printStackTrace();
-                }
-            });
 
         }
 
@@ -413,7 +392,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnFocusChan
         }
 
 
-        mTwitterAuthClient.onActivityResult(requestCode, resultCode, data);
+
     }
 
 

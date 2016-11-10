@@ -11,6 +11,15 @@ public class CategoryModel implements Serializable{
     private int id;
     private String name;
     private int sortedOrder;
+    private boolean isSubcategory;
+
+    public boolean isSubcategory() {
+        return isSubcategory;
+    }
+
+    public void setSubcategory(boolean subcategory) {
+        isSubcategory = subcategory;
+    }
 
     public Picture getPicture() {
         return picture;
@@ -29,6 +38,7 @@ public class CategoryModel implements Serializable{
         this.name = "";
         this.sortedOrder = 0;
         this.subcategory = new ArrayList<CategoryModel>();
+        this.isSubcategory=false;
 
     }
 

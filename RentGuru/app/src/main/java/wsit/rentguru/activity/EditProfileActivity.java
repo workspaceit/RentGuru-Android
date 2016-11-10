@@ -144,13 +144,13 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         }
 
         if (!newPassword.getText().toString().equals("")){
-            if (newPassword.getText().toString().length()<7){
+            if (newPassword.getText().toString().length()<6){
                 ShowNotification.showToast(this,"Your New Password must be of 6 character");
                 newPassword.requestFocus();
                 return false;
             }
 
-            if (oldPassword.getText().toString().equals("") || oldPassword.getText().toString().length()<7){
+            if (oldPassword.getText().toString().equals("") || oldPassword.getText().toString().length()<6){
                 ShowNotification.showToast(this,"Old Password is not valid");
                 oldPassword.requestFocus();
                 return false;

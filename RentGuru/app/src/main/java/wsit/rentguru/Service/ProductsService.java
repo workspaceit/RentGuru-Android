@@ -31,6 +31,8 @@ public class ProductsService extends ApiManager {
     }
 
 
+
+
     public ArrayList<RentalProduct> getProductCategoryWise(int categoryId,int limit,int offset){
         ArrayList<RentalProduct>rentalProductArrayList=new ArrayList<>();
         this.responseStat=new ResponseStat();

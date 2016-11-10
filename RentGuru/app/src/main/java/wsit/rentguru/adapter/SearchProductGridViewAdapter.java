@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.twitter.sdk.android.core.internal.TwitterApiConstants;
+
 
 import wsit.rentguru.R;
 import wsit.rentguru.activity.SearchActivity;

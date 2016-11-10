@@ -41,14 +41,14 @@ public class UploadedProductListAsyncTask extends AsyncTask<Boolean, Void, Array
         super.onPreExecute();
         dialog = new ProgressDialog(context.getContext());
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading...");
+        dialog.setMessage("Loading my Ass...");
         //dialog.show();
     }
 
     @Override
     protected void onPostExecute(ArrayList<MyRentalProduct> rentalProductArrayList) {
         super.onPostExecute(rentalProductArrayList);
-        //dialog.dismiss();
+        dialog.dismiss();
 
 
 

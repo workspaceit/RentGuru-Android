@@ -1,8 +1,9 @@
 package wsit.rentguru.asynctask;
 
+import android.os.AsyncTask;
 import android.text.Editable;
 
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
+
 import wsit.rentguru.Service.AuthenticationService;
 import wsit.rentguru.activity.EditProfileActivity;
 

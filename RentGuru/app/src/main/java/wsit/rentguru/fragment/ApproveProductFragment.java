@@ -256,6 +256,8 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
     @Override
     public void onClick(View v) {
 
+      
+
         if(v == pending)
         {
             pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));

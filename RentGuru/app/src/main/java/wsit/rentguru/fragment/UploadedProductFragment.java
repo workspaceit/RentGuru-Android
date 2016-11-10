@@ -2,16 +2,14 @@ package wsit.rentguru.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateInterpolator;
+
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -26,8 +24,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wsit.rentguru.R;
+import wsit.rentguru.activity.EditProductActivity;
+import wsit.rentguru.activity.EditProfileActivity;
 import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.adapter.UploadedProductListAdapter;
+import wsit.rentguru.asynctask.DeleteProductAsynTask;
 import wsit.rentguru.asynctask.UploadedProductListAsyncTask;
 import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.RentalProduct;
@@ -48,6 +49,7 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
     private LinearLayout noProductLayout;
     private Button addNewProduct;
     private boolean moreProduct;
+    private int deletePosion;
 
     public UploadedProductFragment() {
         // Required empty public constructor
@@ -65,7 +67,7 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_uploaded_product, container, false);
         uploadedproductListView = (SwipeMenuListView)view.findViewById(R.id.uploaded_product_list);
-        uploadedproductListView.setOnScrollListener(this);
+
         this.rentalProductArrayList = new ArrayList<MyRentalProduct>();
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this.getContext());
         this.offset = 0;
@@ -75,6 +77,9 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
         noProductLayout.setVisibility(View.GONE);
         addNewProduct.setOnClickListener(this);
         moreProduct=true;
+        flag_loading=false;
+
+        uploadedproductListView.setOnScrollListener(this);
         SwipeMenuCreator creator = new SwipeMenuCreator() {
 
             @Override
@@ -108,10 +113,7 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
         uploadedproductListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
         uploadedproductListView.setMenuCreator(creator);
 
-        if(connectivityManagerInfo.isConnectedToInternet())
-        {
-            new UploadedProductListAsyncTask(this,offset).execute();
-        }
+
 
 
 
@@ -120,12 +122,13 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
                     case 0:
-                        // open
-                        System.out.println("edit clicked");
+                        EditProductActivity.myRentalProduct=rentalProductArrayList.get(position);
+                        Intent i=new Intent(getActivity(), EditProductActivity.class);
+                        startActivity(i);
                         break;
                     case 1:
-                        // delete
-                        System.out.println("delete clicked");
+                        deletePosion=position;
+                        new DeleteProductAsynTask(UploadedProductFragment.this).execute(String.valueOf(rentalProductArrayList.get(position).getId()));
                         break;
                 }
                 // false : close the menu; true : not close the menu
@@ -139,6 +142,15 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
     }
 
 
+    public void deleteConfirm(boolean flag){
+        if (flag){
+            rentalProductArrayList.remove(deletePosion);
+            uploadedProductListAdapter.notifyDataSetChanged();
+            ShowNotification.showSnacksBarLong(getActivity(),uploadedproductListView,"Product Deleted Successfully");
+        } else {
+            ShowNotification.showSnacksBarLong(getActivity(),uploadedproductListView,"Please try again");
+        }
+    }
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -150,13 +162,15 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
 
         Log.i("Scrolling", "1st fragment");
 
-        if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+        if(firstVisibleItem+visibleItemCount == totalItemCount)
         {
             if(flag_loading == false && moreProduct==true)
             {
+
                 flag_loading = true;
                 if(connectivityManagerInfo.isConnectedToInternet())
                 {
+
                     new UploadedProductListAsyncTask(this,offset).execute();
                 }
 

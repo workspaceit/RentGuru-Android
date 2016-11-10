@@ -1,6 +1,5 @@
 package wsit.rentguru.activity;
 
-import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,32 +8,38 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-
 
 import java.util.ArrayList;
 import java.util.List;
 
 import wsit.rentguru.R;
 import wsit.rentguru.fragment.ApproveProductFragment;
+import wsit.rentguru.fragment.EditProductInfoFragment;
 import wsit.rentguru.fragment.UploadedProductFragment;
-import wsit.rentguru.model.PostProduct;
+import wsit.rentguru.model.CategoryModel;
+import wsit.rentguru.model.MyRentalProduct;
+import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.CustomViewPager;
-import wsit.rentguru.utility.TabLayoutUtils;
 
-public class MyProductsListActivity extends AppCompatActivity implements View.OnClickListener {
-
-    public static Toolbar toolbar;
+public class EditProductActivity extends AppCompatActivity {
+    private Toolbar toolbar;
     private TabLayout tabLayout;
     public static CustomViewPager viewPager;
-    public static PostProduct postProduct;
+    public static MyRentalProduct myRentalProduct;
 
 
-    private void initiate()
-    {
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_edit_product);
+        initialize();
+    }
+
+    private void initialize(){
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -42,40 +47,17 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        this.postProduct = new PostProduct();
-
-        TabLayoutUtils.enableTabs(tabLayout, true);
-
-
-
-
-
-
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_products_list);
-        initiate();
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new UploadedProductFragment(), "My Product");
-        adapter.addFragment(new ApproveProductFragment(), "Rent Request");
-       // adapter.addFragment(new PostProductThirdFragment(), "Requested");
+        adapter.addFragment(new EditProductInfoFragment(), "Product Info");
+
+        // adapter.addFragment(new PostProductThirdFragment(), "Requested");
         viewPager.setAdapter(adapter);
     }
 
-
-
-    @Override
-    public void onClick(View v) {
-
-    }
 
 
     class ViewPagerAdapter extends FragmentPagerAdapter {
@@ -106,5 +88,4 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
             return mFragmentTitleList.get(position);
         }
     }
-
 }

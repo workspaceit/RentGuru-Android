@@ -1,10 +1,11 @@
 package wsit.rentguru.asynctask;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import java.util.ArrayList;
 
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
 import wsit.rentguru.Service.ProductsService;
 import wsit.rentguru.activity.SearchActivity;
 import wsit.rentguru.model.RentalProduct;
@@ -17,6 +18,7 @@ public class GetSearchResultAsynTask extends AsyncTask<String,String,ArrayList<R
 
     private Context context;
     private String query;
+    private ProgressDialog progressDialog;
 
     public GetSearchResultAsynTask(Context context,String query){
         this.context=context;
@@ -26,6 +28,7 @@ public class GetSearchResultAsynTask extends AsyncTask<String,String,ArrayList<R
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+
     }
 
 

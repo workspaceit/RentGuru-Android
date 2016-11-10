@@ -69,12 +69,12 @@ public class AccessTokenAsyncTask extends AsyncTask<Boolean, Void, ResponseStat>
         {
             if(response.isStatus()==false)
             {
-               // Toast.makeText(postProductFirstFragment, response.getMsg() , Toast.LENGTH_SHORT).show();
+
 
             }
             else
             {
-                //Toast.makeText(postProductFirstFragment, response.getMsg() , Toast.LENGTH_SHORT).show();
+
                 mcontext.doneLogin();
 
             }

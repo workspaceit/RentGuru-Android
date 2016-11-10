@@ -1,6 +1,8 @@
 package wsit.rentguru.asynctask;
 
-import io.fabric.sdk.android.services.concurrency.AsyncTask;
+
+import android.os.AsyncTask;
+
 import wsit.rentguru.Service.ProductsService;
 import wsit.rentguru.activity.HomeActivity;
 import wsit.rentguru.utility.Utility;
