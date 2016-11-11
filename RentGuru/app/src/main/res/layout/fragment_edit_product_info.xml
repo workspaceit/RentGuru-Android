@@ -82,6 +82,7 @@
                 android:text="@string/product_title"
                 android:textSize="16sp"
                 android:textColor="@color/staggered_below_color"
+                android:layout_marginTop="10dp"
                 />
 
 
@@ -93,10 +94,10 @@
             android:layout_below="@+id/second_child"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@android:color/white"
             android:hint="PRODUCT TITLE"
-            android:singleLine="true"
+            android:maxLines="1"
             android:imeOptions="actionDone"
             android:layout_width="match_parent"
             android:gravity="center|left"
@@ -132,7 +133,7 @@
                 android:weightSum="2">
 
                 <Button
-                    android:id="@+id/from"
+                    android:id="@+id/from_button"
                     android:background="@android:color/white"
                     android:hint="FROM"
                     android:layout_weight="1"
@@ -146,7 +147,7 @@
                     android:layout_marginRight="10dp"/>
 
                 <Button
-                    android:id="@+id/to"
+                    android:id="@+id/to_button"
                     android:background="@android:color/white"
                     android:hint="TO"
                     android:layout_weight="1"
@@ -339,6 +340,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@color/staggered_below_color"
                 android:textColor="@color/textColorPrimary"
+                android:id="@+id/update_product"
 
                 />
 

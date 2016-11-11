@@ -5,11 +5,8 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import wsit.rentguru.Service.AuthenticationService;
-import wsit.rentguru.activity.HomeActivity;
 import wsit.rentguru.activity.LoginActivity;
-import wsit.rentguru.activity.RegistrationActivity;
 import wsit.rentguru.model.Login;
-import wsit.rentguru.model.Registration;
 import wsit.rentguru.model.ResponseStat;
 import wsit.rentguru.utility.ShowNotification;
 
@@ -73,7 +70,7 @@ public class LoginAsyncTask extends AsyncTask<Boolean, Void, ResponseStat> {
             if(response.isStatus()==false)
             {
                 if (response.getMsg().isEmpty()){
-                    ShowNotification.showToast(mcontext,"Wrong Username or Password");
+                    ShowNotification.makeToast(mcontext,"Wrong Username or Password");
                 }else{
                     Toast.makeText(mcontext, response.getMsg().toString(), Toast.LENGTH_SHORT).show();
                 }

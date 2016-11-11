@@ -223,7 +223,7 @@ public class PostProductSecondFragment extends Fragment implements View.OnClickL
     public void nextTab(String response)
     {
         if (Utility.temporaryArrayList.size()==0){
-            ShowNotification.showToast(getActivity(),"Your Image Didn't uploaded. Please try again");
+            ShowNotification.makeToast(getActivity(),"Your Image Didn't uploaded. Please try again");
             return;
         }
         PostProductActivity.viewPager.setCurrentItem(2);

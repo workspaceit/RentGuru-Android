@@ -287,7 +287,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
 
             if (place!=null && seekProgrees==0){
-                ShowNotification.showToast(this,"You Must Select Distance");
+                ShowNotification.makeToast(this,"You Must Select Distance");
                 return;
             }
 
@@ -347,7 +347,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     firstTime=true;
                  System.out.println(formHeader.toString());
                 }else {
-                    ShowNotification.showToast(this,"You have Nothing to Search");
+                    ShowNotification.makeToast(this,"You have Nothing to Search");
                 }
 
 

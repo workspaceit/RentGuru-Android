@@ -4,12 +4,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import wsit.rentguru.R;
 import wsit.rentguru.activity.HomeActivity;
 import wsit.rentguru.activity.LoginActivity;
 import wsit.rentguru.preference.SessionManager;
@@ -20,7 +17,7 @@ import wsit.rentguru.preference.SessionManager;
 
 public class ShowNotification {
 
-    public static void showToast(Context context, String msg){
+    public static void makeToast(Context context, String msg){
         Toast.makeText(context,msg,Toast.LENGTH_SHORT).show();
 
     }
@@ -53,7 +50,7 @@ public class ShowNotification {
                         sessionManager.logoutUser();
                         Utility.authCredential=null;
 
-                        ShowNotification.showToast(context,"You are successfully logged out");
+                        ShowNotification.makeToast(context,"You are successfully logged out");
                         Intent i=new Intent(context, LoginActivity.class);
                         context.startActivity(i);
                         if (context instanceof HomeActivity){

@@ -7,6 +7,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.PostProductService;
+import wsit.rentguru.fragment.EditProductInfoFragment;
 import wsit.rentguru.fragment.PostProductThirdFragment;
 import wsit.rentguru.model.RentType;
 
@@ -17,13 +18,19 @@ public class RentTypeAsyncTask extends AsyncTask<Boolean, Void, ArrayList<RentTy
 
     PostProductService postProductService;
     PostProductThirdFragment context;
-    ProgressDialog dialog;
+
     ArrayList<RentType> rentTypeArrayList;
+    private EditProductInfoFragment editProductInfoFragment;
 
     public RentTypeAsyncTask(PostProductThirdFragment postProductThirdFragment)
     {
         this.postProductService = new PostProductService();
         this.context = postProductThirdFragment;
+    }
+
+    public RentTypeAsyncTask(EditProductInfoFragment editProductInfoFragment){
+        this.editProductInfoFragment=editProductInfoFragment;
+        this.postProductService = new PostProductService();
     }
 
 
@@ -40,10 +47,6 @@ public class RentTypeAsyncTask extends AsyncTask<Boolean, Void, ArrayList<RentTy
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = new ProgressDialog(context.getContext());
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading...");
-        // dialog.show();
 
     }
 
@@ -54,8 +57,11 @@ public class RentTypeAsyncTask extends AsyncTask<Boolean, Void, ArrayList<RentTy
 
         if(rentTypeArrayList.size()!=0)
         {
-            context.loadRentType(this.rentTypeArrayList);
-
+            if (context!=null) {
+                context.loadRentType(this.rentTypeArrayList);
+            }else if (editProductInfoFragment!=null){
+                    editProductInfoFragment.loadRentType(this.rentTypeArrayList);
+            }
         }
         else
         {

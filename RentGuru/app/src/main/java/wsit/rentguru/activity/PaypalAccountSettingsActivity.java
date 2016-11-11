@@ -2,12 +2,10 @@ package wsit.rentguru.activity;
 
 import android.content.Context;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -88,11 +86,11 @@ public class PaypalAccountSettingsActivity extends AppCompatActivity implements 
         Matcher matcher = pattern.matcher(input);
 
         if (!matcher.matches()) {
-            ShowNotification.showToast(this, "Please Enter a valid Email ID");
+            ShowNotification.makeToast(this, "Please Enter a valid Email ID");
             this.editText.requestFocus();
             return false;
         }else if (editText.getText().toString().equals(userPaypalCredential.getEmail())){
-            ShowNotification.showToast(this,"No Change in Email");
+            ShowNotification.makeToast(this,"No Change in Email");
             this.editText.requestFocus();
             return false;
         }

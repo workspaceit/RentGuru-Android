@@ -26,6 +26,8 @@
     <string name="sub_cateory">Sub Category</string>
     <string name="update_product_info">Update Product</string>
     <string name="product_title">Product Title</string>
+    <string name="change_profile_image">Change Profile Image</string>
+    <string name="add_new_image">Add New Product Image</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

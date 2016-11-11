@@ -14,6 +14,7 @@ import java.util.List;
 
 import wsit.rentguru.R;
 import wsit.rentguru.fragment.ApproveProductFragment;
+import wsit.rentguru.fragment.EditProductImagesFragment;
 import wsit.rentguru.fragment.EditProductInfoFragment;
 import wsit.rentguru.fragment.UploadedProductFragment;
 import wsit.rentguru.model.CategoryModel;
@@ -53,8 +54,7 @@ public class EditProductActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new EditProductInfoFragment(), "Product Info");
-
-        // adapter.addFragment(new PostProductThirdFragment(), "Requested");
+        adapter.addFragment(new EditProductImagesFragment(), "Product Images");
         viewPager.setAdapter(adapter);
     }
 

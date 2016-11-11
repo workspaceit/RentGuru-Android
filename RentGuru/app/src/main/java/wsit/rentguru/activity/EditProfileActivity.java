@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.support.v4.graphics.BitmapCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -20,17 +19,13 @@ import android.widget.Toast;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 
-import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import wsit.rentguru.R;
-import wsit.rentguru.adapter.GridviewAdapter;
 import wsit.rentguru.asynctask.ChangeProfileImageAsynTask;
 import wsit.rentguru.asynctask.UpdateProfileInfoAsynTask;
-import wsit.rentguru.model.ImageItem;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
@@ -130,28 +125,28 @@ public class EditProfileActivity extends AppCompatActivity implements View.OnCli
         Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(input);
         if (firstName.getText().toString().equals("")){
-            ShowNotification.showToast(this,"First Name is required");
+            ShowNotification.makeToast(this,"First Name is required");
             firstName.requestFocus();
             return false;
         }else if (lastName.getText().toString().equals("")){
-            ShowNotification.showToast(this,"Last Name is required");
+            ShowNotification.makeToast(this,"Last Name is required");
             lastName.requestFocus();
             return false;
         }else if (!matcher.matches()) {
-            ShowNotification.showToast(this, "Please Enter a valid Email ID");
+            ShowNotification.makeToast(this, "Please Enter a valid Email ID");
             this.email.requestFocus();
             return false;
         }
 
         if (!newPassword.getText().toString().equals("")){
             if (newPassword.getText().toString().length()<6){
-                ShowNotification.showToast(this,"Your New Password must be of 6 character");
+                ShowNotification.makeToast(this,"Your New Password must be of 6 character");
                 newPassword.requestFocus();
                 return false;
             }
 
             if (oldPassword.getText().toString().equals("") || oldPassword.getText().toString().length()<6){
-                ShowNotification.showToast(this,"Old Password is not valid");
+                ShowNotification.makeToast(this,"Old Password is not valid");
                 oldPassword.requestFocus();
                 return false;
 
