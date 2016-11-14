@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import wsit.rentguru.model.AuthCredential;
 import wsit.rentguru.model.BannerImage;
 import wsit.rentguru.model.RentalProduct;
+import wsit.rentguru.model.ResponseStat;
 
 /**
  * Created by workspaceinfotech on 8/3/16.
@@ -39,6 +40,8 @@ public class Utility {
     public static int requestedItemId = 0;
     public static String CURRENCY="$";
     public static ArrayList<BannerImage>bannerImages=new ArrayList<>();
+    public static ResponseStat responseStat=new ResponseStat();
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public static String getPath(final Context context, final Uri uri)

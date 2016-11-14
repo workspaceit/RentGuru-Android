@@ -96,7 +96,7 @@ public class OtherImagesEditGridAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 System.out.println(pictures.get(position).getOriginal().getPath()+" "+EditProductActivity.myRentalProduct.getId());
-              //  context.deleteCallFromAdapter(position);
+                context.deleteCallFromAdapter(position);
             }
         });
 

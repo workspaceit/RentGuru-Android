@@ -28,6 +28,7 @@
     <string name="product_title">Product Title</string>
     <string name="change_profile_image">Change Profile Image</string>
     <string name="add_new_image">Add New Product Image</string>
+    <string name="choose_product_location">Choose Location from Map (optional)</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -43,7 +44,7 @@
     <string name="post_product_category_spinner">Select Category</string>
     <string name="post_product_sub_category_spinner">Select Sub Category</string>
     <string name="availability">Availability</string>
-    <string name="product_location">Product Location</string>
+    <string name="product_location">Area</string>
     <string name="product_description">Product Description</string>
     <string name="add_image">Add Image</string>
     <string name="title_activity_rent_details">ORDER INFORMATION</string>

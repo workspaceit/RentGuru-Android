@@ -1,5 +1,6 @@
 package wsit.rentguru.asynctask;
 
+import android.support.v4.app.Fragment;;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
@@ -8,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.PostProductService;
+import wsit.rentguru.fragment.EditProductImagesFragment;
 import wsit.rentguru.fragment.PostProductSecondFragment;
 
 /**
@@ -15,15 +17,15 @@ import wsit.rentguru.fragment.PostProductSecondFragment;
  */
 public class PostProductImageAsyncTask extends AsyncTask<Boolean, Void, String> {
 
-    private PostProductSecondFragment postProductSecondFragment;
+    private Fragment fragment;
     private String response;
     private PostProductService postProductService;
     private ProgressDialog dialog;
     private ArrayList<String> filePath;
 
-    public PostProductImageAsyncTask(PostProductSecondFragment context,ArrayList<String> filepath)
+    public PostProductImageAsyncTask(Fragment context, ArrayList<String> filepath)
     {
-        this.postProductSecondFragment = context;
+        this.fragment = context;
         this.postProductService = new PostProductService();
         this.filePath = filepath;
 
@@ -51,7 +53,7 @@ public class PostProductImageAsyncTask extends AsyncTask<Boolean, Void, String> 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = new ProgressDialog(postProductSecondFragment.getContext());
+        dialog = new ProgressDialog(fragment.getContext());
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("Uploading...");
         dialog.show();
@@ -65,12 +67,16 @@ public class PostProductImageAsyncTask extends AsyncTask<Boolean, Void, String> 
 
         if(response != null)
         {
-            postProductSecondFragment.nextTab(response);
+            if (fragment instanceof PostProductSecondFragment) {
+                ((PostProductSecondFragment)fragment).nextTab(response);
+            }else if (fragment instanceof EditProductImagesFragment){
+                ((EditProductImagesFragment)fragment).completeImageUpload(response);
+            }
 
         }
         else
         {
-            Toast.makeText(postProductSecondFragment.getContext(), "Unable to connect to server,try again later", Toast.LENGTH_SHORT).show();
+            Toast.makeText(fragment.getActivity(), "Unable to connect to server,try again later", Toast.LENGTH_SHORT).show();
         }
 
     }
