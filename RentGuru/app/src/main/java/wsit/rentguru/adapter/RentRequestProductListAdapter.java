@@ -25,7 +25,7 @@ import wsit.rentguru.utility.Utility;
 /**
  * Created by workspaceinfotech on 8/24/16.
  */
-public class ApproveProductListAdapter extends BaseAdapter {
+public class RentRequestProductListAdapter extends BaseAdapter {
 
     private Context context;
     private ArrayList<RentRequest> rentRequestArrayList;
@@ -34,10 +34,11 @@ public class ApproveProductListAdapter extends BaseAdapter {
     private DisplayImageOptions displayImageOptions;
 
 
-    public ApproveProductListAdapter(Context context, ArrayList<RentRequest> rentRequestArrayList)
+    public RentRequestProductListAdapter(Context context, ArrayList<RentRequest> rentRequestArrayList)
     {
         this.context = context;
-        this.rentRequestArrayList = rentRequestArrayList;
+        this.rentRequestArrayList=new ArrayList<>();
+        this.rentRequestArrayList.addAll(rentRequestArrayList);
         this.inflater = LayoutInflater.from(this.context);
 
         this.imageLoader= ImageLoader.getInstance();
@@ -48,6 +49,16 @@ public class ApproveProductListAdapter extends BaseAdapter {
                 .cacheOnDisk(true)
                 .build();
 
+    }
+
+    public void setArray(ArrayList<RentRequest> rentRequests){
+        rentRequestArrayList.clear();
+        rentRequestArrayList.addAll(rentRequests);
+
+    }
+
+    public void reserArray(){
+        this.rentRequestArrayList.clear();
     }
 
 

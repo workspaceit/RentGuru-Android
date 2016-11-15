@@ -2,7 +2,6 @@ package wsit.rentguru.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,12 +21,11 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import java.util.ArrayList;
 
 import wsit.rentguru.R;
-import wsit.rentguru.adapter.ApproveProductListAdapter;
+import wsit.rentguru.adapter.RentRequestProductListAdapter;
 import wsit.rentguru.asynctask.CancelationAsyncTask;
 import wsit.rentguru.asynctask.RequestedProductsListAsyncTask;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
-import wsit.rentguru.utility.ShowNotification;
 
 public class RequestedProductsListActivity extends AppCompatActivity  implements View.OnClickListener,ListView.OnScrollListener, AdapterView.OnItemClickListener {
 
@@ -40,7 +38,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
     private Button pending,approved,disapproved;
     private int state;
     private SwipeMenuCreator creator;
-    private ApproveProductListAdapter requestedProductListAdapter;
+    private RentRequestProductListAdapter requestedProductListAdapter;
     private int arrPosition;
     public static final int REQUEST_CODE = 1;
 
@@ -309,7 +307,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
             this.rentRequestArrayList.add(rentRequestArrayList.get(i));
 
         }
-        this.requestedProductListAdapter = new ApproveProductListAdapter(this,this.rentRequestArrayList);
+        this.requestedProductListAdapter = new RentRequestProductListAdapter(this,this.rentRequestArrayList);
         this.rentSwipeMenuListView.setAdapter(requestedProductListAdapter);
 
         offset+=1;
@@ -333,7 +331,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
 
         System.out.println("clicked");
         if(state == 0) {
-            Intent intent = new Intent(this, RentDetailsActivity.class);
+            Intent intent = new Intent(this, RentRequestOrderDetailsActivity.class);
             intent.putExtra("position", position);
             intent.putExtra("arrayList", this.rentRequestArrayList);
             intent.putExtra("type", 2);

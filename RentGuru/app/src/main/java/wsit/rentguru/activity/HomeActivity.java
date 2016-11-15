@@ -36,6 +36,7 @@ import wsit.rentguru.asynctask.GetBannerImageAsynTask;
 import wsit.rentguru.asynctask.ProductListAsyncTask;
 import wsit.rentguru.model.BannerImage;
 import wsit.rentguru.model.Login;
+import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.preference.SessionManager;
 import wsit.rentguru.utility.ShowNotification;
@@ -302,6 +303,9 @@ public class HomeActivity extends AppCompatActivity
             Intent i=new Intent(this,EditProfileActivity.class);
             startActivity(i);
 
+        }else if (id==R.id.nav_rent_request){
+            Intent i=new Intent(this, RentRequestActivity.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

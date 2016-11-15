@@ -26,6 +26,7 @@ import java.util.List;
 import wsit.rentguru.R;
 import wsit.rentguru.activity.EditProductActivity;
 import wsit.rentguru.activity.EditProfileActivity;
+import wsit.rentguru.activity.MyProductsListActivity;
 import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.adapter.UploadedProductListAdapter;
 import wsit.rentguru.asynctask.DeleteProductAsynTask;
@@ -179,6 +180,8 @@ public class UploadedProductFragment extends Fragment implements ListView.OnScro
 
 
     }
+
+
 
 
     public void onDatatload(ArrayList<MyRentalProduct>rentalProductArrayList)

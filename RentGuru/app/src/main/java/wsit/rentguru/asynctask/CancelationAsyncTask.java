@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import wsit.rentguru.Service.ProductsService;
-import wsit.rentguru.activity.RentDetailsActivity;
+import wsit.rentguru.activity.RentRequestOrderDetailsActivity;
 import wsit.rentguru.activity.RequestedProductsListActivity;
 
 /**
@@ -19,7 +19,7 @@ public class CancelationAsyncTask extends AsyncTask<Boolean, Void, Boolean> {
     private ProductsService productsService;
     private int requestId;
     private ProgressDialog dialog;
-    private RentDetailsActivity rentDetailsActivity;
+    private RentRequestOrderDetailsActivity rentDetailsActivity;
 
     public CancelationAsyncTask(RequestedProductsListActivity context, int id)
     {
@@ -32,7 +32,7 @@ public class CancelationAsyncTask extends AsyncTask<Boolean, Void, Boolean> {
 
     }
 
-    public CancelationAsyncTask(RentDetailsActivity context, int id)
+    public CancelationAsyncTask(RentRequestOrderDetailsActivity context, int id)
     {
         this.rentDetailsActivity = context;
         this.type = type;

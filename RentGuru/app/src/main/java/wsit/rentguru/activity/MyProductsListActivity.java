@@ -1,6 +1,5 @@
 package wsit.rentguru.activity;
 
-import android.os.Build;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,18 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import wsit.rentguru.R;
-import wsit.rentguru.fragment.ApproveProductFragment;
+import wsit.rentguru.fragment.RentRequestFragment;
 import wsit.rentguru.fragment.UploadedProductFragment;
 import wsit.rentguru.model.PostProduct;
 import wsit.rentguru.utility.CustomViewPager;
+import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.TabLayoutUtils;
+import wsit.rentguru.utility.ViewPagerAdapter;
 
 public class MyProductsListActivity extends AppCompatActivity implements View.OnClickListener {
 
-    public static Toolbar toolbar;
+    public Toolbar toolbar;
     private TabLayout tabLayout;
     public static CustomViewPager viewPager;
     public static PostProduct postProduct;
+
 
 
     private void initiate()
@@ -51,6 +53,10 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
 
 
 
+
+
+
+
     }
 
 
@@ -65,8 +71,8 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new UploadedProductFragment(), "My Product");
-        adapter.addFragment(new ApproveProductFragment(), "Rent Request");
-       // adapter.addFragment(new PostProductThirdFragment(), "Requested");
+        //adapter.addFragment(new RentRequestFragment(), "Rent Request");
+
         viewPager.setAdapter(adapter);
     }
 
@@ -78,33 +84,13 @@ public class MyProductsListActivity extends AppCompatActivity implements View.On
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
 
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
 
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
 
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
     }
 
 }

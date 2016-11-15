@@ -28,7 +28,7 @@ import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.Utility;
 
-public class RentDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class RentRequestOrderDetailsActivity extends AppCompatActivity implements View.OnClickListener {
 
     private int position;
     private int type,state;
@@ -76,7 +76,7 @@ public class RentDetailsActivity extends AppCompatActivity implements View.OnCli
         this.description = (TextView)findViewById(R.id.product_description_value);
         this.remarksTextview = (TextView)findViewById(R.id.remarks_textview);
         this.remarksValue = (TextView)findViewById(R.id.remarks_value);
-        this.remarksView = (View)findViewById(R.id.remarks_view);
+        this.remarksView = findViewById(R.id.remarks_view);
 
         this.from = (TextView)findViewById(R.id.from);
         this.to = (TextView)findViewById(R.id.to);

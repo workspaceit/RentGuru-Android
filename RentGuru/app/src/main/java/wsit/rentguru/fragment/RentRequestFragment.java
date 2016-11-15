@@ -15,23 +15,21 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.ArrayList;
 
 import wsit.rentguru.R;
-import wsit.rentguru.activity.RentDetailsActivity;
-import wsit.rentguru.adapter.ApproveProductListAdapter;
+import wsit.rentguru.activity.RentRequestOrderDetailsActivity;
+import wsit.rentguru.adapter.RentRequestProductListAdapter;
 import wsit.rentguru.asynctask.ApprovalDecisionAsyncTask;
 import wsit.rentguru.asynctask.ApprovalProductListAsyncTask;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 
 
-public class ApproveProductFragment extends Fragment implements ListView.OnScrollListener, View.OnClickListener, AdapterView.OnItemClickListener {
+public class RentRequestFragment extends Fragment implements ListView.OnScrollListener, View.OnClickListener, AdapterView.OnItemClickListener {
 
     private View view;
 
@@ -39,16 +37,17 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
     public ArrayList<RentRequest> rentRequestArrayList;
     private ConnectivityManagerInfo connectivityManagerInfo;
     private int offset;
-    private ApproveProductListAdapter approveProductListAdapter;
+    private RentRequestProductListAdapter approveProductListAdapter;
     private boolean flag_loading;
     private boolean response;
-    private Button pending,approved,disapproved;
+    private Button pending, approved, disapproved;
     private int state;
     private SwipeMenuCreator creator;
     private int arrPosition;
     public static final int REQUEST_CODE = 1;
 
-    public ApproveProductFragment() {
+
+    public RentRequestFragment() {
         // Required empty public constructor
     }
 
@@ -65,28 +64,36 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_approve_product, container, false);
         state = 0;
-        pending = (Button)view.findViewById(R.id.pending);
+        pending = (Button) view.findViewById(R.id.pending);
         pending.setOnClickListener(this);
         pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));
 
-        approved = (Button)view.findViewById(R.id.approved);
+        approved = (Button) view.findViewById(R.id.approved);
         approved.setOnClickListener(this);
         approved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
 
-        disapproved = (Button)view.findViewById(R.id.disapproved);
+        disapproved = (Button) view.findViewById(R.id.disapproved);
         disapproved.setOnClickListener(this);
         disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
 
-        approveProductListView = (SwipeMenuListView)view.findViewById(R.id.uploaded_product_list);
+        approveProductListView = (SwipeMenuListView) view.findViewById(R.id.uploaded_product_list);
         approveProductListView.setOnScrollListener(this);
         approveProductListView.setOnItemClickListener(this);
 
         this.rentRequestArrayList = new ArrayList<RentRequest>();
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this.getContext());
         this.offset = 0;
+        this.approveProductListAdapter = new RentRequestProductListAdapter(this.getContext(), this.rentRequestArrayList);
+        this.approveProductListView.setAdapter(approveProductListAdapter);
 
 
-        if(state == 0) {
+        if (state == 0) {
+            flag_loading = true;
+            new ApprovalProductListAsyncTask(this, offset, 0).execute();
+
+        }
+
+    /*    if(state == 0) {
                     creator = new SwipeMenuCreator() {
 
                 @Override
@@ -118,22 +125,22 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
 
             approveProductListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
             approveProductListView.setMenuCreator(creator);
-        }
+        }*/
 
 
 
-        if(connectivityManagerInfo.isConnectedToInternet())
+     /*   if(connectivityManagerInfo.isConnectedToInternet())
         {
             if(state == 0)
                 new ApprovalProductListAsyncTask(this,offset,0).execute();
             else if(state == 1)
                 new ApprovalProductListAsyncTask(this,offset,1).execute();
-            else
+            else if (state==2)
                 new ApprovalProductListAsyncTask(this,offset,2).execute();
-        }
+        }*/
 
 
-        approveProductListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+   /*     approveProductListView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
                 switch (index) {
@@ -156,14 +163,19 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
                 return false;
             }
         });
-
-
-
-
+*/
 
 
         return view;
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
 
 
     @Override
@@ -176,20 +188,18 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
 
         Log.i("Scrolling", "1st fragment");
 
-        if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
-        {
-            if(flag_loading == false)
-            {
+        if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount != 0) {
+            if (flag_loading == false) {
                 flag_loading = true;
-                if(connectivityManagerInfo.isConnectedToInternet())
-                {
+                if (connectivityManagerInfo.isConnectedToInternet()) {
 
-                    if(state == 0)
-                        new ApprovalProductListAsyncTask(this,offset,0).execute();
-                    else if(state == 1)
-                        new ApprovalProductListAsyncTask(this,offset,1).execute();
-                    else
-                        new ApprovalProductListAsyncTask(this,offset,2).execute();
+
+                    if (state == 0)
+                        new ApprovalProductListAsyncTask(this, offset, 0).execute();
+                    else if (state == 1)
+                        new ApprovalProductListAsyncTask(this, offset, 1).execute();
+                    else if (state == 2)
+                        new ApprovalProductListAsyncTask(this, offset, 2).execute();
                 }
 
             }
@@ -199,29 +209,25 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
     }
 
 
+    public void onDatatload(ArrayList<RentRequest> rentRequestArrayList) {
 
-    public void onDatatload(ArrayList<RentRequest>rentRequestArrayList)
-    {
-        if(offset == 0)
-        {
-            this.rentRequestArrayList.clear();
-        }
 
-        for(int i = 0;i<rentRequestArrayList.size();i++)
-        {
+        for (int i = 0; i < rentRequestArrayList.size(); i++) {
             this.rentRequestArrayList.add(rentRequestArrayList.get(i));
 
         }
-        this.approveProductListAdapter = new ApproveProductListAdapter(this.getContext(),this.rentRequestArrayList);
-        this.approveProductListView.setAdapter(approveProductListAdapter);
 
-        offset+=1;
+        System.out.println(this.rentRequestArrayList.size() + " sizer");
+
+        approveProductListAdapter.setArray(this.rentRequestArrayList);
+        approveProductListAdapter.notifyDataSetChanged();
+
+        offset += 1;
         flag_loading = false;
 
     }
 
-    private void getConfirmation(int type)
-    {
+    private void getConfirmation(int type) {
         final int cat = type;
         new AlertDialog.Builder(this.getContext())
                 .setTitle("Confirmation")
@@ -231,10 +237,10 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
 
 
                         if (connectivityManagerInfo.isConnectedToInternet()) {
-                            if(cat == 1)
-                                new ApprovalDecisionAsyncTask(ApproveProductFragment.this, 1, rentRequestArrayList.get(arrPosition).getId()).execute();
+                            if (cat == 1)
+                                new ApprovalDecisionAsyncTask(RentRequestFragment.this, 1, rentRequestArrayList.get(arrPosition).getId()).execute();
                             else
-                                new ApprovalDecisionAsyncTask(ApproveProductFragment.this, 2, rentRequestArrayList.get(arrPosition).getId()).execute();
+                                new ApprovalDecisionAsyncTask(RentRequestFragment.this, 2, rentRequestArrayList.get(arrPosition).getId()).execute();
                         }
 
                     }
@@ -249,23 +255,21 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
                 .show();
 
 
-
     }
 
 
     @Override
     public void onClick(View v) {
 
-      
 
-        if(v == pending)
-        {
+        if (v == pending) {
             pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));
             approved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             state = 0;
+            offset = 0;
 
-            creator = new SwipeMenuCreator() {
+       /*     creator = new SwipeMenuCreator() {
 
                 @Override
                 public void create(SwipeMenu menu) {
@@ -297,38 +301,64 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
             approveProductListView.setSwipeDirection(SwipeMenuListView.DIRECTION_LEFT);
             approveProductListView.setMenuCreator(creator);
 
-            offset = 0;
-            if(connectivityManagerInfo.isConnectedToInternet())
-                new ApprovalProductListAsyncTask(this,offset,0).execute();
+            offset = 0;*/
 
 
+            if (offset == 0) {
+                approveProductListAdapter.notifyDataSetChanged();
+                approveProductListAdapter.reserArray();
+                this.rentRequestArrayList.clear();
 
-        }
-        else if( v == approved)
-        {
+
+            }
+
+
+            if (connectivityManagerInfo.isConnectedToInternet()) {
+                new ApprovalProductListAsyncTask(this, offset, 0).execute();
+            }
+
+
+        } else if (v == approved) {
             pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             approved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));
             disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             state = 1;
             approveProductListView.setSwipeDirection(SwipeMenuListView.GONE);
             offset = 0;
-            if(connectivityManagerInfo.isConnectedToInternet())
-            new ApprovalProductListAsyncTask(this,offset,1).execute();
 
-        }
-        else if(v == disapproved)
-        {
+            if (offset == 0) {
+                approveProductListAdapter.reserArray();
+                approveProductListAdapter.notifyDataSetChanged();
+                this.rentRequestArrayList.clear();
+
+
+            }
+
+            if (connectivityManagerInfo.isConnectedToInternet())
+                new ApprovalProductListAsyncTask(this, offset, 1).execute();
+
+
+        } else if (v == disapproved) {
             pending.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             approved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
             disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_selected));
             state = 1;
             approveProductListView.setSwipeDirection(SwipeMenuListView.GONE);
             offset = 0;
-            if(connectivityManagerInfo.isConnectedToInternet())
-                new ApprovalProductListAsyncTask(this,offset,2).execute();
+
+            if (offset == 0) {
+                approveProductListAdapter.reserArray();
+                approveProductListAdapter.notifyDataSetChanged();
+                this.rentRequestArrayList.clear();
+
+
+            }
+
+            if (connectivityManagerInfo.isConnectedToInternet())
+                new ApprovalProductListAsyncTask(this, offset, 2).execute();
+
 
         }
-
 
 
     }
@@ -346,11 +376,11 @@ public class ApproveProductFragment extends Fragment implements ListView.OnScrol
 
         System.out.println("clicked");
 
-        Intent intent = new Intent(this.getActivity(),RentDetailsActivity.class);
-        intent.putExtra("position",position);
-        intent.putExtra("arrayList",this.rentRequestArrayList);
+        Intent intent = new Intent(this.getActivity(), RentRequestOrderDetailsActivity.class);
+        intent.putExtra("position", position);
+        intent.putExtra("arrayList", this.rentRequestArrayList);
         intent.putExtra("type", 1);
-        intent.putExtra("state",state);
+        intent.putExtra("state", state);
         //startActivity(intent);
         startActivityForResult(intent, REQUEST_CODE);
 

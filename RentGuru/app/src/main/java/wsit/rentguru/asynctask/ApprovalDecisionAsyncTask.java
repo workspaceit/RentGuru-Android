@@ -5,8 +5,8 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import wsit.rentguru.Service.ProductsService;
-import wsit.rentguru.fragment.ApproveProductFragment;
-import wsit.rentguru.activity.RentDetailsActivity;
+import wsit.rentguru.fragment.RentRequestFragment;
+import wsit.rentguru.activity.RentRequestOrderDetailsActivity;
 import wsit.rentguru.model.ResponseStat;
 
 /**
@@ -14,15 +14,15 @@ import wsit.rentguru.model.ResponseStat;
  */
 public class ApprovalDecisionAsyncTask extends AsyncTask<Boolean, Void, ResponseStat> {
 
-    private ApproveProductFragment context;
-    private RentDetailsActivity rcontext;
+    private RentRequestFragment context;
+    private RentRequestOrderDetailsActivity rcontext;
     private int type;
     private ResponseStat response;
     private ProductsService productsService;
     private int requestId;
     ProgressDialog dialog;
 
-    public ApprovalDecisionAsyncTask(ApproveProductFragment context, int type,int id)
+    public ApprovalDecisionAsyncTask(RentRequestFragment context, int type, int id)
     {
         this.context = context;
         this.type = type;
@@ -31,7 +31,7 @@ public class ApprovalDecisionAsyncTask extends AsyncTask<Boolean, Void, Response
         this.requestId = id;
     }
 
-    public ApprovalDecisionAsyncTask(RentDetailsActivity context, int type,int id)
+    public ApprovalDecisionAsyncTask(RentRequestOrderDetailsActivity context, int type, int id)
     {
         this.rcontext = context;
         this.type = type;

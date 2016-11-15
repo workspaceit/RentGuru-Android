@@ -29,6 +29,7 @@
     <string name="change_profile_image">Change Profile Image</string>
     <string name="add_new_image">Add New Product Image</string>
     <string name="choose_product_location">Choose Location from Map (optional)</string>
+    <string name="rent_request">Rent Request</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

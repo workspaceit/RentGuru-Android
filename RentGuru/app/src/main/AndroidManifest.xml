@@ -75,7 +75,7 @@
             android:parentActivityName=".activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RentDetailsActivity"
+            android:name=".activity.RentRequestOrderDetailsActivity"
             android:label="@string/title_activity_rent_details"
             android:parentActivityName=".activity.MyProductsListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -104,9 +104,16 @@
             android:label="@string/app_name"
             android:parentActivityName=".activity.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.EditProductActivity"
+        <activity
+            android:name=".activity.EditProductActivity"
             android:parentActivityName=".activity.MyProductsListActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.RentRequestActivity"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:label="@string/rent_request"/>
+
+
     </application>
 
 </manifest>

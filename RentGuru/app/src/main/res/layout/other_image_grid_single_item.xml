@@ -17,7 +17,7 @@
         android:layout_centerHorizontal="true"
         android:text="Remove"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:background="@color/staggered_below_color"
+        android:background="#ff3232"
         android:textColor="@color/textColorPrimary"
         android:layout_marginTop="5dp"
         android:id="@+id/delete_button"
