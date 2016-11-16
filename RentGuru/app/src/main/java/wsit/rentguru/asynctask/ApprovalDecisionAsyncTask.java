@@ -14,30 +14,31 @@ import wsit.rentguru.model.ResponseStat;
  */
 public class ApprovalDecisionAsyncTask extends AsyncTask<Boolean, Void, ResponseStat> {
 
-    private RentRequestFragment context;
-    private RentRequestOrderDetailsActivity rcontext;
-    private int type;
+
+    private RentRequestOrderDetailsActivity rentRequestOrderDetailsActivity;
     private ResponseStat response;
     private ProductsService productsService;
     private int requestId;
-    ProgressDialog dialog;
+    private ProgressDialog dialog;
 
-    public ApprovalDecisionAsyncTask(RentRequestFragment context, int type, int id)
-    {
-        this.context = context;
-        this.type = type;
+
+    public ApprovalDecisionAsyncTask(RentRequestOrderDetailsActivity context, int id) {
+        this.rentRequestOrderDetailsActivity = context;
+
+        this.requestId = id;
         response = new ResponseStat();
         this.productsService = new ProductsService();
-        this.requestId = id;
+
     }
 
-    public ApprovalDecisionAsyncTask(RentRequestOrderDetailsActivity context, int type, int id)
-    {
-        this.rcontext = context;
-        this.type = type;
-        this.requestId = id;
-        response = new ResponseStat();
-        this.productsService = new ProductsService();
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        dialog = new ProgressDialog(rentRequestOrderDetailsActivity);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setMessage("Please Wait...");
+        dialog.show();
 
     }
 
@@ -45,27 +46,9 @@ public class ApprovalDecisionAsyncTask extends AsyncTask<Boolean, Void, Response
     @Override
     protected ResponseStat doInBackground(Boolean... params) {
 
-        response = productsService.getConfirmation(type,requestId);
+        response = productsService.getConfirmation(requestId);
 
         return response;
-    }
-
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        if(context!=null) {
-            dialog = new ProgressDialog(context.getContext());
-        }
-        else
-        {
-            dialog = new ProgressDialog(rcontext);
-        }
-
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading...");
-        dialog.show();
-
     }
 
 
@@ -75,43 +58,8 @@ public class ApprovalDecisionAsyncTask extends AsyncTask<Boolean, Void, Response
 
         dialog.dismiss();
 
-        if(response.isStatus())
-        {
-            if(context!=null)
-            context.onApprove();
-            else
-            rcontext.onApprove();
-        }
-        else
-        {
-            if(response.getMsg().length()!=0)
-            {
-                if(context!=null)
-                {
-                    Toast.makeText(context.getContext(), response.getMsg(), Toast.LENGTH_SHORT).show();
+        rentRequestOrderDetailsActivity.onApprove(response.isStatus());
 
-                }
-                else
-                {
-                    Toast.makeText(rcontext, response.getMsg(), Toast.LENGTH_SHORT).show();
-                }
-            }
-            else
-            {
-                if(context!=null)
-                {
-                    Toast.makeText(context.getContext(), response.getRequestErrors().get(0).getMsg(), Toast.LENGTH_SHORT).show();
-
-                }
-                else
-                {
-                    Toast.makeText(rcontext, response.getRequestErrors().get(0).getMsg(), Toast.LENGTH_SHORT).show();
-                }
-
-            }
-
-
-        }
 
     }
 

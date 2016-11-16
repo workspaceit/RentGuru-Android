@@ -54,12 +54,9 @@ public class RentRequestProductListAdapter extends BaseAdapter {
     public void setArray(ArrayList<RentRequest> rentRequests){
         rentRequestArrayList.clear();
         rentRequestArrayList.addAll(rentRequests);
-
     }
 
-    public void reserArray(){
-        this.rentRequestArrayList.clear();
-    }
+
 
 
     private static class ViewHolder {
@@ -74,19 +71,18 @@ public class RentRequestProductListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-
         return this.rentRequestArrayList.size();
 
     }
 
     @Override
     public Object getItem(int position) {
-        return null;
+        return this.rentRequestArrayList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return this.rentRequestArrayList.get(position).getId();
     }
 
     @Override
@@ -115,7 +111,7 @@ public class RentRequestProductListAdapter extends BaseAdapter {
 
         }
 
-        System.out.println("imageurl: " + rentRequestArrayList.get(position).getRentalProduct().getProfileImage().getOriginal().getPath());
+
         this.imageLoader.displayImage(Utility.picUrl+rentRequestArrayList.get(position).getRentalProduct().getProfileImage().getOriginal().getPath(), viewHolder.productImage,displayImageOptions);
         viewHolder.productName.setText(rentRequestArrayList.get(position).getRentalProduct().getName());
         viewHolder.categoryName.setText(rentRequestArrayList.get(position).getRentalProduct().getProductCategories().get(0).getCategory().getName());

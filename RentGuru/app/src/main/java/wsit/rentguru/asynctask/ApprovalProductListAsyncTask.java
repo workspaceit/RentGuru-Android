@@ -72,7 +72,12 @@ public class ApprovalProductListAsyncTask extends AsyncTask<Boolean, Void, Array
         }
         else
         {
-            //Toast.makeText(context.getContext(), "No Record Found", Toast.LENGTH_SHORT).show();
+            if (context instanceof PendingRentRequestFragment)
+                ((PendingRentRequestFragment)context).noData();
+            else if (context instanceof ApprovedRentRequestFragment)
+                ((ApprovedRentRequestFragment)context).noData();
+            else if (context instanceof DisapprovedRentRequestFragment)
+                ((DisapprovedRentRequestFragment)context).noData();
 
         }
 

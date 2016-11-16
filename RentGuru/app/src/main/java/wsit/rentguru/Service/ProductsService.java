@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -24,19 +25,16 @@ public class ProductsService extends ApiManager {
 
     private ResponseStat responseStat;
 
-    public ProductsService()
-    {
+    public ProductsService() {
         this.responseStat = new ResponseStat();
 
     }
 
 
-
-
-    public ArrayList<RentalProduct> getProductCategoryWise(int categoryId,int limit,int offset){
-        ArrayList<RentalProduct>rentalProductArrayList=new ArrayList<>();
-        this.responseStat=new ResponseStat();
-        this.setController("/product/get-product-by-category?categoryId="+categoryId+"&limit="+limit+"&offset="+offset+"");
+    public ArrayList<RentalProduct> getProductCategoryWise(int categoryId, int limit, int offset) {
+        ArrayList<RentalProduct> rentalProductArrayList = new ArrayList<>();
+        this.responseStat = new ResponseStat();
+        this.setController("/product/get-product-by-category?categoryId=" + categoryId + "&limit=" + limit + "&offset=" + offset + "");
 
         String resp = this.getData("GET");
         Log.d("resp", resp);
@@ -46,34 +44,28 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
 
                 RentalProduct[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), RentalProduct[].class);
-                Collections.addAll(rentalProductArrayList,rentalProducts);
+                Collections.addAll(rentalProductArrayList, rentalProducts);
 
             }
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-
         return rentalProductArrayList;
     }
-    public ArrayList<RentalProduct> getProductList()
-    {
+
+    public ArrayList<RentalProduct> getProductList() {
         ArrayList<RentalProduct> rentalProductArrayList = new ArrayList<RentalProduct>();
         this.responseStat = new ResponseStat();
-        this.setController("product/get-product?limit=6&offset="+ Utility.offset);
+        this.setController("product/get-product?limit=6&offset=" + Utility.offset);
         String resp = this.getData("GET");
         Log.d("resp", resp);
 
@@ -82,42 +74,34 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
-                Utility.offset = Utility.offset+1;
+            if (this.responseStat.isStatus()) {
+                Utility.offset = Utility.offset + 1;
                 RentalProduct[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), RentalProduct[].class);
                 Utility.productCount = rentalProducts.length;
                 Utility.indicator = false;
-                Log.d("product count:",String.valueOf(Utility.productCount));
-                for(RentalProduct rentalProduct : rentalProducts){
+                Log.d("product count:", String.valueOf(Utility.productCount));
+                for (RentalProduct rentalProduct : rentalProducts) {
                     rentalProductArrayList.add(rentalProduct);
                 }
 
-            }
-            else {
+            } else {
 
                 Utility.indicator = true;
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentalProductArrayList;
     }
 
 
-    public ResponseStat rentProduct(RentRequest requestRentNow)
-    {
+    public ResponseStat rentProduct(RentRequest requestRentNow) {
 
         this.responseStat = new ResponseStat();
         this.setParams("startDate", requestRentNow.getStartDate());
@@ -131,99 +115,86 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 RentRequest rentRequest = new RentRequest();
-                rentRequest = gson.fromJson(jsonObject.get("responseData"),rentRequest.getClass());
+                rentRequest = gson.fromJson(jsonObject.get("responseData"), rentRequest.getClass());
                 Utility.requestedItemId = rentRequest.getId();
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
         return responseStat;
 
     }
 
-    public boolean getBannerImages(){
+    public boolean getBannerImages() {
 
-        this.responseStat=new ResponseStat();
+        this.responseStat = new ResponseStat();
         this.setController("banner-image/get-all");
-        String resp=this.getData("GET");
+        String resp = this.getData("GET");
         System.out.println(resp);
 
         try {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-            if (this.responseStat.isStatus())
-            {
-                BannerImage[]bannerImages=gson.fromJson(jsonObject.get("responseData"),BannerImage[].class);
-                Collections.addAll(Utility.bannerImages,bannerImages);
+            if (this.responseStat.isStatus()) {
+                BannerImage[] bannerImages = gson.fromJson(jsonObject.get("responseData"), BannerImage[].class);
+                Collections.addAll(Utility.bannerImages, bannerImages);
 
-               return true;
-            }
-            else {
+                return true;
+            } else {
 
                 return false;
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
 
 
         return false;
 
     }
 
-    public ArrayList<RentalProduct> getSearchProductList(String queryString){
-        ArrayList<RentalProduct>rentalProductArrayList=new ArrayList<>();
-        this.responseStat=new ResponseStat();
+    public ArrayList<RentalProduct> getSearchProductList(String queryString) {
+        ArrayList<RentalProduct> rentalProductArrayList = new ArrayList<>();
+        this.responseStat = new ResponseStat();
 
 
-        String controller="search/rental-product?"+queryString;
+        String controller = "search/rental-product?" + queryString;
         System.out.println(controller);
         this.setController(controller);
-        String resp=this.getData("GET");
+        String resp = this.getData("GET");
         System.out.println(resp);
         try {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
 
                 RentalProduct[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), RentalProduct[].class);
-                Collections.addAll(rentalProductArrayList,rentalProducts);
+                Collections.addAll(rentalProductArrayList, rentalProducts);
 
-            }else {
-                rentalProductArrayList=null;
+            } else {
+                rentalProductArrayList = null;
             }
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -231,8 +202,7 @@ public class ProductsService extends ApiManager {
 
     }
 
-    public ArrayList<RentRequest> getRequestedProductsList(int offset)
-    {
+    public ArrayList<RentRequest> getRequestedProductsList(int offset) {
         ArrayList<RentRequest> rentalProductArrayList = new ArrayList<RentRequest>();
         this.responseStat = new ResponseStat();
         this.setParams("limit", "6");
@@ -246,35 +216,28 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
-                Utility.offset = Utility.offset+1;
+            if (this.responseStat.isStatus()) {
+                Utility.offset = Utility.offset + 1;
                 RentRequest[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), RentRequest[].class);
                 Utility.productCount = rentalProducts.length;
                 Utility.indicator = false;
-                Log.d("product count:",String.valueOf(Utility.productCount));
-                for(RentRequest rentRequest : rentalProducts){
+                Log.d("product count:", String.valueOf(Utility.productCount));
+                for (RentRequest rentRequest : rentalProducts) {
 
                     rentalProductArrayList.add(rentRequest);
                 }
 
-            }
-            else {
+            } else {
 
                 Utility.indicator = true;
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentalProductArrayList;
@@ -282,8 +245,7 @@ public class ProductsService extends ApiManager {
     }
 
 
-    public ArrayList<RentRequest> getRequestedApprovedProductList(int offset)
-    {
+    public ArrayList<RentRequest> getRequestedApprovedProductList(int offset) {
 
         ArrayList<RentRequest> rentRequestArrayList = new ArrayList<RentRequest>();
         this.responseStat = new ResponseStat();
@@ -298,47 +260,35 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 RentRequest[] rentRequests = gson.fromJson(jsonObject.get("responseData"), RentRequest[].class);
 
-                Log.d("product count:",String.valueOf(Utility.productCount));
+                Log.d("product count:", String.valueOf(Utility.productCount));
 
-                for(RentRequest rentRequest : rentRequests){
-                    if(rentRequest.getApprove() == true && rentRequest.getDisapprove() == false)
+                for (RentRequest rentRequest : rentRequests) {
+                    if (rentRequest.getApprove() == true && rentRequest.getDisapprove() == false)
                         rentRequestArrayList.add(rentRequest);
                 }
 
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentRequestArrayList;
 
 
-
     }
 
 
-
-
-    public ArrayList<RentRequest> getRequestedDisapprovedProductList(int offset)
-    {
+    public ArrayList<RentRequest> getRequestedDisapprovedProductList(int offset) {
 
         ArrayList<RentRequest> rentRequestArrayList = new ArrayList<RentRequest>();
         this.responseStat = new ResponseStat();
@@ -353,49 +303,35 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 RentRequest[] rentRequests = gson.fromJson(jsonObject.get("responseData"), RentRequest[].class);
 
-                Log.d("product count:",String.valueOf(Utility.productCount));
+                Log.d("product count:", String.valueOf(Utility.productCount));
 
-                for(RentRequest rentRequest : rentRequests){
-                    if(rentRequest.getApprove() == false && rentRequest.getDisapprove() == true)
+                for (RentRequest rentRequest : rentRequests) {
+                    if (rentRequest.getApprove() == false && rentRequest.getDisapprove() == true)
                         rentRequestArrayList.add(rentRequest);
                 }
 
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentRequestArrayList;
 
 
-
     }
 
 
-
-
-
-
-    public ArrayList<MyRentalProduct> getUploadedProductList(int offset)
-    {
+    public ArrayList<MyRentalProduct> getUploadedProductList(int offset) {
 
         ArrayList<MyRentalProduct> rentalProductArrayList = new ArrayList<MyRentalProduct>();
         this.responseStat = new ResponseStat();
@@ -410,43 +346,33 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 MyRentalProduct[] rentalProducts = gson.fromJson(jsonObject.get("responseData"), MyRentalProduct[].class);
 
-                Log.d("product count:",String.valueOf(Utility.productCount));
+                Log.d("product count:", String.valueOf(Utility.productCount));
 
-                for(MyRentalProduct rentalProduct : rentalProducts){
+                for (MyRentalProduct rentalProduct : rentalProducts) {
                     rentalProductArrayList.add(rentalProduct);
                 }
 
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentalProductArrayList;
 
 
-
     }
 
-    public ArrayList<RentRequest> getListForApproval(int offset)
-    {
+    public ArrayList<RentRequest> getListForApproval(int offset) {
 
         ArrayList<RentRequest> rentRequestArrayList = new ArrayList<RentRequest>();
         this.responseStat = new ResponseStat();
@@ -461,46 +387,35 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 RentRequest[] rentRequests = gson.fromJson(jsonObject.get("responseData"), RentRequest[].class);
 
-                Log.d("product count:",String.valueOf(Utility.productCount));
+                Log.d("product count:", String.valueOf(Utility.productCount));
 
-                for(RentRequest rentRequest : rentRequests){
-                    if(rentRequest.getApprove() == false && rentRequest.getDisapprove() == false)
-                    rentRequestArrayList.add(rentRequest);
+                for (RentRequest rentRequest : rentRequests) {
+                    if (rentRequest.getApprove() == false && rentRequest.getDisapprove() == false)
+                        rentRequestArrayList.add(rentRequest);
                 }
 
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentRequestArrayList;
 
 
-
     }
 
 
-
-    public ArrayList<RentRequest> getApprovedProductList(int offset)
-    {
+    public ArrayList<RentRequest> getApprovedProductList(int offset) {
 
         ArrayList<RentRequest> rentRequestArrayList = new ArrayList<RentRequest>();
         this.responseStat = new ResponseStat();
@@ -515,45 +430,35 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 RentRequest[] rentRequests = gson.fromJson(jsonObject.get("responseData"), RentRequest[].class);
 
-                Log.d("product count:",String.valueOf(Utility.productCount));
+                Log.d("product count:", String.valueOf(Utility.productCount));
 
-                for(RentRequest rentRequest : rentRequests){
-                    if(rentRequest.getApprove() == true && rentRequest.getDisapprove() == false)
+                for (RentRequest rentRequest : rentRequests) {
+                    if (rentRequest.getApprove() == true && rentRequest.getDisapprove() == false)
                         rentRequestArrayList.add(rentRequest);
                 }
 
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentRequestArrayList;
 
 
-
     }
 
 
-    public ArrayList<RentRequest> getDisapprovedProductList(int offset)
-    {
+    public ArrayList<RentRequest> getDisapprovedProductList(int offset) {
 
         ArrayList<RentRequest> rentRequestArrayList = new ArrayList<RentRequest>();
         this.responseStat = new ResponseStat();
@@ -568,56 +473,41 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 RentRequest[] rentRequests = gson.fromJson(jsonObject.get("responseData"), RentRequest[].class);
 
-                Log.d("product count:",String.valueOf(Utility.productCount));
+                Log.d("product count:", String.valueOf(Utility.productCount));
 
-                for(RentRequest rentRequest : rentRequests){
-                    if(rentRequest.getApprove() == false && rentRequest.getDisapprove() == true)
+                for (RentRequest rentRequest : rentRequests) {
+                    if (rentRequest.getApprove() == false && rentRequest.getDisapprove() == true)
                         rentRequestArrayList.add(rentRequest);
                 }
 
-            }
-            else {
-
+            } else {
 
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 
 
         return rentRequestArrayList;
 
 
-
     }
 
 
-
-    public ResponseStat getConfirmation(int type,int id)
-    {
+    public ResponseStat getConfirmation(int id) {
 
         this.responseStat = new ResponseStat();
 
-        if(type == 1) {
-            this.setController("auth/rent/approve-request/"+id);
-        }
-        else
-        {
-            this.setController("auth/rent/disapprove-request/"+id);
-        }
+
+        this.setController("auth/rent/approve-request/" + id);
+
 
         String resp = this.getData("GET");
         Log.d("resp", resp);
@@ -626,31 +516,26 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
-
-
 
 
         return responseStat;
     }
 
 
-
-    public boolean getRequestCancalation(int id)
-    {
-        boolean response  = false;
+    public boolean getRequestCancalation(int id) {
+        boolean response = false;
 
         this.responseStat = new ResponseStat();
 
 
-        this.setController("auth/rent/cancel-request/"+id);
+        this.setController("auth/rent/cancel-request/" + id);
 
 
         String resp = this.getData("GET");
@@ -660,40 +545,32 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-
-
-            if (this.responseStat.isStatus())
-            {
+            if (this.responseStat.isStatus()) {
                 response = true;
 
-            }
-            else {
+            } else {
 
                 response = false;
 
             }
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
-
-
 
 
         return response;
     }
 
 
-    public ResponseStat getPaypalPaymentResponse(String transactionId,int rentRequestId)
-    {
+    public ResponseStat getPaypalPaymentResponse(String transactionId, int rentRequestId) {
         this.responseStat = new ResponseStat();
 
         this.setParams("paymentId", String.valueOf(transactionId));
-        this.setController("auth/rent-payment/verify-payment/"+rentRequestId);
+        this.setController("auth/rent-payment/verify-payment/" + rentRequestId);
         String resp = this.getData("POST");
         Log.d("resp", resp);
 
@@ -702,21 +579,16 @@ public class ProductsService extends ApiManager {
             JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
             Gson gson = new Gson();
 
-            this.responseStat = gson.fromJson(jsonObject.get("responseStat"),responseStat.getClass());
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
 
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-
-
         return responseStat;
     }
-
 
 
 }

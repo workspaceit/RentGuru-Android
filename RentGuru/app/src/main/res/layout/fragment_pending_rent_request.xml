@@ -1,10 +1,10 @@
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="wsit.rentguru.fragment.PendingRentRequestFragment">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -18,7 +18,7 @@
             >
         </com.baoyz.swipemenulistview.SwipeMenuListView>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 
-</android.support.v4.widget.NestedScrollView>
+</FrameLayout>

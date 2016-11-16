@@ -13,13 +13,13 @@ public class RentInf implements Serializable {
     private boolean expired;
     private String createdDate;
     private RentRequest rentRequest;
-    boolean productReturned;
-    boolean productReceived;
-    boolean hasReturnRequest;
-    boolean hasReceiveConfirmation;
-    RentalProductReturnRequest rentalProductReturnRequest;
-    RentalProductReturned rentalProductReturned;
-    boolean isRentComplete;
+    private boolean productReturned;
+    private boolean productReceived;
+    private boolean hasReturnRequest;
+    private boolean hasReceiveConfirmation;
+    private RentalProductReturnRequest rentalProductReturnRequest;
+    private RentalProductReturned rentalProductReturned;
+    private boolean isRentComplete;
 
     public boolean isRentComplete() {
         return isRentComplete;

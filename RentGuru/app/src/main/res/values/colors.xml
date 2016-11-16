@@ -17,6 +17,8 @@
     <color name="correct_color">#3B6D51</color>
     <color name="staggered_below_color">#D68F33</color>
     <color name="grid_view_below_shade">#42000000</color>
+    <color name="accept_color">#8BC34A</color>
+    <color name="decline_color">#F44336</color>
 
 
 </resources>

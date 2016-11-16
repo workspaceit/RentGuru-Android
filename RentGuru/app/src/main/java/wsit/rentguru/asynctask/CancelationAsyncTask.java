@@ -13,29 +13,19 @@ import wsit.rentguru.activity.RequestedProductsListActivity;
  */
 public class CancelationAsyncTask extends AsyncTask<Boolean, Void, Boolean> {
 
-    private RequestedProductsListActivity context;
-    private int type;
+    private RentRequestOrderDetailsActivity rentRequestOrderDetailsActivity;
+
     private boolean response;
     private ProductsService productsService;
     private int requestId;
     private ProgressDialog dialog;
-    private RentRequestOrderDetailsActivity rentDetailsActivity;
-
-    public CancelationAsyncTask(RequestedProductsListActivity context, int id)
-    {
-        this.context = context;
-        this.type = type;
-        response = false;
-        this.productsService = new ProductsService();
-        this.requestId = id;
 
 
-    }
+
 
     public CancelationAsyncTask(RentRequestOrderDetailsActivity context, int id)
     {
-        this.rentDetailsActivity = context;
-        this.type = type;
+        this.rentRequestOrderDetailsActivity = context;
         response = false;
         this.productsService = new ProductsService();
         this.requestId = id;
@@ -52,13 +42,10 @@ public class CancelationAsyncTask extends AsyncTask<Boolean, Void, Boolean> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        if(context!=null)
-            dialog = new ProgressDialog(context);
-        else
-            dialog = new ProgressDialog(rentDetailsActivity);
+        dialog = new ProgressDialog(rentRequestOrderDetailsActivity);
 
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        dialog.setMessage("Loading...");
+        dialog.setMessage("Please wait...");
         dialog.show();
 
     }
@@ -70,18 +57,9 @@ public class CancelationAsyncTask extends AsyncTask<Boolean, Void, Boolean> {
 
         dialog.dismiss();
 
-        if(response)
-        {
-            if(context!=null)
-            context.onCancelation();
-            else
-            rentDetailsActivity.onCancelation();
-        }
-        else
-        {
-            Toast.makeText(context, "Couldn't perform,try again later", Toast.LENGTH_SHORT).show();
 
-        }
+           rentRequestOrderDetailsActivity.onCancelation(response);
+
 
     }
 

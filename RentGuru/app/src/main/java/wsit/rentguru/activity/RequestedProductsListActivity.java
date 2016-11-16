@@ -273,7 +273,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
 
                         if (connectivityManagerInfo.isConnectedToInternet()) {
 
-                            new CancelationAsyncTask(RequestedProductsListActivity.this,rentRequestArrayList.get(arrPosition).getId()).execute();
+                           // new CancelationAsyncTask(RequestedProductsListActivity.this,rentRequestArrayList.get(arrPosition).getId()).execute();
 
 
                         }
@@ -318,7 +318,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
 
 
 
-    public void onCancelation() {
+    public void onCancelation(boolean flag) {
 
         this.rentRequestArrayList.remove(arrPosition);
         requestedProductListAdapter.notifyDataSetChanged();

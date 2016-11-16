@@ -236,12 +236,7 @@ public class RentRequestFragment extends Fragment implements ListView.OnScrollLi
                     public void onClick(DialogInterface dialog, int which) {
 
 
-                        if (connectivityManagerInfo.isConnectedToInternet()) {
-                            if (cat == 1)
-                                new ApprovalDecisionAsyncTask(RentRequestFragment.this, 1, rentRequestArrayList.get(arrPosition).getId()).execute();
-                            else
-                                new ApprovalDecisionAsyncTask(RentRequestFragment.this, 2, rentRequestArrayList.get(arrPosition).getId()).execute();
-                        }
+
 
                     }
                 })
@@ -306,7 +301,7 @@ public class RentRequestFragment extends Fragment implements ListView.OnScrollLi
 
             if (offset == 0) {
                 approveProductListAdapter.notifyDataSetChanged();
-                approveProductListAdapter.reserArray();
+
                 this.rentRequestArrayList.clear();
 
 
@@ -327,7 +322,7 @@ public class RentRequestFragment extends Fragment implements ListView.OnScrollLi
             offset = 0;
 
             if (offset == 0) {
-                approveProductListAdapter.reserArray();
+
                 approveProductListAdapter.notifyDataSetChanged();
                 this.rentRequestArrayList.clear();
 
@@ -347,7 +342,7 @@ public class RentRequestFragment extends Fragment implements ListView.OnScrollLi
             offset = 0;
 
             if (offset == 0) {
-                approveProductListAdapter.reserArray();
+
                 approveProductListAdapter.notifyDataSetChanged();
                 this.rentRequestArrayList.clear();
 
@@ -363,7 +358,7 @@ public class RentRequestFragment extends Fragment implements ListView.OnScrollLi
 
     }
 
-    public void onApprove() {
+    public void onApprove(boolean flag) {
 
         this.rentRequestArrayList.remove(arrPosition);
         approveProductListAdapter.notifyDataSetChanged();

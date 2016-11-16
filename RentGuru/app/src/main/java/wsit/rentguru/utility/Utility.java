@@ -40,7 +40,7 @@ public class Utility {
     public static int requestedItemId = 0;
     public static String CURRENCY="$";
     public static ArrayList<BannerImage>bannerImages=new ArrayList<>();
-    public static ResponseStat responseStat=new ResponseStat();
+    public static ResponseStat responseStat;
 
 
     @TargetApi(Build.VERSION_CODES.KITKAT)

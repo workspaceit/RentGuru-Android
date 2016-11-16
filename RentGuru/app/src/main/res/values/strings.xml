@@ -51,6 +51,7 @@
     <string name="title_activity_rent_details">ORDER INFORMATION</string>
     <string name="facebook_app_id">716726128465452</string>
     <string name="add_new_button_text">Add New Product</string>
+    <string name="return_product_text">Have you received your product?</string>
 
 
 </resources>
