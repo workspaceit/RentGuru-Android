@@ -15,6 +15,7 @@
             android:id="@+id/disapprove_rent_product_list"
             android:layout_marginTop="5dp"
             android:padding="10dp"
+            android:layout_marginBottom="60dp"
             >
         </com.baoyz.swipemenulistview.SwipeMenuListView>
 

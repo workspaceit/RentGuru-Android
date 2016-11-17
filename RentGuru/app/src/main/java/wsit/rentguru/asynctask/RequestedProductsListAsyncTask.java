@@ -1,5 +1,6 @@
 package wsit.rentguru.asynctask;
 
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
@@ -7,6 +8,11 @@ import java.util.ArrayList;
 
 import wsit.rentguru.Service.ProductsService;
 import wsit.rentguru.activity.RequestedProductsListActivity;
+import wsit.rentguru.fragment.ApprovedBookingFragment;
+import wsit.rentguru.fragment.DisapprovedBookingFragment;
+import wsit.rentguru.fragment.DisapprovedRentRequestFragment;
+import wsit.rentguru.fragment.PendingBookingRequestFragment;
+import wsit.rentguru.fragment.PendingRentRequestFragment;
 import wsit.rentguru.model.RentRequest;
 
 /**
@@ -14,7 +20,7 @@ import wsit.rentguru.model.RentRequest;
  */
 public class RequestedProductsListAsyncTask extends AsyncTask<Boolean, Void, ArrayList<RentRequest>> {
 
-    private RequestedProductsListActivity context;
+    private Fragment fragment;
     private int offset;
     private ArrayList<RentRequest> rentRequestArrayList;
     private ProductsService productsService;
@@ -22,9 +28,9 @@ public class RequestedProductsListAsyncTask extends AsyncTask<Boolean, Void, Arr
     private ProgressDialog dialog;
 
 
-    public RequestedProductsListAsyncTask(RequestedProductsListActivity context,int offset,int type)
+    public RequestedProductsListAsyncTask(Fragment fragment, int offset, int type)
     {
-        this.context = context;
+        this.fragment = fragment;
         this.offset = offset;
         this.productsService = new ProductsService();
         this.type = type;
@@ -38,7 +44,7 @@ public class RequestedProductsListAsyncTask extends AsyncTask<Boolean, Void, Arr
             rentRequestArrayList = productsService.getRequestedProductsList(offset);
         else if(type == 1)
             rentRequestArrayList = productsService.getRequestedApprovedProductList(offset);
-        else
+        else if (type==2)
             rentRequestArrayList = productsService.getRequestedDisapprovedProductList(offset);
 
         return rentRequestArrayList;
@@ -48,10 +54,14 @@ public class RequestedProductsListAsyncTask extends AsyncTask<Boolean, Void, Arr
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        dialog = new ProgressDialog(context);
+
+        dialog = new ProgressDialog(fragment.getActivity());
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage("Loading...");
-        dialog.show();
+
+        if (offset==0) {
+            dialog.show();
+        }
 
     }
 
@@ -61,15 +71,28 @@ public class RequestedProductsListAsyncTask extends AsyncTask<Boolean, Void, Arr
     protected void onPostExecute(ArrayList<RentRequest> rentalProductArrayList) {
         super.onPostExecute(rentRequestArrayList);
 
-        dialog.dismiss();
+        if (offset==0) {
+            dialog.dismiss();
+        }
 
         if(rentalProductArrayList.size() > 0)
         {
-            context.onDatatload(rentRequestArrayList);
+
+            if (fragment instanceof PendingBookingRequestFragment)
+                ((PendingBookingRequestFragment)fragment).completeLoading(rentRequestArrayList);
+            else if (fragment instanceof ApprovedBookingFragment)
+                ((ApprovedBookingFragment)fragment).completeLoading(rentalProductArrayList);
+            else if (fragment instanceof DisapprovedBookingFragment)
+                ((DisapprovedBookingFragment)fragment).completeLoading(rentalProductArrayList);
         }
         else
         {
-            //Toast.makeText(context.getContext(), "No Record Found", Toast.LENGTH_SHORT).show();
+            if (fragment instanceof PendingBookingRequestFragment)
+                ((PendingBookingRequestFragment)fragment).noData();
+            else if (fragment instanceof ApprovedBookingFragment)
+                ( (ApprovedBookingFragment)fragment).noData();
+            else if (fragment instanceof DisapprovedBookingFragment)
+                ((DisapprovedBookingFragment)fragment).noData();
 
         }
 

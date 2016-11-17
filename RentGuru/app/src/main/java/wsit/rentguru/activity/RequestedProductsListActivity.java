@@ -27,7 +27,7 @@ import wsit.rentguru.asynctask.RequestedProductsListAsyncTask;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 
-public class RequestedProductsListActivity extends AppCompatActivity  implements View.OnClickListener,ListView.OnScrollListener, AdapterView.OnItemClickListener {
+public class RequestedProductsListActivity extends AppCompatActivity  implements View.OnClickListener{
 
     public static Toolbar toolbar;
     private SwipeMenuListView rentSwipeMenuListView;
@@ -58,8 +58,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
         disapproved.setBackground(getResources().getDrawable(R.drawable.drawable_button_border_not_selected));
 
         rentSwipeMenuListView = (SwipeMenuListView)findViewById(R.id.requested_product_list);
-        rentSwipeMenuListView.setOnScrollListener(this);
-        rentSwipeMenuListView.setOnItemClickListener(this);
+
 
         this.rentRequestArrayList = new ArrayList<RentRequest>();
         this.connectivityManagerInfo = new ConnectivityManagerInfo(this);
@@ -95,12 +94,12 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
 
         if(connectivityManagerInfo.isConnectedToInternet())
         {
-            if(state == 0)
-                new RequestedProductsListAsyncTask(this,offset,0).execute();
-            else if(state == 1)
-                new RequestedProductsListAsyncTask(this,offset,1).execute();
-            else
-                new RequestedProductsListAsyncTask(this,offset,2).execute();
+
+               // new RequestedProductsListAsyncTask(this,offset,0).execute();
+
+                //ew RequestedProductsListAsyncTask(this,offset,1).execute();
+
+                //new RequestedProductsListAsyncTask(this,offset,2).execute();
         }
 
 
@@ -188,8 +187,6 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
             rentSwipeMenuListView.setMenuCreator(creator);
 
             offset = 0;
-            if(connectivityManagerInfo.isConnectedToInternet())
-                new RequestedProductsListAsyncTask(this,offset,0).execute();
 
 
 
@@ -204,8 +201,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
             state = 1;
             rentSwipeMenuListView.setSwipeDirection(SwipeMenuListView.GONE);
             offset = 0;
-            if(connectivityManagerInfo.isConnectedToInternet())
-                new RequestedProductsListAsyncTask(this,offset,1).execute();
+
 
         }
         else if(v == disapproved)
@@ -216,8 +212,7 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
             state = 1;
             rentSwipeMenuListView.setSwipeDirection(SwipeMenuListView.GONE);
             offset = 0;
-            if(connectivityManagerInfo.isConnectedToInternet())
-                new RequestedProductsListAsyncTask(this,offset,2).execute();
+
 
         }
 
@@ -227,37 +222,8 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
 
 
 
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
-        Log.i("Scrolling", "1st fragment");
-
-        if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
-        {
-            if(flag_loading == false)
-            {
-                flag_loading = true;
-                if(connectivityManagerInfo.isConnectedToInternet())
-                {
-
-                    if(state == 0)
-                        new RequestedProductsListAsyncTask(this,offset,0).execute();
-                    else if(state == 1)
-                        new RequestedProductsListAsyncTask(this,offset,1).execute();
-                    else
-                        new RequestedProductsListAsyncTask(this,offset,2).execute();
-                }
-
-            }
-        }
 
 
-    }
 
 
 
@@ -326,20 +292,6 @@ public class RequestedProductsListActivity extends AppCompatActivity  implements
     }
 
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        System.out.println("clicked");
-        if(state == 0) {
-            Intent intent = new Intent(this, RentRequestOrderDetailsActivity.class);
-            intent.putExtra("position", position);
-            intent.putExtra("arrayList", this.rentRequestArrayList);
-            intent.putExtra("type", 2);
-            intent.putExtra("state",state);
-            //startActivity(intent);
-            startActivityForResult(intent, REQUEST_CODE);
-        }
-    }
 
 
     @Override

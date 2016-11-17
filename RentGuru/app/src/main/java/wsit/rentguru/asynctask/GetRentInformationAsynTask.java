@@ -3,7 +3,8 @@ package wsit.rentguru.asynctask;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import wsit.rentguru.Service.RentService;
+import wsit.rentguru.Service.ProductOwnerRentService;
+import wsit.rentguru.activity.BookingRequestDetailsActivity;
 import wsit.rentguru.activity.RentRequestOrderDetailsActivity;
 import wsit.rentguru.model.RentInf;
 
@@ -22,7 +23,7 @@ public class GetRentInformationAsynTask extends AsyncTask<String,String,RentInf>
 
     @Override
     protected RentInf doInBackground(String... params) {
-        return new RentService().getRentInf(rentId);
+        return new ProductOwnerRentService().getRentInf(rentId);
     }
 
     @Override
@@ -30,7 +31,7 @@ public class GetRentInformationAsynTask extends AsyncTask<String,String,RentInf>
         super.onPostExecute(rentInf);
         if (context instanceof RentRequestOrderDetailsActivity){
             ((RentRequestOrderDetailsActivity)context).completeGetRentInf(rentInf);
-
-        }
+        }else if (context instanceof BookingRequestDetailsActivity)
+            ((BookingRequestDetailsActivity)context).completeGetRentInf(rentInf);
     }
 }

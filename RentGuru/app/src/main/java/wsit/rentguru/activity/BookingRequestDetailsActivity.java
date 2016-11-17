@@ -1,8 +1,7 @@
 package wsit.rentguru.activity;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,11 +17,9 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.sql.SQLData;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -30,11 +27,8 @@ import java.util.concurrent.TimeUnit;
 
 import wsit.rentguru.R;
 import wsit.rentguru.adapter.ProductOtherImagesAdapter;
-import wsit.rentguru.asynctask.ApprovalDecisionAsyncTask;
-import wsit.rentguru.asynctask.CancelationAsyncTask;
 import wsit.rentguru.asynctask.GetRentInformationAsynTask;
-import wsit.rentguru.asynctask.RecieveRentalProductAyncTask;
-import wsit.rentguru.asynctask.RequestRentalProductReturnAsynTask;
+import wsit.rentguru.asynctask.ProductBookingAsynTask;
 import wsit.rentguru.model.RentInf;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
@@ -42,7 +36,7 @@ import wsit.rentguru.utility.RentFeesHelper;
 import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
 
-public class RentRequestOrderDetailsActivity extends AppCompatActivity implements View.OnClickListener {
+public class BookingRequestDetailsActivity extends AppCompatActivity implements View.OnClickListener{
 
 
     private int type;
@@ -59,26 +53,23 @@ public class RentRequestOrderDetailsActivity extends AppCompatActivity implement
     private RecyclerView otherImages;
     private ProductOtherImagesAdapter productOtherImagesAdapter;
     private ConnectivityManagerInfo connectivityManagerInfo;
-    private Button cancel, approve, requesToReturnButton, disputeButton, confirmReturnButton;
+    private Button cancelButton,retunProductButon;
     private ImageView userImage;
     private RentInf rentInf;
-    private LinearLayout returnRequestLayout, firstButtonLayout;
     private ScrollView contentRentDetails;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rent_details);
+        setContentView(R.layout.activity_booking_request_details);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initialize();
 
-
-
-
     }
+
 
 
     private void initialize() {
@@ -96,10 +87,11 @@ public class RentRequestOrderDetailsActivity extends AppCompatActivity implement
         this.endDate = (TextView) findViewById(R.id.end_date);
         this.rentType = (TextView) findViewById(R.id.rent_type);
         this.rentValue = (TextView) findViewById(R.id.rent_value);
-        disputeButton = (Button) findViewById(R.id.dispute_button);
-        disputeButton.setOnClickListener(this);
-        confirmReturnButton = (Button) findViewById(R.id.confirm_return_button);
-        confirmReturnButton.setOnClickListener(this);
+        this.cancelButton=(Button)findViewById(R.id.cancel_button);
+        this.retunProductButon=(Button)findViewById(R.id.return_product_button);
+        cancelButton.setOnClickListener(this);
+        retunProductButon.setOnClickListener(this);
+
 
         this.imageLoader = ImageLoader.getInstance();
         this.imageLoader.init(ImageLoaderConfiguration.createDefault(this));
@@ -126,10 +118,7 @@ public class RentRequestOrderDetailsActivity extends AppCompatActivity implement
         this.contentRentDetails = (ScrollView) findViewById(R.id.content_rent_details);
 
 
-        this.approve = (Button) findViewById(R.id.approve);
-        this.approve.setOnClickListener(this);
-        this.cancel = (Button) findViewById(R.id.cancel);
-        this.cancel.setOnClickListener(this);
+
 
         this.userImage = (ImageView) findViewById(R.id.profilePic);
         this.numberOfDaysTextView = (TextView) findViewById(R.id.no_of_days);
@@ -160,54 +149,29 @@ public class RentRequestOrderDetailsActivity extends AppCompatActivity implement
         this.description.setText(this.rentRequest.getRentalProduct().getDescription());
         this.productOtherImagesAdapter = new ProductOtherImagesAdapter(this.rentRequest.getRentalProduct().getOtherImages(), this);
         this.otherImages.setAdapter(this.productOtherImagesAdapter);
-        this.requesToReturnButton = (Button) findViewById(R.id.request_to_return_button);
-        this.requesToReturnButton.setOnClickListener(this);
 
 
-        this.returnRequestLayout = (LinearLayout) findViewById(R.id.return_request_layout);
-        this.firstButtonLayout = (LinearLayout) findViewById(R.id.firstButtonLayout);
+
+
         totalDepositAmountTextView.setText(Utility.CURRENCY + " " + this.rentRequest.getRentalProduct().getCurrentValue());
         totalTextView.setText(Utility.CURRENCY + " " + this.rentRequest.getRentalProduct().getCurrentValue());
 
 
         if (type == 0) {
-            requesToReturnButton.setVisibility(View.GONE);
-            returnRequestLayout.setVisibility(View.GONE);
+           cancelButton.setVisibility(View.VISIBLE);
+
         } else if (type == 1) {
-            firstButtonLayout.setVisibility(View.GONE);
-            returnRequestLayout.setVisibility(View.GONE);
-            requesToReturnButton.setVisibility(View.GONE);
             if (connectivityManagerInfo.isConnectedToInternet()) {
                 new GetRentInformationAsynTask(this, rentRequest.getId()).execute();
             }
 
         } else if (type == 2) {
-            firstButtonLayout.setVisibility(View.GONE);
-            requesToReturnButton.setVisibility(View.GONE);
-            returnRequestLayout.setVisibility(View.GONE);
+
         }
 
 
         this.totalRentTextView.setText(Utility.CURRENCY + " " + getRentFee(rentRequest.getStartDate(), rentRequest.getEndDate()));
 
-
-    }
-
-
-    private String getRentFee(String start, String end) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date dateStart = null, endDate = null;
-        try {
-            dateStart = sdf.parse(start);
-            endDate = sdf.parse(end);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        double amount = RentFeesHelper.getRentFee(rentRequest.getRentalProduct().getRentType().getId(),
-                rentRequest.getRentalProduct().getRentFee(), dateStart, endDate);
-
-        return String.valueOf(new DecimalFormat(".##").format(amount));
 
     }
 
@@ -258,147 +222,76 @@ public class RentRequestOrderDetailsActivity extends AppCompatActivity implement
 
     }
 
-    public void completeGetRentInf(RentInf rentInf) {
-        if (rentInf == null) {
-            ShowNotification.makeToast(this, "Network Error");
-
-        } else {
-            this.rentInf = rentInf;
-
-
-            if (rentInf.getRentalProductReturned().getId()>0 && rentInf.getRentalProductReturnRequest().getId()>0 &&
-            rentInf.getRentalProductReturned().isConfirm()==false && rentInf.getRentalProductReturned().isDispute()==false){
-
-                this.returnRequestLayout.setVisibility(View.VISIBLE);
-                this.requesToReturnButton.setVisibility(View.GONE);
-                return;
-            }
-
-            if (this.rentInf.getRentalProductReturnRequest().getId() > 0) {
-                this.returnRequestLayout.setVisibility(View.GONE);
-                this.requesToReturnButton.setVisibility(View.GONE);
-                return;
-            }
-
-            if (this.rentInf.getRentalProductReturned().getId() > 0) {
-                if (this.rentInf.getRentalProductReturned().isConfirm() == false && this.rentInf.getRentalProductReturned().isDispute() == false) {
-                    this.returnRequestLayout.setVisibility(View.VISIBLE);
-                    this.requesToReturnButton.setVisibility(View.GONE);
-                } else {
-                    this.returnRequestLayout.setVisibility(View.GONE);
-                    this.requesToReturnButton.setVisibility(View.VISIBLE);
-                }
-
-                return;
-
-            }
-
-
-            this.returnRequestLayout.setVisibility(View.GONE);
-            this.requesToReturnButton.setVisibility(View.VISIBLE);
-
-
+    private String getRentFee(String start, String end) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date dateStart = null, endDate = null;
+        try {
+            dateStart = sdf.parse(start);
+            endDate = sdf.parse(end);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
+
+        double amount = RentFeesHelper.getRentFee(rentRequest.getRentalProduct().getRentType().getId(),
+                rentRequest.getRentalProduct().getRentFee(), dateStart, endDate);
+
+        return String.valueOf(new DecimalFormat(".##").format(amount));
+
     }
 
-    public void onApprove(boolean flag) {
-        if (flag == true) {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Rent request is approved");
-            firstButtonLayout.setVisibility(View.GONE);
-            requesToReturnButton.setVisibility(View.VISIBLE);
+    public void completeGetRentInf(RentInf rentInf){
 
-        } else {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Network Error");
+        if (rentInf==null){
+            ShowNotification.makeToast(this,"Network Error");
+            return;
+        }
+
+        this.rentInf=rentInf;
+
+        if (this.rentInf.getRentalProductReturned().getId()>0) {
+            this.retunProductButon.setVisibility(View.VISIBLE);
         }
 
 
     }
-
-    public void onCancelation(boolean flag) {
-
-        if (flag == true) {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Rent request is canceled");
-            firstButtonLayout.setVisibility(View.GONE);
-            requesToReturnButton.setVisibility(View.GONE);
-
-        } else {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Network Error");
-        }
-
-    }
-
 
     @Override
     public void onClick(View v) {
-
-
-        if (v == approve) {
+        if (v==cancelButton){
             if (connectivityManagerInfo.isConnectedToInternet())
-                new ApprovalDecisionAsyncTask(this, this.rentRequest.getId()).execute();
-        } else if (v == cancel) {
-            if (connectivityManagerInfo.isConnectedToInternet()) {
-
-                new CancelationAsyncTask(this, this.rentRequest.getId()).execute();
-
-            }
-
-        } else if (v == requesToReturnButton) {
-            if (connectivityManagerInfo.isConnectedToInternet()) {
-                new RequestRentalProductReturnAsynTask(this, this.rentInf.getId()).execute();
-            } else {
-                ShowNotification.makeToast(this, "No Network Connection");
-            }
-
-        } else if (v == disputeButton) {
-
-
-            if (connectivityManagerInfo.isConnectedToInternet())
-                new RecieveRentalProductAyncTask(this, this.rentInf.getRentalProductReturned().getId(), 2).execute();
+                new ProductBookingAsynTask(this,this.rentRequest.getId(),1).execute();
             else
-                ShowNotification.makeToast(this, "No Network Connection");
-
-        } else if (v == confirmReturnButton) {
+                ShowNotification.makeToast(this,"No Internet connection");
 
 
+        }else if (v==retunProductButon){
             if (connectivityManagerInfo.isConnectedToInternet())
-                new RecieveRentalProductAyncTask(this, this.rentInf.getRentalProductReturned().getId(), 1).execute();
+                new ProductBookingAsynTask(this,this.rentInf.getId(),2).execute();
             else
-                ShowNotification.makeToast(this, "No Network Connection");
+                ShowNotification.makeToast(this,"No Internet connection");
         }
 
     }
 
 
-    public void rentRequestComplete(boolean flag) {
-        if (flag) {
-            requesToReturnButton.setVisibility(View.GONE);
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Your confirm request sent successfully");
-
-        } else {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Network Error");
+    public void cancelComplete(boolean flag){
+        if (flag){
+            cancelButton.setVisibility(View.GONE);
+            ShowNotification.showSnacksBarLong(this,contentRentDetails,"Booking is canceled successfully");
+        }else {
+            ShowNotification.showSnacksBarLong(this,contentRentDetails,"Network Error");
         }
-
     }
 
-    public void reciveConfrimComplete(boolean flag) {
-        if (flag) {
-            returnRequestLayout.setVisibility(View.GONE);
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Your dispute request sent successfully");
+    public void retunProductComplete(boolean flag){
+        if (flag){
+            retunProductButon.setVisibility(View.GONE);
+            ShowNotification.showSnacksBarLong(this,contentRentDetails,"Your request sent successfully");
 
-        } else {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Network Error");
-        }
 
+    }else {
+        ShowNotification.showSnacksBarLong(this,contentRentDetails,"Network Error");
     }
 
-
-    public void recieveDisputeCompete(boolean flag) {
-        if (flag) {
-            returnRequestLayout.setVisibility(View.GONE);
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Your request sent successfully");
-
-        } else {
-            ShowNotification.showSnacksBarLong(this, contentRentDetails, "Network Error");
-        }
     }
 }

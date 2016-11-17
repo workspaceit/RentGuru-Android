@@ -535,7 +535,7 @@ public class ProductsService extends ApiManager {
         this.responseStat = new ResponseStat();
 
 
-        this.setController("auth/rent/cancel-request/" + id);
+        this.setController("auth/rent/disapprove-request/" + id);
 
 
         String resp = this.getData("GET");

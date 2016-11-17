@@ -27,6 +27,7 @@ public class ApprovalProductListAsyncTask extends AsyncTask<Boolean, Void, Array
     private ArrayList<RentRequest> rentRequestArrayList;
     private ProductsService productsService;
     private int type;
+    private ProgressDialog progressDialog;
 
 
 
@@ -37,6 +38,16 @@ public class ApprovalProductListAsyncTask extends AsyncTask<Boolean, Void, Array
         this.productsService = new ProductsService();
         this.type = type;
 
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        progressDialog=new ProgressDialog(context.getActivity());
+        progressDialog.setMessage("Loading...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        if (offset==0)
+            progressDialog.show();
     }
 
     @Override
@@ -59,6 +70,9 @@ public class ApprovalProductListAsyncTask extends AsyncTask<Boolean, Void, Array
     @Override
     protected void onPostExecute(ArrayList<RentRequest> rentalProductArrayList) {
         super.onPostExecute(rentRequestArrayList);
+
+        if (offset==0)
+            progressDialog.dismiss();
 
         if(rentalProductArrayList.size() > 0)
         {

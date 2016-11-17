@@ -77,7 +77,7 @@
         <activity
             android:name=".activity.RentRequestOrderDetailsActivity"
             android:label="@string/title_activity_rent_details"
-            android:parentActivityName=".activity.MyProductsListActivity"
+            android:parentActivityName=".activity.RentRequestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -108,12 +108,22 @@
             android:name=".activity.EditProductActivity"
             android:parentActivityName=".activity.MyProductsListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.RentRequestActivity"
+        <activity
+            android:name=".activity.RentRequestActivity"
+            android:label="@string/rent_request"
             android:parentActivityName=".activity.HomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/rent_request"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.BookingRequestDetailsActivity"
+            android:label="@string/my_booking"
+            android:parentActivityName=".activity.MyBookingActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
 
 
+        <activity android:name=".activity.MyBookingActivity"
+            android:label="@string/my_booking"
+            android:parentActivityName=".activity.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

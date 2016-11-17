@@ -3,7 +3,6 @@ package wsit.rentguru.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import wsit.rentguru.activity.BookingRequestDetailsActivity;
 import wsit.rentguru.activity.RentRequestOrderDetailsActivity;
 import wsit.rentguru.adapter.RentRequestProductListAdapter;
 import wsit.rentguru.asynctask.ApprovalProductListAsyncTask;
+import wsit.rentguru.asynctask.RequestedProductsListAsyncTask;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.ShowNotification;
@@ -27,7 +27,7 @@ import wsit.rentguru.utility.ShowNotification;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PendingRentRequestFragment extends Fragment implements AbsListView.OnScrollListener, AdapterView.OnItemClickListener {
+public class PendingBookingRequestFragment extends Fragment implements AbsListView.OnScrollListener, AdapterView.OnItemClickListener{
     private View view;
     private SwipeMenuListView pendingListView;
     private ConnectivityManagerInfo connectivityManagerInfo;
@@ -38,8 +38,7 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
     private int offset;
 
 
-
-    public PendingRentRequestFragment() {
+    public PendingBookingRequestFragment() {
         // Required empty public constructor
     }
 
@@ -47,8 +46,7 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-         view=inflater.inflate(R.layout.fragment_pending_rent_request, container, false);
+        this.view=inflater.inflate(R.layout.fragment_pending_booking_request, container, false);
         pendingListView=(SwipeMenuListView)view.findViewById(R.id.pending_product_list);
         this.rentRequestArrayList=new ArrayList<>();
         approveProductListAdapter=new RentRequestProductListAdapter(getActivity(),this.rentRequestArrayList);
@@ -62,8 +60,11 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
 
 
 
+
+
         return view;
     }
+
 
 
     @Override
@@ -75,7 +76,7 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
         offset=0;
 
         if (connectivityManagerInfo.isConnectedToInternet())
-            new ApprovalProductListAsyncTask(this, offset, STATE).execute();
+            new RequestedProductsListAsyncTask(this,offset,STATE).execute();
 
     }
 
@@ -90,7 +91,7 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
         if(firstVisibleItem+visibleItemCount>=totalItemCount && !load_flag && totalItemCount!=0){
             load_flag=true;
             if (connectivityManagerInfo.isConnectedToInternet())
-                new ApprovalProductListAsyncTask(this, offset, STATE).execute();
+                new RequestedProductsListAsyncTask(this,offset,STATE).execute();
 
         }
 
@@ -117,6 +118,7 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
             this.rentRequestArrayList.clear();
             approveProductListAdapter.setArray(this.rentRequestArrayList);
             approveProductListAdapter.notifyDataSetChanged();
+
         }
     }
 
@@ -129,4 +131,5 @@ public class PendingRentRequestFragment extends Fragment implements AbsListView.
             startActivity(intent);
         }
     }
+
 }

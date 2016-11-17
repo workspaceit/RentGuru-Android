@@ -290,7 +290,7 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_requested_products) {
 
-            Intent i = new Intent(this,RequestedProductsListActivity.class);
+            Intent i = new Intent(this,MyBookingActivity.class);
             startActivity(i);
 
         } else if (id==R.id.nav_sign_out){
