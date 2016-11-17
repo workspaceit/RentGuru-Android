@@ -249,6 +249,8 @@ public class BookingRequestDetailsActivity extends AppCompatActivity implements 
         this.rentInf=rentInf;
 
         if (this.rentInf.getRentalProductReturned().getId()>0) {
+            this.retunProductButon.setVisibility(View.GONE);
+        }else{
             this.retunProductButon.setVisibility(View.VISIBLE);
         }
 

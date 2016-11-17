@@ -11,17 +11,17 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:layout_weight="2"
+        android:layout_weight="1.2"
         android:src="@drawable/thumb2"
         android:layout_marginRight="5dp"
         android:id="@+id/product_image"
         />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dip"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="0.8"
+        android:layout_weight="1.8"
         android:weightSum="3"
         >
 
