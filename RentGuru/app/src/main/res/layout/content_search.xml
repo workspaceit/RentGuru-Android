@@ -94,7 +94,7 @@
                  android:layout_height="wrap_content"
                  android:id="@+id/seek_bar_progreess_text"
                  android:text="0 km"
-
+                 android:layout_marginLeft="10dp"
                  />
              <SeekBar
                  android:layout_width="match_parent"

@@ -9,9 +9,12 @@ import android.os.Bundle;
 
 import wsit.rentguru.R;
 import wsit.rentguru.preference.SessionManager;
+import wsit.rentguru.utility.ConnectivityManagerInfo;
+import wsit.rentguru.utility.ShowNotification;
 
 public class StartupActivity extends AppCompatActivity {
 
+    ConnectivityManagerInfo connectivityManagerInfo;
 
 
 
@@ -21,9 +24,12 @@ public class StartupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_startup);
+        connectivityManagerInfo=new ConnectivityManagerInfo(this);
+
+
 
         session = new SessionManager(getApplicationContext());
-        int DELAY = 2500;
+        int DELAY = 1500;
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {

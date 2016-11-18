@@ -28,6 +28,11 @@ public class GetSearchResultAsynTask extends AsyncTask<String,String,ArrayList<R
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+        progressDialog=new ProgressDialog(context);
+        progressDialog.setMessage("Getting Search result...");
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        if (SearchActivity.rentalSearchProducts.size()==0)
+            progressDialog.show();
 
     }
 
@@ -47,6 +52,9 @@ public class GetSearchResultAsynTask extends AsyncTask<String,String,ArrayList<R
     @Override
     protected void onPostExecute(ArrayList<RentalProduct> rentalProducts) {
         super.onPostExecute(rentalProducts);
+       if (progressDialog.isShowing())
+           progressDialog.dismiss();
+
         if (context instanceof SearchActivity){
             ((SearchActivity)context).setRentalProduct(rentalProducts);
         }

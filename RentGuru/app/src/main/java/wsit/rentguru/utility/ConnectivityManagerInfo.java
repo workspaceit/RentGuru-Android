@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
+import java.net.InetAddress;
+
 /**
  * Created by workspaceinfotech on 8/4/16.
  */
@@ -31,6 +33,22 @@ public class ConnectivityManagerInfo {
             return false;
         }
 
+
+    }
+
+    public boolean isRentGuruAvailable() {
+        try {
+            InetAddress ipAddr = InetAddress.getByName("www.google.com/"); //You can replace it with your name
+
+            if (ipAddr.equals("")) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
 
     }
 

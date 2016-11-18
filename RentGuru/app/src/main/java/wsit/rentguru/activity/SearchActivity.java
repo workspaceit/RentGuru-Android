@@ -220,7 +220,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                         subcategorySelected = true;
                         this.subcategorySpinner.setVisibility(View.GONE);
 
-                        System.out.println("Cat name: "+this.categoryModels.get(position-1).getName());
+
 
 
 
@@ -244,7 +244,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
                     subcategorySelected = true;
 
-                    System.out.println(this.categoryModels.get(this.parentCategoryPosition).getSubcategory().get(position-1).getName());
+
                     this.categoryId=this.categoryModels.get(this.parentCategoryPosition).getSubcategory().get(position-1).getId();
 
 
@@ -415,6 +415,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                     + this.seekBar.getThumb().getBounds().centerX()
                     - seekBarTextView.getWidth()/2
                     + p.leftMargin;
+            x=x+10;
             seekBarTextView.setX(x);
 
         }
