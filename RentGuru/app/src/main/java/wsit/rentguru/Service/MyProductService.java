@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.ResponseStat;
+import wsit.rentguru.model.State;
 import wsit.rentguru.utility.Utility;
 
 /**
@@ -66,9 +67,9 @@ public class MyProductService extends ApiManager {
 
     }
 
-    public MyRentalProduct updateProductInfo(int productId,String name,String description,String currentValue,String rentFee,
-                                             String rentTypeId,String availableFrom,String availableTill,String formattedAddress,
-                                             String zip,String city,String lat,String lng,int[]categoryIds){
+    public MyRentalProduct updateProductInfo(int productId, String name, String description, String currentValue, String rentFee,
+                                             String rentTypeId, String availableFrom, String availableTill, String formattedAddress,
+                                             String zip, String city, String lat, String lng, int[]categoryIds, String stateId){
 
       this.responseStat=new ResponseStat();
         MyRentalProduct myRentalProduct=null;
@@ -90,6 +91,7 @@ public class MyProductService extends ApiManager {
         this.setParams("city",city);
         this.setParams("lat",lat);
         this.setParams("lng",lng);
+        this.setParams("stateId",stateId);
 
         String resp=this.getData("POST");
         System.out.println(resp);

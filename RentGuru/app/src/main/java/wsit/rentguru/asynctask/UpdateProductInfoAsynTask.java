@@ -19,12 +19,12 @@ public class UpdateProductInfoAsynTask extends AsyncTask<String,String,MyRentalP
     private int productId;
 
     private int[]categoryIds;
-    private String formattedAddress,zip,city,lat,lng;
+    private String formattedAddress,zip,city,lat,lng,stateId;
 
     public UpdateProductInfoAsynTask(EditProductInfoFragment editProductInfoFragment,int productId,int[]categoryIds,
                                      String name,String description,String currentValue,String rentFee,
                                      String rentTypeId,String availableFrom,String availableTill,String formattedAddress,
-                                     String zip,String city,String lat,String lng){
+                                     String zip,String city,String lat,String lng,String stateId){
         this.editProductInfoFragment=editProductInfoFragment;
         this.productId=productId;
         this.categoryIds=categoryIds;
@@ -40,6 +40,7 @@ public class UpdateProductInfoAsynTask extends AsyncTask<String,String,MyRentalP
         this.city=city;
         this.lat=lat;
         this.lng=lng;
+        this.stateId=stateId;
 
     }
 
@@ -58,7 +59,7 @@ public class UpdateProductInfoAsynTask extends AsyncTask<String,String,MyRentalP
     protected MyRentalProduct doInBackground(String... params) {
 
         return new MyProductService().updateProductInfo(productId,name,description,currentValue,rentFee,rentTypeId,availableFrom,
-                availableTill,formattedAddress,zip,city,lat,lng,categoryIds);
+                availableTill,formattedAddress,zip,city,lat,lng,categoryIds,stateId);
     }
 
     @Override

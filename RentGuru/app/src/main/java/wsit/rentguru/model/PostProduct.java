@@ -24,6 +24,7 @@ public class PostProduct implements Serializable {
     private String state;
     private String lat;
     private String lng;
+    private int stateId;
 
     public PostProduct()
     {
@@ -36,7 +37,17 @@ public class PostProduct implements Serializable {
         this.city = "";
         this.zip = "";
         this.state = "";
+        this.stateId=0;
 
+
+    }
+
+    public int getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(int stateId) {
+        this.stateId = stateId;
     }
 
     public String getName() {

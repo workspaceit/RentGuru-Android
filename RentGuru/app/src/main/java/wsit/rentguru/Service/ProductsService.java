@@ -15,6 +15,7 @@ import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.RentRequest;
 import wsit.rentguru.model.RentalProduct;
 import wsit.rentguru.model.ResponseStat;
+import wsit.rentguru.model.State;
 import wsit.rentguru.utility.Utility;
 
 /**
@@ -287,6 +288,40 @@ public class ProductsService extends ApiManager {
 
     }
 
+
+    public ArrayList<State> getAllState(){
+        ArrayList<State>states=new ArrayList<>();
+        this.responseStat=new ResponseStat();
+        this.setController("state/get-all-state");
+        String resp=this.getData("GET");
+        System.out.println(resp);
+
+        try {
+            JsonObject jsonObject = new JsonParser().parse(resp).getAsJsonObject();
+            Gson gson = new Gson();
+
+            this.responseStat = gson.fromJson(jsonObject.get("responseStat"), responseStat.getClass());
+
+
+            if (this.responseStat.isStatus()) {
+                State[] state1 = gson.fromJson(jsonObject.get("responseData"), State[].class);
+                Collections.addAll(states,state1);
+                return states;
+
+
+            }
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+
+
+    }
 
     public ArrayList<RentRequest> getRequestedDisapprovedProductList(int offset) {
 

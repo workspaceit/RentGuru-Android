@@ -35,6 +35,7 @@ import wsit.rentguru.R;
 import wsit.rentguru.activity.EditProductActivity;
 import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.asynctask.CategoryAsncTask;
+import wsit.rentguru.asynctask.GetAllStateAsynTask;
 import wsit.rentguru.asynctask.GetRentalProductCategoryWiseAsynTask;
 import wsit.rentguru.asynctask.RentTypeAsyncTask;
 import wsit.rentguru.asynctask.UpdateProductInfoAsynTask;
@@ -43,6 +44,7 @@ import wsit.rentguru.model.CategoryModel;
 import wsit.rentguru.model.MyRentalProduct;
 import wsit.rentguru.model.ProductCategory;
 import wsit.rentguru.model.RentType;
+import wsit.rentguru.model.State;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
@@ -55,9 +57,9 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
     private ArrayList<CategoryModel> categoryModels;
     private ConnectivityManagerInfo connectivityManagerInfo;
     private int catPosition,subCatPosition;
-    private Spinner catSpinner,subCatSpinner,spinnerRentType;
+    private Spinner catSpinner,subCatSpinner,spinnerRentType,stateSpinner;
     private ArrayAdapter<String> catAdapter;
-    private ArrayAdapter<String> subCatAdapter;
+    private ArrayAdapter<String> subCatAdapter,stateAdapter;
     private String[] catArr;
     private String[] subCatArr;
     private int categoryId,parentCategoryPosition;
@@ -66,7 +68,7 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
     private Button fromButton,toButton,updateProductButton;
     private String lat,lng;
 
-    private String[] rentNameArray;
+    private String[] rentNameArray,stateArr;
     private ArrayList<RentType> rentTypeArrayList;
     private ArrayAdapter<String> rentTypeArrayAdapter;
     private Calendar myCalendar;
@@ -77,6 +79,8 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
     private Place place;
     private View view;
     private int rentTypeId;
+    private ArrayList<State>states;
+    private int stateId;
 
 
 
@@ -108,6 +112,7 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
         if (connectivityManagerInfo.isConnectedToInternet()){
             new CategoryAsncTask(this).execute();
             new RentTypeAsyncTask(this).execute();
+            new GetAllStateAsynTask(this).execute();
         }
 
         catPosition=-1;
@@ -115,6 +120,7 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
         categoryId=-1;
         parentCategoryPosition=0;
         dataFlag=-1;
+        stateId=-1;
 
         catSpinner=(Spinner) view.findViewById(R.id.product_category);
         subCatSpinner=(Spinner)view.findViewById(R.id.product_sub_category);
@@ -158,6 +164,9 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
         lng="";
         fromDate="";
         toDate="";
+
+        stateSpinner=(Spinner)view.findViewById(R.id.edit_state_spinner);
+        stateSpinner.setOnItemSelectedListener(this);
 
 
     }
@@ -265,6 +274,10 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
                 this.rentTypeId=rentTypeArrayList.get(position).getId();
 
                 break;
+
+            case R.id.edit_state_spinner:
+                this.stateId=this.states.get(position).getId();
+                break;
         }
     }
 
@@ -293,6 +306,29 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
         cal.setTimeInMillis(time);
 
         return cal;
+    }
+
+    public void loadStatesComplete(ArrayList<State> states){
+        this.states=states;
+        stateArr=new String[this.states.size()];
+
+      for (int i=0; i<this.states.size(); i++){
+          stateArr[i]=this.states.get(i).getName();
+      }
+
+        stateAdapter=new ArrayAdapter<String>(getContext(), R.layout.spinner_item_category, stateArr);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(stateAdapter);
+
+        for (int i=0; i<this.states.size();i++) {
+            if (this.states.get(i).getId()==EditProductActivity.myRentalProduct.getProductLocation().getState().getId()){
+                stateSpinner.setSelection(i);
+                stateId=this.states.get(i).getId();
+                break;
+
+            }
+        }
+
     }
 
     public void loadRentType(ArrayList<RentType> rentTypeArrayList)
@@ -357,7 +393,8 @@ public class EditProductInfoFragment extends Fragment implements AdapterView.OnI
                     new UpdateProductInfoAsynTask(this, EditProductActivity.myRentalProduct.getId(), catid, productTitleTextView.getText().toString(),
                             productDescriptionTextView.getText().toString(), currentValueTextView.getText().toString(),
                             rentActualFeeTextView.getText().toString(), String.valueOf(rentTypeId), fromDate, toDate, areaTextView.getText().toString(),
-                            zipCodeTextView.getText().toString(), cityTextView.getText().toString(), lat, lng).execute();
+                            zipCodeTextView.getText().toString(), cityTextView.getText().toString(), lat, lng,
+                            String.valueOf(stateId)).execute();
                 }else {
                     ShowNotification.makeToast(getActivity(),"Network Error");
                 }

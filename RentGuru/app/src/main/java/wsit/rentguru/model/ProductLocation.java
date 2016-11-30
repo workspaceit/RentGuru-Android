@@ -10,12 +10,31 @@ public class ProductLocation implements Serializable {
     private int id;
     private int productId;
     private String city;
-    private String state;
     private String formattedAddress;
     private String zip;
     private double lat ;
     private double lng ;
+    private State state;
 
+    public ProductLocation(){
+        this.id=0;
+        this.productId=0;
+        this.city="";
+        this.formattedAddress="";
+        this.zip="";
+        this.lat=0;
+        this.lng=0;
+        this.state=new State();
+
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
 
     public int getId() {
         return id;
@@ -41,13 +60,7 @@ public class ProductLocation implements Serializable {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
-    }
 
-    public void setState(String state) {
-        this.state = state;
-    }
 
     public String getFormattedAddress() {
         return formattedAddress;

@@ -195,6 +195,26 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp"
 
+                android:text="@string/state"
+                android:textColor="@color/staggered_below_color"
+                android:textSize="16sp" />
+
+            <Spinner
+                android:id="@+id/edit_state_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/category_title_text"
+                android:background="@drawable/edittext_rectangle_box"
+                android:drawableRight="@drawable/ic_down_arrow"
+                android:gravity="center|left"
+                android:paddingLeft="10dp"
+                android:textSize="14sp"
+                android:layout_marginBottom="10dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+
                 android:text="@string/product_location"
                 android:textColor="@color/staggered_below_color"
                 android:textSize="16sp" />

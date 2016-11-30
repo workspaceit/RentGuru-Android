@@ -31,6 +31,7 @@
     <string name="choose_product_location">Choose Location from Map (optional)</string>
     <string name="rent_request">Rent Request</string>
     <string name="my_booking">My Booking</string>
+    <string name="order_information_text">Order Information</string>
 
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -53,6 +54,7 @@
     <string name="facebook_app_id">716726128465452</string>
     <string name="add_new_button_text">Add New Product</string>
     <string name="return_product_text">Have you received your product?</string>
+    <string name="state">State</string>
 
 
 </resources>

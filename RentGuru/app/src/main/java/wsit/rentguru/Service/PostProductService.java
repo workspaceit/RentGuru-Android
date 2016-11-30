@@ -151,6 +151,7 @@ public class PostProductService extends ApiManager {
         this.setParams("zip", postProduct.getZip());
         this.setParams("city", postProduct.getCity());
         this.setParams("state", postProduct.getState());
+        this.setParams("stateId", String.valueOf(postProduct.getStateId()));
        // this.setParams("lat", postProduct.getLat());
        // this.setParams("lng", postProduct.getLng());
 

@@ -19,24 +19,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/order_information"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/order_information_text"
+            android:layout_marginBottom="10dp"
+            android:textSize="16sp"
+            />
+
+
         <ImageView
             android:id="@+id/profilePic"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@drawable/button_border"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_profile" />
-
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/profilePic"
-            android:maxLines="1"
-            android:textColor="@color/staggered_below_color"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:src="@drawable/ic_profile"
+            android:layout_below="@+id/order_information"
+            />
 
         <TextView
             android:id="@+id/other_information"
@@ -125,16 +127,6 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:id="@+id/transection_details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/user_information"
-            android:layout_marginTop="20dp"
-            android:text="Transection Details"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
 
         <View
             android:id="@+id/transection_details_view"
@@ -661,6 +653,27 @@
             android:showDividers="middle">
 
         </android.support.v7.widget.RecyclerView>
+
+        <TextView
+            android:id="@+id/transection_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="Transection Details"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:layout_below="@+id/user_information"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:maxLines="1"
+            android:text="jjkj"
+            android:layout_below="@+id/order_information"
+            android:layout_centerHorizontal="true" />
 
 
     </RelativeLayout>

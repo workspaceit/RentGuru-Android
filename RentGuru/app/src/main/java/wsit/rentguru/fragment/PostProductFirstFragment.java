@@ -2,7 +2,7 @@ package wsit.rentguru.fragment;
 
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,9 +25,12 @@ import java.util.Locale;
 import wsit.rentguru.R;
 import wsit.rentguru.activity.PostProductActivity;
 import wsit.rentguru.asynctask.CategoryAsncTask;
+import wsit.rentguru.asynctask.GetAllStateAsynTask;
 import wsit.rentguru.model.CategoryModel;
-import wsit.rentguru.model.PostProduct;
+
+import wsit.rentguru.model.State;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
+import wsit.rentguru.utility.ShowNotification;
 
 
 public class PostProductFirstFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, DatePickerDialog.OnDateSetListener{
@@ -38,17 +41,19 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
     private ConnectivityManagerInfo connectivityManagerInfo;
     private ArrayList<CategoryModel>categoryModelArrayList;
     private Spinner productCategory;
-    private Spinner productSubCategory;
+    private Spinner productSubCategory,stateSpinner;
     private String[] catArr;
     private String[] subCatArr;
+    private String[]stateArr;
     private ArrayAdapter<String> catAdapter;
-    private ArrayAdapter<String> subCatAdapter;
+    private ArrayAdapter<String> subCatAdapter,stateAdapter;
     private Button from,to;
     private Calendar myCalendar;
     private int flag;
     private EditText productTitle,area,zipCode,city;
-    private boolean categorySelected,subcategorySelected,formSelected,toSelected;
+    private boolean categorySelected,subcategorySelected,formSelected,toSelected,stateSelected;
     private int parentCategoryPosition=0;
+    private ArrayList<State>states;
 
 
     private void initiate(View view)
@@ -69,7 +74,13 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
         productCategory.setAdapter(catAdapter);
         this.productCategory.setOnItemSelectedListener(this);
 
-
+        stateSpinner=(Spinner) view.findViewById(R.id.state_spinner);
+        stateArr=new String[1];
+        stateArr[0]="Select State";
+        stateAdapter=new ArrayAdapter<String>(view.getContext(),R.layout.spinner_item_category,stateArr);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(stateAdapter);
+        stateSpinner.setOnItemSelectedListener(this);
 
         subCatArr = new String[1];
         subCatArr[0] = "Select Sub-Category";
@@ -91,7 +102,7 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
         this.zipCode = (EditText)view.findViewById(R.id.zipCode);
         this.city = (EditText)view.findViewById(R.id.city);
 
-
+        stateSelected=false;
 
 
     }
@@ -119,6 +130,7 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
 
         if (connectivityManagerInfo.isConnectedToInternet() == true) {
             new CategoryAsncTask(this).execute();
+            new GetAllStateAsynTask(this).execute();
         }
 
 
@@ -152,6 +164,9 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
             {
                 Toast.makeText(getContext(), "Available date is required", Toast.LENGTH_SHORT).show();
             }
+            else if (!stateSelected){
+                ShowNotification.makeToast(getActivity(),"Please Select a State");
+            }
             else if(this.area.getText().length() == 0)
             {
                 Toast.makeText(getContext(), "Area is required", Toast.LENGTH_SHORT).show();
@@ -172,6 +187,7 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
                 PostProductActivity.postProduct.setFormattedAddress(this.area.getText().toString());
                 PostProductActivity.postProduct.setZip(this.zipCode.getText().toString());
                 PostProductActivity.postProduct.setCity(this.city.getText().toString());
+
                 PostProductActivity.viewPager.setCurrentItem(1);
             }
 
@@ -198,6 +214,20 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
 
     }
 
+
+    public void stateLoadComplete(ArrayList<State> states){
+        this.states=states;
+
+        stateArr=new String[this.states.size()+1];
+        stateArr[0]="Select State";
+        for (int i=0;i<this.states.size();i++)
+            stateArr[i+1]=this.states.get(i).getName();
+
+        stateAdapter= new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item_category,stateArr);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(stateAdapter);
+
+    }
 
     public void getCategory(ArrayList<CategoryModel>categoryModelArrayList)
     {
@@ -297,6 +327,17 @@ public class PostProductFirstFragment extends Fragment implements View.OnClickLi
                     subcategorySelected = false;
 
                 }
+                break;
+
+            case R.id.state_spinner:
+                if (position!=0){
+                    stateSelected=true;
+                    PostProductActivity.postProduct.setStateId(this.states.get(position-1).getId());
+                }else {
+                    stateSelected=false;
+                }
+
+                break;
 
             }
 
