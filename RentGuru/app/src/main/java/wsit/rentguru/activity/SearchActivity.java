@@ -33,9 +33,11 @@ import java.util.ArrayList;
 import wsit.rentguru.R;
 import wsit.rentguru.adapter.SearchProductGridViewAdapter;
 import wsit.rentguru.asynctask.CategoryAsncTask;
+import wsit.rentguru.asynctask.GetAllStateAsynTask;
 import wsit.rentguru.asynctask.GetSearchResultAsynTask;
 import wsit.rentguru.model.CategoryModel;
 import wsit.rentguru.model.RentalProduct;
+import wsit.rentguru.model.State;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.ShowNotification;
 import wsit.rentguru.utility.Utility;
@@ -46,8 +48,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     private Toolbar toolbar;
     private EditText searchtitleText;
-    private Spinner categorySpinner,subcategorySpinner;
-    private TextView locationPickerTextView,seekBarTextView;
+    private Spinner categorySpinner, subcategorySpinner, stateSpinner;
+    private TextView locationPickerTextView, seekBarTextView;
     private SeekBar seekBar;
     private Button searchButton;
     private View divider;
@@ -62,70 +64,81 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     private ArrayAdapter<String> catAdapter;
     private ArrayAdapter<String> subCatAdapter;
-    private boolean categorySelected,subcategorySelected,moreSearchProduct,loadingProduct;
+    private boolean categorySelected, subcategorySelected, moreSearchProduct, loadingProduct;
 
-    private ArrayList<CategoryModel>categoryModels=null;
-    public static ArrayList <RentalProduct>rentalSearchProducts;
+    private ArrayList<CategoryModel> categoryModels = null;
+    public static ArrayList<RentalProduct> rentalSearchProducts;
     private SearchProductGridViewAdapter searchProductGridViewAdapter;
-    private int seekProgrees, categoryId,limit,offset,parentCategoryPosition;;;
+    private int seekProgrees, categoryId, limit, offset, parentCategoryPosition;
+    ;;
     private GoogleApiClient mClient;
     private static final int PLACE_PICKER_REQUEST = 1000;
     private Place place;
     private StringBuilder formHeader;
     private boolean firstTime;
+    private int stateId;
+    private String[] stateArr;
+    private ArrayList<State> states;
 
 
-    private void initiate()
-    {
-        toolbar=(Toolbar)findViewById(R.id.toolbar);
+    private void initiate() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        connectivityManagerInfo=new ConnectivityManagerInfo(this);
+        connectivityManagerInfo = new ConnectivityManagerInfo(this);
 
-        searchtitleText=(EditText)findViewById(R.id.seach_title_text_view);
-        categorySpinner=(Spinner)findViewById(R.id.search_product_category_spinner);
-        subcategorySpinner=(Spinner)findViewById(R.id.search_product_sub_category_spinner);
-        locationPickerTextView=(TextView)findViewById(R.id.location_picker_text_view);
+        searchtitleText = (EditText) findViewById(R.id.seach_title_text_view);
+        categorySpinner = (Spinner) findViewById(R.id.search_product_category_spinner);
+        subcategorySpinner = (Spinner) findViewById(R.id.search_product_sub_category_spinner);
+        locationPickerTextView = (TextView) findViewById(R.id.location_picker_text_view);
         subcategorySpinner.setVisibility(View.GONE);
-        seekBar=(SeekBar) findViewById(R.id.seekbar);
-        searchButton=(Button)findViewById(R.id.search_submit_button);
-        divider=findViewById(R.id.search_divider);
-        gridView=(GridView)findViewById(R.id.search_grid_view);
-        nestedScrollView=(NestedScrollView)findViewById(R.id.scroller_nested);
-        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.search_swiperefresh);
-        appBarLayout=(AppBarLayout)findViewById(R.id.search_app_bar_layout);
-        seekBarTextView=(TextView)findViewById(R.id.seek_bar_progreess_text);
+        seekBar = (SeekBar) findViewById(R.id.seekbar);
+        searchButton = (Button) findViewById(R.id.search_submit_button);
+        divider = findViewById(R.id.search_divider);
+        gridView = (GridView) findViewById(R.id.search_grid_view);
+        nestedScrollView = (NestedScrollView) findViewById(R.id.scroller_nested);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.search_swiperefresh);
+        appBarLayout = (AppBarLayout) findViewById(R.id.search_app_bar_layout);
+        seekBarTextView = (TextView) findViewById(R.id.seek_bar_progreess_text);
 
         catArr = new String[1];
         catArr[0] = "Select Category";
 
         categorySpinner.setOnItemSelectedListener(this);
         subcategorySpinner.setOnItemSelectedListener(this);
-        catAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_category,catArr);
+        catAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_category, catArr);
         catAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         categorySpinner.setAdapter(catAdapter);
 
         searchButton.setOnClickListener(this);
 
-        searchProductGridViewAdapter=new SearchProductGridViewAdapter(this);
+        searchProductGridViewAdapter = new SearchProductGridViewAdapter(this);
 
         this.swipeRefreshLayout.setColorSchemeResources(
                 R.color.loading);
         this.swipeRefreshLayout.setOnRefreshListener(this);
-        rentalSearchProducts=new ArrayList<>();
+        rentalSearchProducts = new ArrayList<>();
         seekBar.setOnSeekBarChangeListener(this);
         locationPickerTextView.setOnClickListener(this);
-        categoryId=0;
-        parentCategoryPosition=0;
-        formHeader=new StringBuilder();
-        limit=6;
-        offset=0;
+        categoryId = 0;
+        parentCategoryPosition = 0;
+        formHeader = new StringBuilder();
+        limit = 6;
+        offset = 0;
 
         gridView.setOnScrollListener(this);
         gridView.setOnItemClickListener(this);
-        moreSearchProduct=false;
-        loadingProduct=false;
+        moreSearchProduct = false;
+        loadingProduct = false;
+        stateId = 0;
+        stateSpinner = (Spinner) findViewById(R.id.search_product_state_spinner);
+        stateSpinner.setOnItemSelectedListener(this);
+        stateArr = new String[1];
+        stateArr[0] = "Select State";
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item_category, stateArr);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        this.stateSpinner.setAdapter(adapter);
 
 
     }
@@ -138,18 +151,18 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         initiate();
         if (connectivityManagerInfo.isConnectedToInternet() == true) {
             new CategoryAsncTask(this).execute();
+            new GetAllStateAsynTask(this).execute();
         }
 
 
 
-        //buildGoogleApiClient();
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                System.out.println(rentalSearchProducts.size()+" size");
-                if (nestedScrollView.getVisibility()==View.VISIBLE && rentalSearchProducts.size()>0) {
+                System.out.println(rentalSearchProducts.size() + " size");
+                if (nestedScrollView.getVisibility() == View.VISIBLE && rentalSearchProducts.size() > 0) {
                     appBarLayout.setExpanded(false);
                     divider.setVisibility(View.GONE);
                     nestedScrollView.animate().alpha(0.0f);
@@ -162,23 +175,20 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     }
 
 
-
-
-    public void setData(ArrayList<CategoryModel>categoryModels){
-        this.categoryModels=categoryModels;
-        catArr = new String[this.categoryModels.size()+1];
+    public void setData(ArrayList<CategoryModel> categoryModels) {
+        this.categoryModels = categoryModels;
+        catArr = new String[this.categoryModels.size() + 1];
 
         catArr[0] = "Select Category";
 
-        for(int i =0; i<this.categoryModels.size();i++)
-        {
+        for (int i = 0; i < this.categoryModels.size(); i++) {
 
-            catArr[i+1] = this.categoryModels.get(i).getName();
+            catArr[i + 1] = this.categoryModels.get(i).getName();
 
         }
 
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item_category,catArr);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_item_category, catArr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         this.categorySpinner.setAdapter(adapter);
 
@@ -186,20 +196,18 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (parent.getId())
-        {
+        switch (parent.getId()) {
             case R.id.search_product_category_spinner:
-                Log.d("here: ",String.valueOf(position));
-                if(position!=0)
-                {
-                    this.categoryId=this.categoryModels.get(position-1).getId();
-                    subCatArr = new String[this.categoryModels.get(position-1).getSubcategory().size()+1];
+                Log.d("here: ", String.valueOf(position));
+                if (position != 0) {
+                    this.categoryId = this.categoryModels.get(position - 1).getId();
+                    subCatArr = new String[this.categoryModels.get(position - 1).getSubcategory().size() + 1];
                     subCatArr[0] = "Select Sub-Category";
-                    CategoryModel[] childCategoryModels = new CategoryModel[this.categoryModels.get(position-1).getSubcategory().size()];
+                    CategoryModel[] childCategoryModels = new CategoryModel[this.categoryModels.get(position - 1).getSubcategory().size()];
 
-                    childCategoryModels = this.categoryModels.get(position-1).getSubcategory().toArray(childCategoryModels);
+                    childCategoryModels = this.categoryModels.get(position - 1).getSubcategory().toArray(childCategoryModels);
 
-                    if(childCategoryModels.length !=0) {
+                    if (childCategoryModels.length != 0) {
                         this.subcategorySpinner.setVisibility(View.VISIBLE);
                         subcategorySelected = false;
                         categorySelected = true;
@@ -211,27 +219,20 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(view.getContext(), R.layout.spinner_item_category, subCatArr);
                         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         subcategorySpinner.setAdapter(adapter);
-                        this.parentCategoryPosition=position-1;
+                        this.parentCategoryPosition = position - 1;
                         System.out.println(this.categoryModels.get(this.parentCategoryPosition).getName());
-                    }
-                    else
-                    {
+                    } else {
                         categorySelected = true;
                         subcategorySelected = true;
                         this.subcategorySpinner.setVisibility(View.GONE);
 
 
-
-
-
                     }
-                }
-                else
-                {
+                } else {
                     categorySelected = false;
                     subcategorySelected = false;
                     this.subcategorySpinner.setVisibility(View.GONE);
-                    this.categoryId=0;
+                    this.categoryId = 0;
 
                 }
                 break;
@@ -240,21 +241,29 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             case R.id.search_product_sub_category_spinner:
 
 
-                if(position!=0) {
+                if (position != 0) {
 
                     subcategorySelected = true;
 
 
-                    this.categoryId=this.categoryModels.get(this.parentCategoryPosition).getSubcategory().get(position-1).getId();
+                    this.categoryId = this.categoryModels.get(this.parentCategoryPosition).getSubcategory().get(position - 1).getId();
 
 
+                } else {
+                    subcategorySelected = false;
+                    this.categoryId = this.categoryModels.get(this.parentCategoryPosition).getId();
+
+                }
+                break;
+            case R.id.search_product_state_spinner:
+                if (position != 0) {
+                    stateId = this.states.get(position - 1).getId();
+                    ShowNotification.makeToast(this,stateId+"");
                 }
                 else
-                {
-                    subcategorySelected = false;
-                    this.categoryId=this.categoryModels.get(this.parentCategoryPosition).getId();
+                    stateId = 0;
 
-                }
+                break;
 
         }
 
@@ -262,8 +271,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        switch (parent.getId())
-        {
+        switch (parent.getId()) {
             case R.id.search_product_category_spinner:
 
                 categorySelected = false;
@@ -273,7 +281,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
             case R.id.search_product_sub_category_spinner:
 
-                if(categorySelected == true)
+                if (categorySelected == true)
                     subcategorySelected = false;
 
                 break;
@@ -281,78 +289,99 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    public void stateLoadComplete(ArrayList<State> states) {
+        this.states = states;
+
+        stateArr = new String[this.states.size() + 1];
+        stateArr[0] = "Select State";
+        for (int i = 0; i < this.states.size(); i++)
+            stateArr[i + 1] = this.states.get(i).getName();
+
+        ArrayAdapter stateAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item_category, stateArr);
+        stateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        stateSpinner.setAdapter(stateAdapter);
+
+    }
+
     @Override
     public void onClick(View v) {
-        if (v==searchButton){
+        if (v == searchButton) {
 
 
-            if (place!=null && seekProgrees==0){
-                ShowNotification.makeToast(this,"You Must Select Distance");
+            if (place != null && seekProgrees == 0) {
+                ShowNotification.makeToast(this, "You Must Select Distance");
                 return;
             }
 
-            StringBuilder stringBuilder=new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             formHeader.setLength(0);
-            String title=searchtitleText.getText().toString();
-            boolean flag=false;
+            String title = searchtitleText.getText().toString();
+            boolean flag = false;
 
 
-            if(!title.equals("")){
-                flag=true;
-                stringBuilder.append("title="+title);
+            if (!title.equals("")) {
+                flag = true;
+                stringBuilder.append("title=" + title);
 
             }
 
-            if(categoryId!=0){
+            if (categoryId != 0) {
+                if (flag == true) {
+                    stringBuilder.append("&categoryId=" + categoryId);
+                } else {
+                    stringBuilder.append("categoryId=" + categoryId);
+                    flag = true;
+                }
+            }
+
+            if (stateId!=0){
                 if (flag==true){
-                    stringBuilder.append("&categoryId="+categoryId);
-                }else {
-                    stringBuilder.append("categoryId="+categoryId);
+                    stringBuilder.append("&stateId="+stateId);
+                }else{
+                    stringBuilder.append("stateId="+stateId);
                     flag=true;
                 }
             }
-
-            if (seekProgrees!=0){
-                if (flag==true){
-                    stringBuilder.append("&radius="+seekProgrees);
-                }else {
-                    stringBuilder.append("radius="+seekProgrees);
-                    flag=true;
+            if (seekProgrees != 0) {
+                if (flag == true) {
+                    stringBuilder.append("&radius=" + seekProgrees);
+                } else {
+                    stringBuilder.append("radius=" + seekProgrees);
+                    flag = true;
                 }
             }
 
-            if (place!=null){
-                if (flag==true){
-                    stringBuilder.append("&lat="+place.getLatLng().latitude+"&lng="+place.getLatLng().longitude);
-                }else {
-                    stringBuilder.append("lat="+place.getLatLng().latitude+"&lng="+place.getLatLng().longitude);
-                    flag=true;
+            if (place != null) {
+                if (flag == true) {
+                    stringBuilder.append("&lat=" + place.getLatLng().latitude + "&lng=" + place.getLatLng().longitude);
+                } else {
+                    stringBuilder.append("lat=" + place.getLatLng().latitude + "&lng=" + place.getLatLng().longitude);
+                    flag = true;
                 }
             }
-                if (flag==true){
-                    if (rentalSearchProducts!=null && rentalSearchProducts.size()>0){
-                        rentalSearchProducts.clear();
-                    }
-
-                    formHeader=stringBuilder;
-                    limit=5;
-                    offset=0;
-                    gridView.setAdapter(searchProductGridViewAdapter);
-                    searchProductGridViewAdapter.notifyDataSetChanged();
-                    if (connectivityManagerInfo.isConnectedToInternet() == true) {
-                        new GetSearchResultAsynTask(this, formHeader.toString()).execute(String.valueOf(limit), String.valueOf(offset));
-                    }
-                    moreSearchProduct=true;
-                    loadingProduct=false;
-                    firstTime=true;
-                 System.out.println(formHeader.toString());
-                }else {
-                    ShowNotification.makeToast(this,"You have Nothing to Search");
+            if (flag == true) {
+                if (rentalSearchProducts != null && rentalSearchProducts.size() > 0) {
+                    rentalSearchProducts.clear();
                 }
 
+                formHeader = stringBuilder;
+                limit = 5;
+                offset = 0;
+                gridView.setAdapter(searchProductGridViewAdapter);
+                searchProductGridViewAdapter.notifyDataSetChanged();
+                if (connectivityManagerInfo.isConnectedToInternet() == true) {
+                    new GetSearchResultAsynTask(this, formHeader.toString()).execute(String.valueOf(limit), String.valueOf(offset));
+                }
+                moreSearchProduct = true;
+                loadingProduct = false;
+                firstTime = true;
+                System.out.println(formHeader.toString());
+            } else {
+                ShowNotification.makeToast(this, "You have Nothing to Search");
+            }
 
 
-        }else if (v==locationPickerTextView){
+        } else if (v == locationPickerTextView) {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             try {
                 startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
@@ -366,18 +395,18 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     }
 
-    public void setRentalProduct(ArrayList<RentalProduct>rentalProduct){
-        if (rentalProduct!=null) {
+    public void setRentalProduct(ArrayList<RentalProduct> rentalProduct) {
+        if (rentalProduct != null) {
             rentalSearchProducts.addAll(rentalProduct);
             searchProductGridViewAdapter.notifyDataSetChanged();
-            loadingProduct=false;
-            firstTime=false;
-        }else {
-            if (firstTime==true){
-              ShowNotification.showSnacksBarLong(this,swipeRefreshLayout,"Found Nothing...");
-                firstTime=!firstTime;
+            loadingProduct = false;
+            firstTime = false;
+        } else {
+            if (firstTime == true) {
+                ShowNotification.showSnacksBarLong(this, swipeRefreshLayout, "Found Nothing...");
+                firstTime = !firstTime;
             }
-            moreSearchProduct=false;
+            moreSearchProduct = false;
         }
 
     }
@@ -389,9 +418,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     }
 
-    private void myUpdateOperation()
-    {
-        if (nestedScrollView.getVisibility()==View.GONE) {
+    private void myUpdateOperation() {
+        if (nestedScrollView.getVisibility() == View.GONE) {
             this.nestedScrollView.animate().alpha(0.0f);
             this.nestedScrollView.setVisibility(View.VISIBLE);
             this.appBarLayout.setExpanded(true);
@@ -403,8 +431,8 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        if (this.seekBar==seekBar){
-            this.seekProgrees=progress;
+        if (this.seekBar == seekBar) {
+            this.seekProgrees = progress;
             RelativeLayout.LayoutParams p = (RelativeLayout.LayoutParams) this.seekBar.getLayoutParams();
             float seekBarX;
             int[] location = new int[2];
@@ -413,9 +441,9 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             seekBarTextView.setText("" + progress + " km");
             float x = seekBarX
                     + this.seekBar.getThumb().getBounds().centerX()
-                    - seekBarTextView.getWidth()/2
+                    - seekBarTextView.getWidth() / 2
                     + p.leftMargin;
-            x=x+10;
+            x = x + 10;
             seekBarTextView.setX(x);
 
         }
@@ -452,7 +480,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
                 locationPickerTextView.setText(stBuilder.toString());
 
 
-            }else {
+            } else {
 
                 locationPickerTextView.setText("You Didn't Pick Any Location");
 
@@ -471,17 +499,15 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
 
-            if (firstVisibleItem+visibleItemCount>=totalItemCount && moreSearchProduct && !loadingProduct ) {
+        if (firstVisibleItem + visibleItemCount >= totalItemCount && moreSearchProduct && !loadingProduct) {
 
-                loadingProduct = true;
+            loadingProduct = true;
 
-                if(connectivityManagerInfo.isConnectedToInternet())
-                {
-                    offset++;
-                    new GetSearchResultAsynTask(this,formHeader.toString()).execute(String.valueOf(limit),String.valueOf(offset));
+            if (connectivityManagerInfo.isConnectedToInternet()) {
+                offset++;
+                new GetSearchResultAsynTask(this, formHeader.toString()).execute(String.valueOf(limit), String.valueOf(offset));
 
-                }
-
+            }
 
 
         }
@@ -491,11 +517,11 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Intent i = new Intent(this,ProductDetailsActivity.class);
-            i.putExtra("position", position);
-            i.putExtra("callFlag",2);
-            Utility.productPosition = position;
-            startActivity(i);
+        Intent i = new Intent(this, ProductDetailsActivity.class);
+        i.putExtra("position", position);
+        i.putExtra("callFlag", 2);
+        Utility.productPosition = position;
+        startActivity(i);
 
     }
 }

@@ -1,5 +1,6 @@
 package wsit.rentguru.asynctask;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import android.os.AsyncTask;
@@ -7,6 +8,7 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 
 import wsit.rentguru.Service.ProductsService;
+import wsit.rentguru.activity.SearchActivity;
 import wsit.rentguru.fragment.EditProductInfoFragment;
 import wsit.rentguru.fragment.PostProductFirstFragment;
 import wsit.rentguru.model.State;
@@ -17,10 +19,15 @@ import wsit.rentguru.model.State;
 
 public class GetAllStateAsynTask extends AsyncTask<String, String, ArrayList<State>> {
     public Fragment fragment;
+    public Activity activity;
 
     public GetAllStateAsynTask(Fragment fragment){
         this.fragment=fragment;
 
+    }
+
+    public GetAllStateAsynTask(Activity activity){
+        this.activity=activity;
     }
 
     @Override
@@ -38,6 +45,10 @@ public class GetAllStateAsynTask extends AsyncTask<String, String, ArrayList<Sta
                 ((PostProductFirstFragment) fragment).stateLoadComplete(states);
             else if (fragment instanceof EditProductInfoFragment)
                 ((EditProductInfoFragment)fragment).loadStatesComplete(states);
+        }else if (activity!=null){
+
+            ((SearchActivity)activity).stateLoadComplete(states);
+
         }
     }
 }

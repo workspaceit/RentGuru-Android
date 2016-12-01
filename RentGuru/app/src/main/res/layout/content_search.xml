@@ -65,6 +65,21 @@
              android:paddingLeft="10dp"
              android:background="@android:color/white"
              android:drawableRight="@drawable/ic_down_arrow"
+             android:layout_marginBottom="10dp"
+             />
+
+         <Spinner
+             android:id="@+id/search_product_state_spinner"
+             android:layout_below="@+id/product_category"
+             android:layout_marginRight="20dp"
+             android:layout_marginLeft="20dp"
+             android:layout_width="match_parent"
+             android:layout_height="35dp"
+             android:gravity="center|left"
+             android:visibility="visible"
+             android:paddingLeft="10dp"
+             android:background="@android:color/white"
+             android:drawableRight="@drawable/ic_down_arrow"
              />
 
          <TextView
