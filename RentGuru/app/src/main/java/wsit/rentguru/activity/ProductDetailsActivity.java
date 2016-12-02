@@ -229,10 +229,14 @@ public class ProductDetailsActivity extends AppCompatActivity implements RatingB
 
     @Override
     public void onClick(View v) {
+        if(v==rentNow){
+            Intent i = new Intent(this,RentActivity.class);
+            i.putExtra("rental_product", rentalProductDetails);
+            startActivity(i);
+        }
 
-        Intent i = new Intent(this,RentActivity.class);
-        i.putExtra("productId", position);
-        startActivity(i);
+
+
 
     }
 

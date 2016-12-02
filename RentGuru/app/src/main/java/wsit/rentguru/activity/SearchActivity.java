@@ -258,7 +258,7 @@ public class SearchActivity extends AppCompatActivity implements AdapterView.OnI
             case R.id.search_product_state_spinner:
                 if (position != 0) {
                     stateId = this.states.get(position - 1).getId();
-                    ShowNotification.makeToast(this,stateId+"");
+
                 }
                 else
                     stateId = 0;

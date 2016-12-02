@@ -1,10 +1,12 @@
 package wsit.rentguru.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Tomal on 11/30/2016.
  */
 
-public class State {
+public class State implements Serializable {
     private int id;
     private String code;
     private String name;

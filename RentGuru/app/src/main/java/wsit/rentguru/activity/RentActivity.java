@@ -31,6 +31,7 @@ import wsit.rentguru.R;
 import wsit.rentguru.asynctask.PaymentAsyncTask;
 import wsit.rentguru.asynctask.RequestRentAsyncTask;
 import wsit.rentguru.model.RentRequest;
+import wsit.rentguru.model.RentalProduct;
 import wsit.rentguru.utility.ConnectivityManagerInfo;
 import wsit.rentguru.utility.Utility;
 
@@ -46,6 +47,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
     private ScrollView scrollView;
     private RentRequest rentRequest;
     private int position;
+    private RentalProduct rentalProduct;
     private static PayPalConfiguration config = new PayPalConfiguration()
 
             // Start with mock environment.  When ready, switch to sandbox (ENVIRONMENT_SANDBOX)
@@ -81,7 +83,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initiate();
 
-        position = getIntent().getExtras().getInt("productId");
+        rentalProduct =(RentalProduct) getIntent().getSerializableExtra("rental_product");
 
         Intent intent = new Intent(this, PayPalService.class);
 
@@ -128,7 +130,7 @@ public class RentActivity extends AppCompatActivity implements View.OnClickListe
             else
             {
                 rentRequest.setRemark(remarks.getText().toString());
-                rentRequest.setRentalProduct(Utility.rentalProductArrayList.get(position));
+                rentRequest.setRentalProduct(rentalProduct);
                 if(connectivityManagerInfo.isConnectedToInternet())
                 {
                     new RequestRentAsyncTask(this,rentRequest).execute();
