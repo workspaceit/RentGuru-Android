@@ -6,7 +6,7 @@
     android:scrollbars="vertical"
     android:animateLayoutChanges="true"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    tools:context="wsit.rentguru.fragment.EditProductImagesFragment">
+    tools:context="wsit.rentguru24.fragment.EditProductImagesFragment">
 
 
 
@@ -47,7 +47,7 @@
             android:layout_marginTop="10dp"
             android:id="@+id/add_new_other_image"
             />
-    <wsit.rentguru.utility.CustomGridView
+    <wsit.rentguru24.utility.CustomGridView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"

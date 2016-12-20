@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main_layout_rent_activity"
-    tools:context="wsit.rentguru.activity.RentActivity">
+    tools:context="wsit.rentguru24.activity.RentActivity">
 
 <RelativeLayout
     android:layout_width="match_parent"

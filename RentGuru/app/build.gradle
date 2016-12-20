@@ -13,10 +13,10 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "wsit.rentguru"
+        applicationId "wsit.com.rentguru24"
         minSdkVersion 17
         targetSdkVersion 22
-        versionCode 6
+        versionCode 1
         versionName "1.0"
         multiDexEnabled true
 

@@ -10,7 +10,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="wsit.rentguru.activity.RentRequestOrderDetailsActivity"
+    tools:context="wsit.rentguru24.activity.RentRequestOrderDetailsActivity"
     tools:showIn="@layout/activity_rent_details"
     android:id="@+id/content_rent_details">
 

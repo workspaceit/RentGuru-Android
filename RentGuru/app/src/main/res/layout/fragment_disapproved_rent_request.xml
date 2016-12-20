@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="wsit.rentguru.fragment.DisapprovedRentRequestFragment">
+    tools:context="wsit.rentguru24.fragment.DisapprovedRentRequestFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"

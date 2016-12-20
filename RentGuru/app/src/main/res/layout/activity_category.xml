@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="wsit.rentguru.activity.CategoryActivity"
+    tools:context="wsit.rentguru24.activity.CategoryActivity"
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
@@ -28,7 +28,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <wsit.rentguru.utility.AnimatedExpandableListView
+    <wsit.rentguru24.utility.AnimatedExpandableListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawSelectorOnTop="true"
@@ -39,6 +39,6 @@
         >
 
 
-    </wsit.rentguru.utility.AnimatedExpandableListView>
+    </wsit.rentguru24.utility.AnimatedExpandableListView>
 
 </LinearLayout>

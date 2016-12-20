@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="wsit.rentguru.activity.RentRequestOrderDetailsActivity">
+    tools:context="wsit.rentguru24.activity.RentRequestOrderDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

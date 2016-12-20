@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="wsit.rentguru">
+    package="wsit.rentguru24">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,7 +11,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/icon_show"
+        android:icon="@drawable/rg_th"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
@@ -26,25 +26,25 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.LoginActivity"
+            android:name="wsit.rentguru24.activity.LoginActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RegistrationActivity"
+            android:name="wsit.rentguru24.activity.RegistrationActivity"
             android:label="@string/title_activity_registration"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.HomeActivity"
+            android:name="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="@string/app_name"/>
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="wsit.rentguru24.activity.SearchActivity"
             android:label="@string/search_product_text"
             android:launchMode="singleTop"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.StartupActivity"
+        <activity android:name="wsit.rentguru24.activity.StartupActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,33 +54,33 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.PostProductActivity"
+            android:name="wsit.rentguru24.activity.PostProductActivity"
             android:label="@string/title_activity_post_product"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".activity.ProductDetailsActivity"
+            android:name="wsit.rentguru24.activity.ProductDetailsActivity"
             android:label="@string/product_details"
             android:launchMode="standard"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RentActivity"
+            android:name="wsit.rentguru24.activity.RentActivity"
             android:label="Place your order"
-            android:parentActivityName=".activity.ProductDetailsActivity" />
+            android:parentActivityName="wsit.rentguru24.activity.ProductDetailsActivity" />
         <activity
-            android:name=".activity.MyProductsListActivity"
+            android:name="wsit.rentguru24.activity.MyProductsListActivity"
             android:label="@string/title_activity_list"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RequestedProductsListActivity"
+            android:name="wsit.rentguru24.activity.RequestedProductsListActivity"
             android:label="My Booking"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RentRequestOrderDetailsActivity"
+            android:name="wsit.rentguru24.activity.RentRequestOrderDetailsActivity"
             android:label="@string/title_activity_rent_details"
-            android:parentActivityName=".activity.RentRequestActivity"
+            android:parentActivityName="wsit.rentguru24.activity.RentRequestActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
@@ -88,44 +88,44 @@
             android:value="89c5a2211084be4b73e09205c548fc1aac0ca56b" />
 
         <activity
-            android:name=".activity.EditProfileActivity"
+            android:name="wsit.rentguru24.activity.EditProfileActivity"
             android:label="@string/edit_profile_text"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.PaypalAccountSettingsActivity"
+            android:name="wsit.rentguru24.activity.PaypalAccountSettingsActivity"
             android:label="@string/paypal_setings_text"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.CategoryActivity"
+            android:name="wsit.rentguru24.activity.CategoryActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.CategoryProductListViewActivity"
+            android:name="wsit.rentguru24.activity.CategoryProductListViewActivity"
             android:label="@string/app_name"
-            android:parentActivityName=".activity.CategoryActivity"
+            android:parentActivityName="wsit.rentguru24.activity.CategoryActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.EditProductActivity"
-            android:parentActivityName=".activity.MyProductsListActivity"
+            android:name="wsit.rentguru24.activity.EditProductActivity"
+            android:parentActivityName="wsit.rentguru24.activity.MyProductsListActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.RentRequestActivity"
+            android:name="wsit.rentguru24.activity.RentRequestActivity"
             android:label="@string/rent_request"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activity.BookingRequestDetailsActivity"
+            android:name="wsit.rentguru24.activity.BookingRequestDetailsActivity"
             android:label="@string/my_booking"
-            android:parentActivityName=".activity.MyBookingActivity"
+            android:parentActivityName="wsit.rentguru24.activity.MyBookingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
 
 
-        <activity android:name=".activity.MyBookingActivity"
+        <activity android:name="wsit.rentguru24.activity.MyBookingActivity"
             android:label="@string/my_booking"
-            android:parentActivityName=".activity.HomeActivity"
+            android:parentActivityName="wsit.rentguru24.activity.HomeActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

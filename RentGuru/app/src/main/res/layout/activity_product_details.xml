@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context="wsit.rentguru.activity.ProductDetailsActivity">
+    tools:context="wsit.rentguru24.activity.ProductDetailsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/search_app_bar_layout"
